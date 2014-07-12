@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:GridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<fx:Script>
+		<![CDATA[
+			import vo.SubQuestion;
+			import vo.SurveyQuestion;
+
+			[Bindable]
+			protected var question : SurveyQuestion;
+
+			protected function get isSubSpecific() : Boolean {
+				return column.dataField.indexOf("hasBoundTag") > -1;
+			}
+			
+			private function get isRendererShown() : Boolean {
+				return !question.isGridQuestion || question.subitemIndex > 0;
+			}
+			
+			private function get isBothSpecific() : Boolean {
+				return column.dataField.indexOf("tagCondition.condition") > -1;	//	("ConditionOnTag") > -1;
+			}
+			
+			private function get isVisible() : Boolean {
+				return isBothSpecific || (isSubSpecific ? isRendererShown : !isRendererShown);
+			}
+			
+			private function get isValueChangeNeeded() : Boolean {
+				return isBothSpecific || isSubSpecific;
+			}
+
+			private function get isNoSelectedSubitem() : Boolean {
+				return question.subitemIndex < 1;
+			}
+			
+			override public function set data(value : Object) : void {
+//				super.data = value;
+				if (!value || !(value is SurveyQuestion))
+					return;
+				
+				question = value as SurveyQuestion;
+				if (isValueChangeNeeded) {
+					visible = isVisible;
+					value = !question.isGridQuestion || isNoSelectedSubitem ? question : question.selectedSubitem;
+				} else
+					visible = isNoSelectedSubitem;
+				
+				super.data = value;
+			}
+		]]>
+	</fx:Script>
+
+</s:GridItemRenderer>

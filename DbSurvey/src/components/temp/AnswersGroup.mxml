@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableDataContainer  xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:mx="library://ns.adobe.com/flex/mx">
+<!--			 itemRendererFunction="itemRendererFunc">	-->
+	<s:layout>
+		<s:VerticalLayout gap="8" />
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import components.answers.GridAnswer;
+			import components.answers.RankAnswer;
+			import vo.AnswerVariant;
+			import components.renderers.*;
+			
+			import mx.collections.IList;
+/* 			
+			[Bindable]
+			private var _surveyQuestion : SurveyQuestion;
+			
+			internal function set surveyQuestion(value:SurveyQuestion) : void {
+				_surveyQuestion = value;
+			}
+ */			
+			override public function set dataProvider(value:IList):void {
+				super.dataProvider = value;
+				updateItemRenderer();
+			}
+				
+			private function updateItemRenderer():void {
+				var itemRenderer:Class = SumBlock;
+				if (AnswerVariant.IsRankQuestion &&  AnswerVariant.MultipleAnswerAllowed)
+					itemRenderer = GridAnswer;
+				else if (AnswerVariant.IsRankQuestion)
+					itemRenderer = RankAnswer;
+				else if (AnswerVariant.MultipleAnswerAllowed && AnswerVariant.MaxRank)
+					itemRenderer = RatingBlock;
+				else if (AnswerVariant.MultipleAnswerAllowed)
+					itemRenderer = DragIndicator;
+
+				this.itemRenderer = new ClassFactory(itemRenderer);
+			}	
+/* 				
+			private function itemRendererFunc(item:Object):ClassFactory {
+				var itemRenderer:Class = AnswerBlock;
+				if (AnswerVariant.IsRankQuestion) {
+					itemRenderer = SliderIndicator;
+//					itemRenderer = DragIndicator;
+//					itemRenderer = RankAnswerBlock;
+				}
+				return new ClassFactory(itemRenderer);
+			}
+ */			
+		]]>
+	</fx:Script>
+</s:SkinnableDataContainer>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VDividedBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:grids="components.editor.grids.*"
+	xmlns:editor="components.editor.*"
+	creationComplete="init()">
+	
+	<fx:Script>
+		<![CDATA[
+			import components.editor.grids.renderers.FilterRenderer;
+			import components.editor.grids.renderers.SimpleRenderer;
+			import components.editor.grids.renderers.TreeRenderer;
+			import components.editor.grids.renderers.ui.ConditionEditor;
+			import data.DataStorage;
+			import data.storages.AnswerStorage;
+			import data.storages.QuestionStorage;
+			import events.TagEvent;
+			import vo.AnswerVariant;
+			import vo.SurveyQuestion;
+			
+			import flashx.textLayout.conversion.TextConverter;
+			
+			[Bindable]
+			private var questionStorage : QuestionStorage;
+			
+			[Bindable]
+			private var answerStorage : AnswerStorage;
+			
+			[Bindable]
+			private var _dataStorage : DataStorage;
+			
+			public function set dataStorage(value : DataStorage) : void {
+				_dataStorage = value;
+				questionStorage = _dataStorage.questionStorage;
+				answerStorage = _dataStorage.answerStorage;
+				buttons.storage = _dataStorage;
+				aEditor.dataStorage = _dataStorage;
+				SimpleRenderer.answerStorage = answerStorage;
+				TreeRenderer.answerStorage = answerStorage;
+				ConditionEditor.dataStorage = _dataStorage;
+			}
+			
+			[Bindable]
+			public var selectedViewIndex : int;
+	
+			private function init() : void {
+				addEventListener(SurveyQuestion.PLURALITY_CHANGED_EVENT, pluralityChangeHandler);
+				addEventListener(TagEvent.TAG_ADDED, tagChangeHandler);
+				addEventListener(TagEvent.TAG_REMOVED, tagChangeHandler);
+				addEventListener(SurveyQuestion.TYPE_CHANGED_EVENT, typeChangeHandler);
+			}
+			
+			private function pluralityChangeHandler(event : Event) : void {
+				answerStorage.updateVariantsByPlurality(questionStorage.currentQuestion.MultipleAnswerAllowed);
+			}
+			
+			private function tagChangeHandler(event : TagEvent) : void {
+				if (event.type == TagEvent.TAG_ADDED)
+					questionStorage.addTag();
+				else
+					questionStorage.removeTag();
+			}
+//	height="{preview.height}"	(in HDividedBox)
+//			maxHeight="600" 
+//			minHeight="{height-preview.height-10}" in Canvas
+			private function typeChangeHandler(event : Event) : void {
+				answerStorage.updateVariantsByQuestionType(questionStorage.currentQuestion.QuestionType);
+				preview.questionType = questionStorage.currentQuestion.QuestionType;
+			}
+		]]>
+	</fx:Script>
+		
+	<mx:Canvas width="100%" height="100%" minHeight="120">
+		<s:Panel title="Список вопросов" width="100%" height="100%">
+			<grids:QuestionGrid id="dg" width="100%" height="100%"
+								storage="{questionStorage}"
+								answerStorage="{answerStorage}"
+								dataProvider="{questionStorage.questions}"
+								doubleClick="selectedViewIndex=1" />
+		</s:Panel>
+		
+		<editor:ButtonRow id="buttons" currentState="questions"
+						  questionType="{questionStorage.currentQuestion.QuestionType}"
+						  collection="{questionStorage.questions}"
+						  selectedViewIndex="@{selectedViewIndex}"
+						  selectedIndex="@{dg.selectedIndex}" />
+	</mx:Canvas>
+
+	<mx:HDividedBox width="100%">
+		<editor:AnswersEditor id="aEditor" width="45%" minWidth="420" height="100%"
+							  selectedQuestionIndex="{dg.selectedIndex}"
+							  filterList="{new ArrayList(_dataStorage.getCodesArrayByTagId(dg.selectedItem.FilterAnswersTagId))}"
+							  questionType="{questionStorage.currentQuestion.QuestionType}" />
+		
+		<editor:QuestionPreview id="preview" width="55%" minWidth="300"
+								question="{questionStorage.currentQuestion}"
+								answerVariants="{answerStorage.currentVariants}" />
+	</mx:HDividedBox>
+</mx:VDividedBox>

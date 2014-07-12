@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="false">
+	
+	<fx:Script>
+		<![CDATA[
+			import vo.AnswerVariant;
+			
+			public static const lblWidth : int = 400;
+			
+			[Bindable]
+			public static var sum : int;
+			
+			private static var values : Array = [];
+
+			[Bindable]
+			private var answer : AnswerVariant;
+
+			public static function reset() : void {
+				sum = 0;
+				values = [];
+			}
+			
+			override public function set data(value : Object) : void {
+				if (!value)
+					return;
+				answer = value as AnswerVariant;
+				sum += int(answer.Value) - int(values[itemIndex]);
+				values[itemIndex] = int(answer.Value);
+			}
+		]]>
+	</fx:Script>	
+	<s:HGroup verticalAlign="middle" gap="20">
+		<s:Label text="{answer.AnswerText}" width="{lblWidth}" textAlign="right" />
+
+		<s:TextInput width="40"  maxChars="3"
+					 restrict="0-9"
+					 text="@{answer.Value}"/>
+	</s:HGroup>
+	
+</s:ItemRenderer>

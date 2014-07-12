@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="100%" horizontalAlign="center">
+	
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.conversion.TextConverter;
+/* 			
+			protected function clickHandler():void {
+				backButton.enabled = false;
+				var url:String = "Worksheet.html"; // "Survey.html";
+				var variables : URLVariables = new URLVariables();
+				variables.questionOrder = 0;
+				variables.test = 1;
+				var request : URLRequest = new URLRequest(url);
+				request.data = variables;
+				navigateToURL(request, "_self");
+			} 	*/
+		]]>
+	</fx:Script>
+
+	<s:RichText textFlow="{TextConverter.importToFlow(resourceManager.getString('Main','thank'), TextConverter.TEXT_FIELD_HTML_FORMAT)}"
+				lineBreak="toFit" fontSize="28"
+				verticalCenter="0" horizontalCenter="0" />
+<!--	
+	<s:Button id="backButton" label="Вернуться к опросу" click="clickHandler()"
+			  verticalCenter="0" horizontalCenter="0" />	-->
+</s:VGroup>

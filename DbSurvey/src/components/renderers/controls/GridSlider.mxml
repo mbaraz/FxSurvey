@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HSlider xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			width="100%"
+			showDataTip="false"
+			minimum="0"
+			maximum="{labels.length - 1}"
+			skinClass="components.skins.HSliderSkin">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			public var buttonWidth : int;
+			
+			[Bindable]
+			public var labels : ArrayCollection;
+		]]>
+	</fx:Script>
+	
+</s:HSlider>

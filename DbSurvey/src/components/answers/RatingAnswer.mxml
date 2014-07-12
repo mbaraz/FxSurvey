@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<answers:AnswerBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				xmlns:answers="components.answers.*"
+				implements="components.IAnswer">
+	
+	<fx:Script>
+		<![CDATA[
+			import components.renderers.RatingBlock;
+			import events.InputChangeEvent;
+			import vo.AnswerVariant;
+			
+			import mx.collections.ArrayList;
+			import mx.collections.IList;
+
+			private function get isRankingQuestion() : Boolean {
+				return AnswerVariant.QuestionType == "Ranking";
+			}
+				
+			public function get instruction() : String {
+				return isRankingQuestion ? resourceManager.getString('Main', 'legend_rank', [AnswerVariant.MinAnswers, AnswerVariant.MaxAnswers, AnswerVariant.MaxRank]) : resourceManager.getString('Main', 'legend_rate', [AnswerVariant.MinAnswers, AnswerVariant.MaxAnswers, AnswerVariant.MaxRank]);
+			}
+			
+			public function set variants(value : IList) : void {
+				answers.dataProvider = value;
+				answers.addEventListener(InputChangeEvent.INPUT_CHANGHED, ratingChangeHandler);
+				RatingBlock.reset();
+			}
+			
+			public function trySaveAnswers() : Boolean {
+				var invalidIndex : int = RatingBlock.invalidAnswerNumber;
+				if (invalidIndex > -1) {
+					showAlert(resourceManager.getString('Main', 'warning_rating', [answers.dataProvider.getItemAt(invalidIndex).AnswerText]));
+					return false;
+				}
+				var answersCount : int = RatingBlock.answersCount;
+				if (answersCount < AnswerVariant.MinAnswers || answersCount > AnswerVariant.MaxAnswers) {
+					showAlert(resourceManager.getString('Main', 'warning_mult', [AnswerVariant.MinAnswers, AnswerVariant.MaxAnswers]));
+					return false;
+				}
+				if (isRankingQuestion && RatingBlock.breachContinuity) {
+					showAlert(resourceManager.getString('Main', 'warning_breach'));
+					return false;
+				}
+				return true;
+			}
+
+			private function ratingChangeHandler(event : InputChangeEvent):void {
+				for (var i : int = 0; i < answers.numElements; i++) {
+					if (RatingBlock.areSymbolValid(i))
+						continue;
+					
+					var element : RatingBlock = answers.getElementAt(i) as RatingBlock;
+					if (element)
+						element.rankValidator.validate();
+				}
+			} 
+		]]>
+	</fx:Script>
+	
+	<s:DataGroup id="answers" itemRenderer="components.renderers.RatingBlock">
+		<s:layout>
+			<s:VerticalLayout gap="18" />
+		</s:layout>
+	</s:DataGroup>
+</answers:AnswerBase>

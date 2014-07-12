@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  styleName="title">
+	
+	<s:layout>
+		<s:VerticalLayout gap="4" paddingTop="20" paddingBottom="20" paddingLeft="10" paddingRight="10" />
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Text;
+			
+			public function set projectTitle(value : String) : void {
+				if (!value)
+					value = "ОЦЕНКА ЭФФЕКТИВНОСТИ И КАЧЕСТВА УСЛУГ В СФЕРЕ СРЕДНЕГО И ВЫСШЕГО ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ В СЕВЕРО-ЗАПАДНОМ ФЕДЕРАЛЬНОМ ОКРУГЕ. Анкета магистранта СПбГУ";
+
+				projectName.text = value;
+				projectName.width = calcWidth(maxWidth);
+			}
+			
+			private function calcWidth(maxW : int) : int {
+				projectName.regenerateStyleCache(false);
+				return Math.min(projectName.measureText(projectName.text).width, maxW - 44);
+			}
+		]]>
+	</fx:Script>
+	<s:Label text="{resourceManager.getString('Main','title')}" />
+		
+	<s:Label id="projectName" styleName="projectTitle" textAlign="center" width="{calcWidth(maxWidth)}" />
+</s:BorderContainer>

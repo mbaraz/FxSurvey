@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:GridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			import vo.SurveyQuestion;
+			
+			[Bindable]
+			protected var question : SurveyQuestion;
+			
+			override public function set data(value : Object) : void {
+				if (!value)
+					return;
+				
+				question = value as SurveyQuestion;
+				super.data = value;
+			}
+			
+			private function  makeOrder(order : int, subitemIndex : int) : String {
+				var result : String = order.toString();
+				if (subitemIndex > 0)
+					result += "." + question.selectedSubitem.order;
+				
+				return result;
+			}
+			
+			private function  calcTopDistance(subitemIndex : int) : int {
+				var rowNumber : int = Math.max(subitemIndex, 0);
+				return rowNumber * TreeRenderer.RowHeight + TreeRenderer.DefaultHeight / 4;
+			}
+		]]>
+	</fx:Script>
+	<s:Label top="{calcTopDistance(question.subitemIndex)}" right="4"
+			 fontWeight="bold" fontStyle="italic"
+			 text="{makeOrder(question.order, question.subitemIndex)}" />
+</s:GridItemRenderer>

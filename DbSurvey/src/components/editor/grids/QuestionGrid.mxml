@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grids:DataGridBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:grids="components.editor.grids.*"
+			doubleClick="true">
+	<fx:Script>
+		<![CDATA[
+			import components.editor.grids.renderers.SimpleRenderer;
+			import components.editor.grids.renderers.TagConditionRenderer;
+			import components.editor.grids.renderers.TreeRenderer;
+			import vo.SurveyQuestion;
+			
+			import mx.collections.ArrayList;
+			import spark.components.gridClasses.ComboBoxGridItemEditor;
+			import spark.components.gridClasses.GridItemRenderer;
+			import spark.events.GridSelectionEvent;
+			import spark.skins.spark.DefaultGridItemRenderer;
+
+			public const orderTypes : ArrayList = new ArrayList(SurveyQuestion.Answers_Order_Types);
+			private var textRenderers : Array = []; /* of ClassFactory */
+
+			private function questionTextRenderer(item : Object, column : GridColumn) : IFactory {
+				if (!item)
+					return new ClassFactory(DefaultGridItemRenderer);
+				var rowIndex : int =  item.order;
+				var question : SurveyQuestion = item as SurveyQuestion;
+				if (!textRenderers[rowIndex] || !isTypesConformed(question, textRenderers[rowIndex]))
+					textRenderers[rowIndex] = question.isGridQuestion ?  new ClassFactory(TreeRenderer) : new ClassFactory(SimpleRenderer);
+				return textRenderers[rowIndex];
+			}
+			
+			private function isTypesConformed(question : SurveyQuestion, classFactory : ClassFactory) : Boolean {
+				var obj : * = classFactory.newInstance();
+				return (obj is SimpleRenderer && !question.isGridQuestion) || (obj is TreeRenderer && question.isGridQuestion);
+			}
+
+			override protected function selectionHandler(event : GridSelectionEvent) : void {
+				var rowIndex : int = event.selectionChange.rowIndex;
+				_answerStorage.setCurrentVariantsByIndex(rowIndex);
+/*				var renderer : GridItemRenderer = ((grid.layout) as Object).getVisibleItemRenderer(rowIndex, columns.getItemIndex(qText));
+ 				if (renderer is TreeRenderer)
+					(renderer as TreeRenderer).updateHeight(); */
+			}
+		]]>
+	</fx:Script>
+	<grids:columns>
+		<s:ArrayList>
+			<s:GridColumn headerText="#" dataField="order"
+						  width="30" editable="false"
+						  itemRenderer="components.editor.grids.renderers.QuestionOrderRenderer"/>
+
+			<s:GridColumn id="qText" headerText="Текст вопроса" dataField="QuestionText" editable="false"
+						  width="{Math.max(width-1040, qText.minWidth)}" minWidth="120"
+						  itemRendererFunction="questionTextRenderer" />
+			
+			<s:GridColumn headerText="Тип" dataField="QuestionType"
+						  width="260" resizable="false" editable="false"
+						  itemRenderer="{comboBoxRenderer}" />
+			
+			<s:GridColumn headerText="Мно- жест- вен- ный" dataField="MultipleAnswerAllowed"
+						  width="54" sortable="false" resizable="false" editable="false"
+						  itemRenderer="{checkBoxRenderer}"
+						  headerRenderer="{headerRenderer}" />
+
+			<s:GridColumn headerText="Мин. отве- тов" dataField="MinAnswers"
+						  width="46" sortable="false" resizable="false" editable="false"
+						  itemRenderer="components.editor.grids.renderers.NumericStepperRenderer"
+						  headerRenderer="{headerRenderer}" />
+
+			<s:GridColumn headerText="Макс. отве- тов" dataField="MaxAnswers"
+						  width="50" sortable="false" resizable="false" editable="false"
+						  itemRenderer="components.editor.grids.renderers.NumericStepperRenderer"
+						  headerRenderer="{headerRenderer}" />
+
+			<s:GridColumn headerText="Мин. ранг" dataField="MinRank"
+						  width="50" sortable="false" resizable="false" editable="false"
+						  itemRenderer="components.editor.grids.renderers.NumericStepperRenderer"
+						  headerRenderer="{headerRenderer}" />
+
+			<s:GridColumn headerText="Макс. ранг" dataField="MaxRank"
+						  width="50" sortable="false" resizable="false" editable="false"
+						  itemRenderer="components.editor.grids.renderers.NumericStepperRenderer"
+						  headerRenderer="{headerRenderer}" />
+			
+			<s:GridColumn headerText="Порядок ответов" dataField="AnswersOrdering"
+						  width="110" sortable="false" resizable="false"
+						  headerRenderer="{headerRenderer}">
+				<s:itemEditor>
+					<fx:Component>
+						<s:ComboBoxGridItemEditor dataProvider="{outerDocument.orderTypes}" />
+					</fx:Component>
+				</s:itemEditor>
+			</s:GridColumn>
+
+			<s:GridColumn headerText="Пере-мен-ная" dataField="hasBoundTag"
+						  width="50" sortable="false" resizable="false" editable="false"
+						  itemRenderer="{checkBoxRenderer}"
+						  headerRenderer="{headerRenderer}" />
+	
+			<s:GridColumn headerText="Условие показа" dataField="tagCondition.condition"
+						  width="200" minWidth="200" sortable="false" editable="false"
+						  itemRenderer="{tagConditionRenderer}" />
+			
+			<s:GridColumn headerText="Фильтр" dataField="FilterAnswersTagId"
+						  minWidth="120" editable="false"
+						  itemRenderer="{filterRenderer}"/>
+		</s:ArrayList>
+	</grids:columns>
+			
+</grids:DataGridBase>

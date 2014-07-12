@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  xmlns:ui="components.editor.grids.renderers.ui.*"
+		  horizontalAlign="center" verticalAlign="middle"
+		  gap="0" paddingTop="2" paddingBottom="2">
+	
+	<fx:Script>
+		<![CDATA[
+			import data.DataStorage;
+			import vo.LogicalExpression;
+
+			import mx.core.UIComponent;
+
+			private static const maxItemsNumber : int = 5;
+			
+			private static var _dataStorage : DataStorage;
+			
+			public static function set dataStorage(value : DataStorage) : void {
+				_dataStorage = value;
+				ConditionItem.questionStorage = _dataStorage.questionStorage;
+			}
+
+			private var _conditionsArray : Array = [];
+
+			public function set conditionsArray(value : Array) : void {
+				_conditionsArray = value;
+				(parent as UIComponent).invalidateDisplayList();
+			}
+
+			public function makeItems(index : int) : void {
+				items.removeAllElements();
+				var tagArray : Array = _dataStorage.getTagArray(index);
+				addButton.enabled = tagArray.length && (_conditionsArray.length < maxItemsNumber);
+				removeButton.enabled = _conditionsArray.length > 0;
+				if (!_conditionsArray.length)
+					return;
+
+				ConditionItem.updateDataProviders(tagArray, _dataStorage.getCodesArrayByTags(tagArray));
+				for (var i : int = 0; i < _conditionsArray.length; i++)
+					addItem(_conditionsArray[i]);
+			}
+			
+			private function addItem(expr : LogicalExpression) : void {
+				var item : ConditionItem = new ConditionItem();
+				item.expression = expr;
+				items.addElement(item);
+			}
+
+			private function addHandler() : void {
+				_conditionsArray.push(LogicalExpression.createEmpty(_conditionsArray.length));
+				(parent as UIComponent).invalidateDisplayList();
+			}
+			
+			private function removeHandler() : void {
+				_conditionsArray.length -= 1;
+				(parent as UIComponent).invalidateDisplayList();
+			}
+		]]>
+	</fx:Script>
+	
+	<s:VGroup id="items" gap="0" />
+
+	<s:HGroup width="100%" paddingTop="12" paddingRight="10" horizontalAlign="right">
+		<s:Button id="addButton" icon="@Embed('../assets/images/editor/add_16x16.gif')" toolTip="Добавить"
+				  width="20" scaleX="0.75" scaleY="0.75" alpha="0.6"
+				  click="addHandler()" />
+		
+		<s:Button id="removeButton" icon="@Embed('../assets/images/editor/delete_16x16.gif')" toolTip="Удалить"
+				  width="20" scaleX="0.75" scaleY="0.75" alpha="0.6"
+				  click="removeHandler()" />
+	</s:HGroup>
+</s:VGroup>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<renderers:CheckBoxRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+		buttonMode="true"
+		mouseOver="mouseOverHandler(event)"
+		mouseOut="mouseOutHandler(event)"
+		xmlns:renderers="components.editor.grids.renderers.*">
+	<fx:Script>
+		<![CDATA[
+
+		private const OVER_COLOR_PROPERTY:String = "overColor";
+
+		private function mouseOutHandler(event:Event):void {
+			setColor(OUT_COLOR_PROPERTY);
+		}
+
+		private function mouseOverHandler(event:Event):void {
+			setColor(OVER_COLOR_PROPERTY);
+		}
+		]]>
+	</fx:Script>
+</renderers:CheckBoxRenderer>

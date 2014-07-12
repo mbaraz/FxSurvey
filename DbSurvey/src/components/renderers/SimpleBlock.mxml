@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  autoDrawBackground="false"
+		  enabled.grpMultiple="{isCheckBoxEnabled(excludingCheckBox)}"
+		  currentState="{getCurrentState(AnswerVariant.MultipleAnswerAllowed,answer.IsOpenAnswer)}"
+		  creationComplete="init()">
+	<fx:Script>
+		<![CDATA[
+			import components.answers.SimpleAnswer;
+			import events.InputChangeEvent;
+			import vo.AnswerVariant;
+			
+			import spark.components.supportClasses.ToggleButtonBase;
+
+			static private var selectedCount : int;
+// removedFromStage="removeHandler()"			
+			[Bindable]
+			static public var excludingCheckBox : ToggleButtonBase;
+			
+			static public function get isAnswersCountCorrect() : Boolean {
+				return excludingCheckBox || (selectedCount >= AnswerVariant.MinAnswers) && (selectedCount <= AnswerVariant.MaxAnswers);
+			}
+
+			[Bindable]
+			private var answer : AnswerVariant;
+
+			public function get toggleButton() : ToggleButtonBase {
+				return AnswerVariant.MultipleAnswerAllowed ? cb : rb;
+			}
+
+			public function get isOpenAnswerMissing() : Boolean {
+				return toggleButton.selected && answer.IsOpenAnswer && !openText.text;
+			}
+			
+			public static function reset() : void {
+				selectedCount = 0;
+				excludingCheckBox = null;
+			}
+			
+			override public function set data(value : Object) : void {
+				answer = value as AnswerVariant;
+			}
+			
+			private function init() : void {
+				if (AnswerVariant.MultipleAnswerAllowed)
+					toggleButton.selected = answer.IsSelected;
+				else
+					rb.group = (parent.parent as SimpleAnswer).textGroup;
+
+				excludeAndSelectHandler();
+			}
+			
+			public function saveAnswer() : void {
+				if (!answer || !toggleButton)
+					return;
+				var isSelected : Boolean = toggleButton.selected;
+				if (answer.IsOpenAnswer)
+					answer.Value = isSelected ? openText.text : "";
+				answer.IsSelected = isSelected;
+			}
+			
+			private function excludeAndSelectHandler(event : MouseEvent = null) : void {
+				if (!AnswerVariant.MultipleAnswerAllowed)
+					return;
+				
+				if (answer.IsExcludingAnswer)
+					updateExcludingIfNeeded();
+				else
+					updateSelectedCount(event != null);
+			}
+			
+			private function selectItem() : void {
+				if (toggleButton.selected)
+					return;
+				toggleButton.selected = true;
+				excludeAndSelectHandler();
+			}
+			
+			private function isCheckBoxEnabled(excludingBox : ToggleButtonBase) : Boolean {
+				return !excludingBox || excludingBox == toggleButton;
+			}
+			
+			private function updateSelectedCount(isUnChecked : Boolean) : void {
+				if (toggleButton.selected)
+					selectedCount++;
+				else if (isUnChecked)
+					selectedCount--;
+			}
+			
+			private function updateExcludingIfNeeded () : void {
+				if(toggleButton.selected) {
+					excludingCheckBox = toggleButton;
+					selectedCount = 1;
+				} else if (excludingCheckBox == toggleButton) {
+					excludingCheckBox = null;
+					selectedCount = 0;
+				}
+				dispatchEvent(new InputChangeEvent(InputChangeEvent.INPUT_CHANGHED, itemIndex, ""));
+			}
+			
+			private function getCurrentState(multipleAnswerAllowed : Boolean, isOpenAnswer : Boolean) : String {
+				if (isOpenAnswer)
+					return multipleAnswerAllowed ? "openMultiple" : "open";
+				else
+					return multipleAnswerAllowed ? "closeMultiple" : "close";
+			}
+		]]>
+	</fx:Script>
+
+	<s:states> 
+		<s:State name="close" stateGroups="grpSingle" /> 
+		<s:State name="open" stateGroups="grpSingle" />
+		<s:State name="closeMultiple"  stateGroups="grpMultiple" /> 
+		<s:State name="openMultiple" stateGroups="grpMultiple" />
+	</s:states>
+	
+	<s:HGroup verticalAlign="middle" gap="4">
+		<s:CheckBox id="cb" includeIn="grpMultiple"
+					selected.grpMultiple="{cb.selected &amp;&amp; enabled}"
+					label="{answer.AnswerText}"
+					click="excludeAndSelectHandler(event)" />
+		
+		<s:RadioButton id="rb" includeIn="grpSingle"
+					selected="{answer.IsSelected}"
+					label="{answer.AnswerText}" />
+
+		<s:TextInput id="openText" widthInChars="{answer.SymbolCount}"
+					text="{answer.Value}"
+					prompt.grpSingle="{answer.IsNumeric? '_ _' : resourceManager.getString('Main', 'prompt_single')}"
+					prompt.grpMultiple="{answer.IsNumeric? '_ _' : resourceManager.getString('Main', 'prompt_mult')}"
+					includeIn="openMultiple, open"
+					maxChars="{answer.IsNumeric? answer.SymbolCount: 0}"
+					restrict="{answer.IsNumeric? '0-9': '^#'}"
+					skinClass="components.skins.ITSkins"
+					focusIn="{selectItem()}"
+					enabled.openMultiple="{cb.enabled}" />
+	</s:HGroup>
+</s:ItemRenderer>

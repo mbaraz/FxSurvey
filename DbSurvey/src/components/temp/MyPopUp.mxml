@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400"
+			   initialize="initHandler()" styleName="titleWindowStyle">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Button;
+			import spark.components.RichText;
+
+			[SkinPart(required="true")]
+			public var richText: RichText;
+			[SkinPart(required="true")]
+			public var okButton: Button;
+			[SkinPart(required="true")]
+			public var cancelButton:Button;
+			
+			public var headerText: String;
+			public var messageTexts: Array = [];
+		
+			private function initHandler(): void
+			{
+				okButton.addEventListener(MouseEvent.CLICK, processLogin);
+				cancelButton.addEventListener(MouseEvent.CLICK, handleCloseEvent);
+				
+				makeTexts();
+			}
+
+			private function handleCloseEvent(event: MouseEvent):void {
+				PopUpManager.removePopUp(this);
+			}
+
+			private function processLogin(event: MouseEvent):void {
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function makeTexts():void
+			{
+				headerText = "This is header in RichText.";
+				
+				for(var i: int=0; i < 3; i++)
+					messageTexts[i] = "This is paragraph " + (i + 1) + ".";
+			}
+/* 			
+			private function makeText():void
+			{
+				var div: DivElement = headerDiv;
+				var paragraph1: ParagraphElement = new ParagraphElement();
+				var span1: SpanElement = new SpanElement();
+				span1.styleName = "headerStyle";
+				headerText = "This is header in RichText."
+				trace("HOST: headerText= "+headerText)
+				span1.text = headerText;
+				paragraph1.addChild(span1);
+				div.addChild(paragraph1);
+				textFlow.addChild(div);
+ 				
+				div = new DivElement();
+
+				div.fontWeight = "normal";
+
+				for(var i: int=1; i <= 3; i++){
+					var paragraph: ParagraphElement = new ParagraphElement();
+					var span: SpanElement = new SpanElement();
+					messageTexts[i] = "This is paragraph " + i + "."
+					span.text = messageTexts[i];
+					paragraph.addChild(span);
+					div.addChild(paragraph);
+				}
+				
+				textFlow.addChild(div);
+
+//				var markup: String = "<p>This is paragraph 1.</p><p>This is paragraph 2.</p>";
+//				var flow: TextFlow = TextFlowUtil.importFromString(markup); 
+				richText.textFlow = textFlow;
+			}
+			
+			private function get headerDiv(): DivElement
+			{
+				var div: DivElement = new DivElement();
+//				div.styleName = "headerStyle";
+				var headerStyle: CSSStyleDeclaration = styleManager.getStyleDeclaration("." + getStyle("headerStyle"))
+				trace("headerStyle= "+getStyle("headerStyle"))
+				div.color = headerStyle.getStyle("color");
+				div.fontWeight = headerStyle.getStyle("fontWeight");
+				div.fontSize = headerStyle.getStyle("fontSize");
+				div.textDecoration = headerStyle.getStyle("textDecoration");
+				div.paragraphSpaceAfter = headerStyle.getStyle("paragraphSpaceAfter");
+				return div;
+			}
+ */			
+		]]>
+	</fx:Script>
+<!--	
+	<s:RichText id="rt" width="100%" height="100%" styleName="popUpStyle" />
+	
+	<s:HGroup>
+		<s:Button label="OK" click="processLogin();" />
+		<s:Button label="Cancel" click="handleCloseEvent();"/>
+	</s:HGroup>
+-->
+</s:TitleWindow>

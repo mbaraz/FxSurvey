@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  horizontalAlign="center" gap="0">
+	
+	<fx:Script>
+		<![CDATA[   
+			import mx.collections.ArrayList;
+			
+			import data.storages.QuestionStorage;
+			import vo.LogicalExpression;
+			import vo.Tag;
+
+			private static const andString : String = LogicalExpression.Syndetics[1];
+			private static const orString : String = LogicalExpression.Syndetics[2];
+			
+			[Bindable]
+			private static var variableDP : ArrayList;
+			[Bindable]
+			private static var valuesData : ArrayList;
+
+			private static var _questionStorage : QuestionStorage;
+			
+			public static function set questionStorage(value : QuestionStorage) : void {
+				_questionStorage = value;
+			}
+
+			[Bindable]
+			private var _expression : LogicalExpression;
+			
+			internal function set expression(value : LogicalExpression) : void {
+				_expression = value;
+				if (!_expression.tagId)
+					_expression.tagId = variableDP.getItemAt(0).TagId;
+					
+				updateValueCB();
+				if (!_expression.value && val.dataProvider.length)
+					_expression.value = int(val.dataProvider.getItemAt(0));
+			}
+			
+			public static function updateDataProviders(variables : Array, values : Array) : void {
+				variableDP =  new ArrayList(variables);
+				valuesData = new ArrayList(values);
+			}
+
+			private function handleVariableChange() : void {
+				_expression.tagId = variable.selectedItem.TagId;
+				updateValueCB();
+			}
+
+			private function updateValueCB() : void {
+				var indx : int = variable.selectedIndex;
+				val.dataProvider = new ArrayList(valuesData.getItemAt(indx) as Array);
+				val.selectedIndex =  0;
+			}
+			
+			private function getTag(id : int) : Tag {
+				return _questionStorage.getTagById(id);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:RadioButtonGroup id="operation" selectedValue="{_expression.syndetic}" />
+	</fx:Declarations>
+
+	<fx:Binding source="operation.selectedValue.toString()" destination="_expression.syndetic" />
+	
+	<s:HGroup visible="{Boolean(_expression.syndetic)}" includeInLayout="{Boolean(_expression.syndetic)}" gap="30">
+		<s:RadioButton groupName="operation" label="{andString}" value="{andString}" />
+		
+		<s:RadioButton groupName="operation" label="{orString}" value="{orString}" />
+	</s:HGroup>
+	
+	<s:HGroup>
+		<mx:ComboBox id="variable" width="66" dataProvider="{variableDP}" labelField="TagName" selectedItem="{getTag(_expression.tagId)}"
+					change="handleVariableChange()" />
+		
+		<s:ComboBox width="44" dataProvider="{new ArrayList(LogicalExpression.Signs)}" selectedItem="@{_expression.sign}" visible="{val.dataProvider.length > 0}" />
+		
+		<s:ComboBox id="val" width="54" selectedItem="@{_expression.value}" visible="{val.dataProvider.length > 0}" />
+	</s:HGroup>
+</s:VGroup>

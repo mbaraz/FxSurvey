@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+	minWidth="32"
+	maxHeight="25"
+	alpha.disabled="0.5">
+	<fx:Metadata>
+		<![CDATA[
+        	[HostComponent("spark.components.NumericStepper")]
+    	]]>
+	</fx:Metadata>
+	<fx:Script fb:purpose="styling">
+	/* Define the skin elements that should not be colorized.
+	 For numeric stepper, the skin itself is colorized but the individual parts are not. */
+	static private const exclusions:Array = ["textDisplay", "decrementButton",
+			"incrementButton"];
+
+	static private const DEFAULT_BUTTON_RATION:Number = 1;
+
+
+	override public function get colorizeExclusions():Array {
+		return exclusions;
+	}
+
+	[Bindable(event = "allStylesChanged")]
+	[Bindable(event = "buttonRatioChanged")]
+	public function get buttonRatio():Number {
+		var ratio:Number = getStyle('buttonRatio');
+		return isNaN(ratio) ? DEFAULT_BUTTON_RATION : ratio;
+	}
+
+	override protected function initializationComplete():void {
+		useChromeColor = true;
+		super.initializationComplete();
+	}
+
+	private var cornerRadiusChanged:Boolean;
+	private var borderStylesChanged:Boolean;
+
+	override protected function commitProperties():void {
+		super.commitProperties();
+
+		if (cornerRadiusChanged) {
+			var cr:Number = getStyle("cornerRadius");
+			if (incrementButton) {
+				incrementButton.setStyle("cornerRadius", cr);
+			}
+			if (decrementButton) {
+				decrementButton.setStyle("cornerRadius", cr);
+			}
+			cornerRadiusChanged = false;
+		}
+
+		if (borderStylesChanged) {
+			textDisplay.setStyle("borderAlpha", getStyle("borderAlpha"));
+			textDisplay.setStyle("borderColor", getStyle("borderColor"));
+			textDisplay.setStyle("borderVisible", getStyle("borderVisible"));
+			borderStylesChanged = false;
+		}
+	}
+
+	override public function styleChanged(styleProp:String):void {
+		var allStyles:Boolean = !styleProp || styleProp == "styleName";
+
+		super.styleChanged(styleProp);
+
+		if (allStyles || styleProp == "cornerRadius") {
+			cornerRadiusChanged = true;
+			invalidateProperties();
+		}
+	}
+	</fx:Script>
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="disabled" />
+		<s:State name="invalid" />
+	</s:states>
+	<s:HGroup id="group"
+		left="0"
+		right="0"
+		top="0"
+		bottom="0"
+		gap="{getStyle('gap')}">
+		<s:Button id="decrementButton"
+			skinClass="DecrementButtonSkin"
+			height="100%"
+			width="{decrementButton.height * buttonRatio}" />
+		<s:Group height="100%">
+			<s:Rect height="100%"
+				visible="false"
+				visible.invalid="true"
+				width="{group.width - incrementButton.width - decrementButton.width}">
+				<s:stroke>
+					<s:SolidColorStroke weight="0" />
+				</s:stroke>
+				<s:fill>
+					<s:SolidColor color="#FF0000" />
+				</s:fill>
+			</s:Rect>
+			<s:TextInput id="textDisplay"
+				alpha.invalid="0.3"
+				alpha="1"
+				height="100%"
+				width="{group.width - incrementButton.width - decrementButton.width}"
+				textAlign="right" />
+		</s:Group>
+		<s:Button id="incrementButton"
+			skinClass="IncrementButtonSkin"
+			height="100%"
+			width="{incrementButton.height * buttonRatio}" />
+	</s:HGroup>
+</s:SparkSkin>

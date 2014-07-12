@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="100%"
+			   height="100%"
+			   initialize="initializeHandler()">
+
+	<fx:Script>
+		<![CDATA[
+			import controllers.MainController;
+			import data.DataManager;
+			import data.DataStorage;
+			import data.storages.QuestionStorage;
+			import events.QuestionEvent;
+			import servers.*;
+			import tools.utils.LocaleUtils;
+			
+			import flash.globalization.LocaleID;
+			import mx.events.FlexEvent;
+			
+			private const mode : String = "mvc"; 	// 	"emulator";
+			
+			[Bindable]
+			protected var dataStorage : DataStorage;
+
+			protected function initializeHandler() : void {
+				LocaleUtils.setLocale();
+				dataStorage = new DataStorage();
+				var mvcServer : IServer = mode == "mvc" ? new MvcServer(url, parameters.projectId, parameters.startOder) : new EmulatorServer();
+				new MainController(this, new DataManager(dataStorage, mvcServer, mode == "emulator"));
+				addVersionToContextMenu();
+			}
+			
+			private function addVersionToContextMenu() : void {
+				contextMenu.hideBuiltInItems();
+				var aboutMenuItem : ContextMenuItem = new ContextMenuItem(resourceManager.getString('Main', 'context_item'));
+				contextMenu.customItems.push(aboutMenuItem);
+				aboutMenuItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, aboutItemSelectHandler);
+				MovieClip(systemManager).contextMenu = this.contextMenu;
+			}
+			
+			private function aboutItemSelectHandler(event : Event) : void
+			{
+				navigateToURL(new URLRequest("http://rcsoc.spbu.ru/"), "_blank");
+			}
+/* 
+			public function redispatchEvent(event : QuestionEvent) : void {
+				dispatchEvent(event);
+			} */
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		[ResourceBundle("Main")]
+	</fx:Metadata>
+
+</s:Application>

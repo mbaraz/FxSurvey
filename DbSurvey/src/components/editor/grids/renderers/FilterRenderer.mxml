@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<renderers:TagRendererBase xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:renderers="components.editor.grids.renderers.*"> 
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+
+			[Bindable]
+			private var tagList : ArrayList;
+			
+			override public function set data(value : Object) : void {
+				if (!value)
+					return;
+				super.data = value;
+				makeDP(question.order - 1);
+				if (question.FilterAnswersTagId)
+					cb.selectedItem = _questionStorage.getTagById(question.FilterAnswersTagId);
+				else
+					cb.selectedIndex = 0;
+			}
+			
+			public function makeDP(indx : int) : void {
+				var tags : Array = _questionStorage.getTagArray(indx);
+				tagList = new ArrayList(tags);
+				tagList.addItemAt("Без фильтра", 0);
+			}
+
+			override protected function makeText() : String {
+				var filter : String = question.FilterAnswersTagId ? _questionStorage.makeFilterText(question) : "";
+				return filter ? filter : "Не фильтровать";
+			}
+
+			private function changeHandler() : void {
+				question.FilterAnswersTagId = !cb.selectedIndex ? null : cb.selectedItem.TagId;
+			}
+		]]>
+	</fx:Script>
+
+	<s:Label width="100%" top="4" left="2" right="4" textAlign="center"
+			 text="{tagText}"
+			 styleName="tagLabel"
+			 visible="{!question.isSelected}" />
+
+	<mx:ComboBox id="cb" width="90%" horizontalCenter="0" top="4"
+				 dataProvider="{tagList}"
+				 labelField="TagName"
+				 visible="{question.isSelected}"
+				 change="changeHandler()" />
+</renderers:TagRendererBase>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel title="Предварительный просмотр" xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:components="components.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.conversion.TextConverter;
+			import mx.collections.ArrayCollection;
+	
+			import vo.AnswerVariant;
+			import vo.SurveyQuestion;
+			
+			[Bindable]
+			private var _question : SurveyQuestion;
+			
+			public function set question(obj : Object) : void {
+				_question = obj && obj.order ? obj as SurveyQuestion : null;
+				if (!_question) {
+					answerVariants = null;
+					questionOutput.text = "";
+				} else
+					questionOutput.textFlow = TextConverter.importToFlow(_question.QuestionText,  TextConverter.TEXT_FIELD_HTML_FORMAT);
+				
+				updateAnewers();
+			}
+ 			
+			private var _answerVariants : ArrayCollection;
+			
+			public function set answerVariants(obj : Object) : void {
+				_answerVariants = obj as ArrayCollection;
+//				updateAnewers();
+			}
+			
+			public function set questionType(value : String) : void {
+				updateAnewers();
+			}
+
+			private function updateAnewers() : void {
+				answerBlock.updateProperties(_question ? _question.subitems : null, _answerVariants);
+			}
+		]]>
+	</fx:Script>
+	
+	<s:BorderContainer width="100%" height="100%">
+		<s:layout>
+			<s:VerticalLayout paddingTop="0" paddingBottom="0" />
+		</s:layout>
+		
+		<s:Scroller width="100%" height="100%">
+			<s:VGroup gap="2" paddingLeft="6" paddingRight="6" paddingTop="4" paddingBottom="4">
+					<s:HGroup verticalAlign="baseline">
+						<s:Label text="Номер:" styleName="previewLabel" width="54"/>
+						<s:Label text="{_question.order}" styleName="numberLabel"  visible="{_question.order > 0}" />
+					</s:HGroup>
+
+					<s:HGroup verticalAlign="baseline" width="100%">        
+						<s:Label text="Текст:" styleName="previewLabel" width="54"/>
+						<s:RichText id="questionOutput" width="100%" visible="{_question.order > 0}"
+									lineBreak="toFit" fontSize="20" />
+					</s:HGroup>
+				
+					<mx:HRule width="{Math.max(answerBlock.width, questionOutput.width) + 54}" height="2" />
+
+					<s:HGroup verticalAlign="baseline" width="100%">        
+						<s:Label text="Ответы:"  styleName="previewLabel" width="54"/>
+						<components:AnswerBlock id="answerBlock" width="100%" />
+					</s:HGroup>
+			</s:VGroup>
+		</s:Scroller>	
+	</s:BorderContainer>
+</s:Panel>

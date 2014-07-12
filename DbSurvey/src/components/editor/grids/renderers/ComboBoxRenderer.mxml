@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<renderers:BaseGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:renderers="components.editor.grids.renderers.*"
+	width="100%"> 
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import vo.QuestionTypes;
+			import vo.SurveyQuestion;
+
+			private const gridTypesArray : Array = [{label: "Табличный с радиокнопками", value: QuestionTypes.RadioGrid.name},
+				{label: "Табличный со слайдерами", value: QuestionTypes.SliderGrid.name}];
+			
+			private const plainTypesDP : ArrayCollection = new ArrayCollection([{label: "Простой", value: QuestionTypes.Simple.name}, 
+				{label: "С индикатором суммы", value: QuestionTypes.Summed.name},
+				{label: "Рейтинговый", value: QuestionTypes.Rating.name},
+				{label: "Ранжированнный", value: QuestionTypes.Ranking.name},
+				{label: "Ранжированнный с радиокнопками", value: QuestionTypes.RadioRank.name},
+				{label: "Ранжированнный со слайдером", value: QuestionTypes.SliderRank.name},
+				{label: "Ранжированнный с перетаскиванием", value: QuestionTypes.DragRank.name}]);
+			
+			private const typesDP : ArrayCollection = new ArrayCollection(plainTypesDP.source.concat(gridTypesArray));
+
+			private  function makeText(type : String) : String {
+				var dp : ArrayCollection = typeCB.dataProvider as ArrayCollection;
+				for (var i : int = 0; i < dp.length; i++)
+					if (dp.getItemAt(i).value == type) {
+						typeCB.selectedIndex = i;
+						return dp.getItemAt(i).label;
+					}
+				return "";
+			}
+
+			private function changeHandler() : void {
+				question.QuestionType = typeCB.selectedItem.value;
+				dispatchEvent(new Event(SurveyQuestion.TYPE_CHANGED_EVENT, true));
+			}
+		]]>
+	</fx:Script>
+	
+	<mx:ComboBox id="typeCB" width="255" verticalCenter="0" horizontalCenter="0"
+				 dataProvider="{question.BoundTagId ? plainTypesDP : typesDP}"
+				 change="changeHandler()"
+				 visible="{question.isSelected}" includeInLayout="{question.isSelected}" />
+	
+	<s:Label width="100%" left="6" verticalCenter="0"
+			 fontStyle="italic" text="{makeText(question.QuestionType)}"
+			 visible="{!question.isSelected}" includeInLayout="{!question.isSelected}" />
+</renderers:BaseGridItemRenderer>

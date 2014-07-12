@@ -1,0 +1,182 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+s|Application {
+	focus-alpha: 0;
+	fontFamily: Calibri;
+	color: #666666;
+	disabledColor: #9F9F9F;
+	focusedTextSelectionColor: #ADC661;
+	fontAntiAliasType: advanced;
+	lineHeight: "100%";
+}
+
+/*
+s|CheckBox {
+	skin-class: ClassReference("components.skins.CheckBoxSkin");
+}
+
+s|Panel { 
+	cornerRadius: 4;
+	chromeColor: #333399;
+	
+	borderStyle: undefined;
+	highlightAlphas: 0.67, 0;
+	headerColors: #000000, #993333;
+	borderAlpha: 1;
+	text-align: center;
+	titleStyleName: "myPanelStyle";
+	font-weight: normal;
+	roundedBottomCorners: true;
+}
+*/
+s|Panel #titleDisplay {
+	color: #FFFFFF;
+	font-size: 16;
+}
+
+s|DataGrid {
+	alternatingRowColors: #EDFFFF, #FFFFFF;
+	fontSize: 14;
+}
+
+s|HScrollBar {
+	scrollBarSize: 15;
+	scrollThumbSize: 13;
+}
+
+s|VScrollBar {
+	scrollBarSize: 15;
+	scrollThumbSize: 13;
+}
+
+s|HSlider {
+	skinClass: ClassReference("components.skins.HSliderSkin");
+	fontSize: 16pt;
+	color: #667766;
+}
+
+s|HSlider s|Button#track {
+	chromeColor: #444444;
+}
+
+s|ItemRenderer {
+	rollOverColor: #EEEEEE;
+	disabledAlpha: 0.3;
+}
+
+s|List {
+	selectionColor: #DDDDDD;
+}
+
+mx|ComboBox s|ComboBoxGridItemEditor {
+	contentBackgroundColor: #FCFCFC;
+	rollOverColor: #EFEDFF;
+	selectionColor: #DEDCFA;
+}
+
+mx|Tree {
+	useRollOver: false;
+	focusAlpha: 0;
+	selectionColor: #EEEEEE;
+	textSelectedColor: #666666;
+}
+
+mx|Grid {
+	verticalGap: 0;
+	horizontalGap: 0;
+	fontSize: 13;
+}
+
+mx|GridItem {
+	verticalAlign: middle;
+	borderStyle: insert;
+}
+
+mx|GridRow {
+	backgroundAlpha: 0.7;
+}
+
+mx|HDividedBox, mx|VDividedBox {
+	backgroundColor: #CCCCCC;
+	dividerColor: #EE6666;
+	dividerAlpha: 0.4;
+}
+/*
+s|Alert {
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+
+Form, Label, TextInput { 
+	color: #000000;
+	font-weight: normal;
+}
+
+FormItem, List { 
+	font-weight: bold;
+	text-align: left;
+}
+*/
+.myPanelStyle {
+	font-size: 12;
+	color: #FFFFFF;
+}
+
+.panelText {
+	color: #000000;
+	font-weight: none;
+	text-align: left;
+}
+
+.previewLabel {
+	color: #006600;
+	font-weight: bold;
+	text-align: right;
+	fontSize : 16;
+}
+
+
+.headerGridRow {
+	backgroundColor: #999999;
+	color: #FFFFFF;
+}
+
+.oddGridRow {
+	backgroundColor: #EEEEEE;
+}
+
+.evenGridRow {
+	backgroundColor: #CCCCCC;
+}
+
+.emptyGridItem {
+	borderStyle: none;
+	backgroundColor: #FFFFFF;
+}
+
+.headerGridItem {
+	horizontalAlign: center;
+}
+
+.headerGridLabel {
+	/*	color: #FFFFFF;*/
+	textAlign: center;
+}
+
+.leftColumnGridLabel {
+	paddingRight: 20;
+}
+
+.numberLabel {
+	fontWeight: bold;
+	fontSize: 16;
+	backgroundColor: #DDDDDD;
+}
+
+.tagLabel {
+	fontFamily: "Courier New";
+	fontWeight: bold;
+}

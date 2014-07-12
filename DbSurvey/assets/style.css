@@ -1,0 +1,224 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+s|Application {
+	focus-alpha: 0;
+	fontFamily: Calibri;
+	fontSize: 16;
+	fontWeight: "bold";
+	color: gray;
+	disabledColor: #9F9F9F;
+	focusedTextSelectionColor: #ADC661;
+	fontAntiAliasType: advanced;
+	lineHeight: "100%";
+}
+
+s|Button {
+	skin-class: ClassReference("components.skins.IconButtonSkin");
+	fontWeight: normal;
+	fontSize: 14pt;
+	color: #FFFFFF;
+	labelDisplayStyleName: defaultButtonLabel;
+}
+
+s|Button: over {
+	color: #339F33;
+}
+
+s|ScrollBarBase {
+	chromeColor: #DDA806;
+}
+
+s|ScrollBarBase s|Button#track {
+	chromeColor: #FF960A;
+}
+
+s|CheckBox {
+	skin-class: ClassReference("components.skins.CheckBoxSkin");
+}
+
+s|HSlider {
+	skinClass: ClassReference("components.skins.HSliderSkin");
+	fontSize: 16pt;
+	color: #667766;
+	/*	popUpStyle: popUpStyle;
+	headerStyle: headerPopUpStyle;
+	messageStyle: textStyle;*/
+}
+
+s|HSlider s|Button#track {
+	chromeColor: #444444;
+}
+
+s|ItemRenderer {
+	rollOverColor: #EEEEEE;
+	disabledAlpha: 0.3;
+}
+
+s|List {
+	selectionColor: #DDDDDD;
+}
+
+mx|Grid {
+	verticalGap: 0;
+	horizontalGap: 0;
+	fontSize: 15;
+	color: #666666;
+}
+
+mx|GridItem {
+	verticalAlign: middle;
+	borderStyle: insert;
+}
+
+mx|GridRow {
+	backgroundAlpha: 0.7;
+}
+/* mx|TitleWindow, */
+mx|Alert, .titleWindow {
+	chromeColor: #F2F2F2;
+	backgroundColor: #F2F2F2;
+	borderColor: #F2F2F2;
+	color: #999999;
+	paddingLeft: 10;
+	paddingTop: 10;
+	paddingRight: 10;
+	paddingBottom: 10;
+	borderAlpha: 0.9;
+	buttonStyleName: titleWindow;
+}
+
+mx|LinkButton {
+	skin-class: ClassReference("components.skins.LinkButtonSkin");
+	textDecoration: underline;
+	color: #769973;
+	textRollOverColor: #A9CCA6;
+	fontSize: 20;
+	fontStyle: italic;
+}
+
+mx|ProgressBar {
+	chromeColor: #00FFAA;
+	direction: right;
+	barSkin: ClassReference("components.skins.ProgressBarSkin");
+}
+
+.defaultButtonLabel {
+	left: 8;
+	right: 6;
+	top: 6;
+	bottom: 6;
+}
+
+.title {
+	fontSize: 26;
+	color: #333366;
+	borderColor: #0000FF;
+	backgroundAlpha: 0;
+	cornerRadius: 12;
+	left: 10;
+	right: 10;
+	borderWeight: 1;
+	cornerRadius: 12;
+	dropShadowVisible: true;
+}	
+
+.startText {
+	fontSize: 18;
+	backgroundColor: #AAAAAA;
+	backgroundAlpha: 0.3;
+	paddingLeft: 6;
+	paddingRight: 6;
+	paddingBottom: 6;
+	paddingTop: 6;	
+}
+
+.instruction {
+	fontSize: 18;
+	fontWeight: "normal";
+	color: #999999;
+	borderColor: #FFB84E;
+	backgroundAlpha: 0;
+	cornerRadius: 6;
+	left: 10;
+	right: 10;
+	dropShadowVisible: true;
+}
+
+.projectTitle {
+/*	fontFamily: Gabriola;*/
+	fontStyle: italic;
+}
+
+.headerGridRow {
+	backgroundColor: #999999;
+	color: #FFFFFF;
+}
+
+.oddGridRow {
+	backgroundColor: #EEEEEE;
+}
+
+.evenGridRow {
+	backgroundColor: #CCCCCC;
+}
+
+.emptyGridItem {
+	borderStyle: none;
+	backgroundColor: #FFFFFF;
+}
+
+.headerGridItem {
+	horizontalAlign: center;
+}
+
+.headerGridLabel {
+/*	color: #FFFFFF;*/
+	textAlign: center;
+}
+
+.leftColumnGridLabel {
+	paddingRight: 20;
+}
+
+.popUpStyle {
+	paddingTop: 20;
+	paddingBottom: 50;
+	paddingLeft: 20;
+	paddingRight: 20;
+	
+	leadingModel: ideographicTopDown;
+	backgroundColor: #FFFF00;
+	backgroundAlpha: 0.35;
+/*	
+	color: #333333;
+	fontWeight: normal;
+	textAlign: center;
+*/
+}
+
+.headerPopUpStyle {
+
+	color: #663300;
+	fontSize: 17pt;
+	fontWeight: bold;
+/*	fontFamily: Times;
+	ligatureLevel: exotic;
+	typographicCase: lowercaseToSmallCaps;*/
+/*	fontStyle: italic;*/
+	
+	textDecoration: underline;
+	
+	paragraphSpaceAfter: 40;
+}
+
+.textStyle {
+	color: #333333;
+	textAlign: center;
+	fontSize: 14pt;
+	fontWeight: normal;
+	fontStyle: italic;
+	
+	lineHeight: 20;
+}

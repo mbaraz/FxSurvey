@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app:ApplicationBase xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:app="*"
+			   xmlns:components="components.*"
+			   pageTitle="Опрос" minWidth="400"
+			   creationComplete="creationCompleteHandler()">
+	
+	<fx:Script>
+		<![CDATA[
+/*			[Bindable]
+			private var locales:Array = [{label:"Русский", locale:"ru_RU"}, {label:"English", locale:"en_US"}];
+ */			
+			private function creationCompleteHandler() : void {
+				questionnaire.projectTitle = parameters.projectTitle;
+				questionnaire.questionsCount = parameters.questionsCount;
+			}
+/*
+			private function comboChangeHandler():void {
+				resourceManager.localeChain = [localeComboBox.selectedItem.locale];
+			} */
+		]]>
+	</fx:Script>
+	
+	<fx:Style source="../assets/style.css"/>
+	
+	<components:Questionnaire id="questionnaire" width="100%" height="100%" dataStorage="{dataStorage}" />
+<!--	
+	<mx:ComboBox id="localeComboBox" dataProvider="{locales}" change="comboChangeHandler()"
+				left="40" top="10" prompt="Язык / Languige" />-->
+</app:ApplicationBase>

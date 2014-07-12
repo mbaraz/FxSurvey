@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<answers:AnswerBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:answers="components.answers.*"
+		 implements="components.IAnswer">
+	
+	<fx:Script>
+		<![CDATA[
+			import components.renderers.SimpleBlock;
+			import events.InputChangeEvent;
+			import vo.AnswerVariant;
+
+			import mx.collections.IList;
+			import spark.components.RadioButton;
+			
+			private function get multiLegend() : String {
+				var maxVar:  int = Math.min(AnswerVariant.MaxAnswers, answers.dataProvider.length);
+				if (AnswerVariant.MinAnswers == maxVar)
+					return AnswerVariant.MinAnswers == 1 ? resourceManager.getString('Main', 'legend_mult_eq_single') : resourceManager.getString('Main', 'legend_mult_eq', [AnswerVariant.MinAnswers]);
+				
+				return resourceManager.getString('Main', 'legend_mult', [AnswerVariant.MinAnswers, maxVar]) ;
+			}
+			
+			private function get multiWarning() : String {
+				var maxVar:  int = Math.min(AnswerVariant.MaxAnswers, answers.dataProvider.length);
+				if (AnswerVariant.MinAnswers == maxVar)
+					return AnswerVariant.MinAnswers == 1 ? resourceManager.getString('Main', 'warning_mult_eq_single') : resourceManager.getString('Main', 'warning_mult_eq', [AnswerVariant.MinAnswers]);
+				
+				return resourceManager.getString('Main', 'warning_mult', [AnswerVariant.MinAnswers, maxVar]) ;
+			}
+			
+			public function get instruction() : String {
+ 				if (answers.dataProvider && answers.dataProvider.length == 1)
+					return resourceManager.getString('Main','legend_only_one');
+				if (!AnswerVariant.MultipleAnswerAllowed)
+					return resourceManager.getString('Main','legend_simple');
+				if (SimpleBlock.excludingCheckBox)
+					return multiLegend + resourceManager.getString('Main','legend_exclude');
+				
+				return multiLegend;
+			}
+			
+			public function set variants(value : IList) : void {
+				answers.removeEventListener(InputChangeEvent.INPUT_CHANGHED, excludeChangeHandler);
+				answers.dataProvider = value;
+				answers.addEventListener(InputChangeEvent.INPUT_CHANGHED, excludeChangeHandler);
+				SimpleBlock.reset();
+			}
+			
+			public function trySaveAnswers() : Boolean {
+				var result : Boolean = AnswerVariant.MultipleAnswerAllowed ? checkMultipleAnswers() : checkSingleAnswer();
+				if (result)
+					saveAnswers();
+				return result;
+			}
+
+			private function saveAnswers() : void {
+				for (var i : int = 0; i < answers.numElements; i++) {
+					var element : SimpleBlock = answers.getElementAt( i ) as SimpleBlock;
+					element.saveAnswer();
+				}
+			}
+			
+			private function checkSingleAnswer() : Boolean {
+				var selectedRadioButton : RadioButton = textGroup.selection;
+				if (!selectedRadioButton) {
+					showAlert(resourceManager.getString('Main', 'warning_simple'));
+					return false;
+				}
+				return checkOpenAnswers();
+			} 
+			
+			private function checkMultipleAnswers() : Boolean {
+				if(!SimpleBlock.isAnswersCountCorrect) {
+					showAlert(multiWarning);
+					return false;
+				}
+				return checkOpenAnswers();
+			}
+
+			private function checkOpenAnswers() : Boolean {
+				if (isOpenAnswersMissing) {
+					showAlert(resourceManager.getString('Main','warning_open'));
+					return false;
+				}
+				return true;
+			}
+			
+			private function get isOpenAnswersMissing() : Boolean {
+				for (var i : int = 0; i < answers.numElements; i++) {
+					var element : SimpleBlock = answers.getElementAt( i ) as SimpleBlock;
+					if (element.isOpenAnswerMissing)
+						return true;
+				}
+				return false;
+			}
+			
+			private function excludeChangeHandler(event : InputChangeEvent):void {
+				dispatchEvent(new Event("propertyChange"));
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<s:RadioButtonGroup id="textGroup" />
+	</fx:Declarations>
+	
+	<s:DataGroup id="answers" itemRenderer="components.renderers.SimpleBlock">
+		<s:layout>
+			<s:VerticalLayout gap="18" />
+		</s:layout>
+	</s:DataGroup>
+</answers:AnswerBase>

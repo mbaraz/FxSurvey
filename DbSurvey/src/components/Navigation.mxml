@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  backgroundColor="0xCCCCCC" minWidth="540">
+	<fx:Metadata> 
+		[Event(name="nextQuestion", type="flash.events.Event")]
+		[Event(name="previousQuestion", type="flash.events.Event")]
+	</fx:Metadata> 
+
+	<fx:Script>
+		<![CDATA[
+			import events.QuestionEvent;
+			
+			[Bindable]
+			private static var isEnabled : Boolean = false;
+
+			[Bindable]
+			private static var canReturn : Boolean;
+			
+			public static function makeEnable(value : Boolean) : void {
+				isEnabled = true;
+				if (value)
+					canReturn = false;
+			}
+			
+			[Bindable]
+			private var _questionsCount : int;
+			
+			public function set questionsCount(value : int) : void {
+				_questionsCount = value;
+			}
+			
+			[Bindable]
+			private var _currentOrder : int;
+			
+			public function set currentOrder(value : int) : void {
+				_currentOrder = value;
+				bar.setProgress(_currentOrder, _questionsCount);
+			}
+			
+			[Bindable]
+			private var _isPreviousExist : Boolean;
+			
+			public function set isPreviousExist(value : Boolean) : void {
+				_isPreviousExist = value;
+			}
+		
+			private function previousQuestionHandler(event : MouseEvent): void {
+				isEnabled = false;
+				canReturn = false;
+				dispatchEvent(new Event("previousQuestion"));
+			}
+			
+			private function nextQuestionHandler(event : MouseEvent): void {
+				isEnabled = false;
+				canReturn = true;
+				dispatchEvent(new Event("nextQuestion"));
+			}
+		]]>
+	</fx:Script>
+	<s:Button label="{resourceManager.getString('Main','nav_next')}" left="10" top="2" bottom="2"
+			  icon="assets/images/right_row.png"
+			  click="nextQuestionHandler(event)"
+			  enabled="{isEnabled}" />
+	
+	<mx:ProgressBar id="bar" width="200"
+					minimum="0" maximum="100" mode="manual" 
+					label="{resourceManager.getString('Main','nav_prgrs', [_currentOrder, _questionsCount])}"
+					labelPlacement="center" visible="{_questionsCount > 0}"
+					horizontalCenter="0" verticalCenter="0" />
+
+	<mx:LinkButton  label="{resourceManager.getString('Main','nav_rc')}"
+					visible="{!_questionsCount}"
+					horizontalCenter="0" verticalCenter="0"
+					icon="@Embed('../assets/images/site_grey_25.png')"
+					click="{navigateToURL(new URLRequest('http://rcsoc.spbu.ru/'), '_blank')}" />
+	
+	<s:Button label="{resourceManager.getString('Main','nav_prev')}" right="10" top="2" bottom="2"
+			  icon="assets/images/left_row.png"
+			  click="previousQuestionHandler(event)"
+			  enabled="{_isPreviousExist &amp;&amp; isEnabled &amp;&amp; canReturn}" />
+</s:BorderContainer>

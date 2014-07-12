@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:DataGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:mx="library://ns.adobe.com/flex/mx"
+			 width="100%"
+			 itemRenderer="components.renderers.RadioRenderer">
+	<s:layout>
+		<s:HorizontalLayout  gap="{_gap - buttonWidth}" paddingLeft="{paddingLeft}" paddingTop="10" />
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import components.renderers.RadioRenderer;
+			
+			import mx.controls.RadioButtonGroup;
+			import mx.events.ResizeEvent;
+
+			private const buttonWidth : int = 14;
+			
+			private var _isInGrid : Boolean;
+			
+			public function set isInGrid(value : Boolean) : void {
+				RadioRenderer.isInGrid = value;
+				rankGroup = new RadioButtonGroup();
+			}
+						
+			[Bindable]
+			private var paddingLeft : int = 0;
+			
+			[Bindable]
+			private var _gap : int = 40 + buttonWidth;
+			
+			public function set gap(value : int) : void {
+				if (!value)
+					return;
+				_gap = value;
+				paddingLeft = value / 2;
+				removeEventListener(ResizeEvent.RESIZE, resizeHandler);
+				addEventListener(ResizeEvent.RESIZE, resizeHandler);
+			}
+			
+			private var _radioGroup : RadioButtonGroup;
+
+			public function get rankGroup() : RadioButtonGroup {
+				return _radioGroup;
+			}
+
+			public function set rankGroup(value : RadioButtonGroup) : void {
+				_radioGroup = value; 
+//				_radioGroup.addEventListener(ItemClickEvent.ITEM_CLICK, handleClick);
+			}
+
+			private function resizeHandler(event : ResizeEvent) : void {
+				if (event.oldWidth < 10)
+					return;
+				_gap = width / dataProvider.length
+//				_gap *= width / event.oldWidth;
+				paddingLeft = _gap / 2;
+			}
+		]]>
+	</fx:Script>
+</s:DataGroup>

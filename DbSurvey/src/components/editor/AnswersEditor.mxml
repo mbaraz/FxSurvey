@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:grids="components.editor.grids.*"
+	xmlns:editor="components.editor.*">
+	
+	<fx:Script>	<![CDATA[
+		import data.DataStorage;
+		import data.storages.AnswerStorage;
+		
+		import mx.collections.ArrayList;
+		
+		[Bindable]
+		private var answerStorage : AnswerStorage;
+		
+		public function set dataStorage(value : DataStorage) : void {
+			buttons.storage = value
+			answerStorage = value.answerStorage;
+		}
+		
+		public function set filterList(value : ArrayList) : void {
+			adg.filterList = value;
+		}
+		
+		public function set questionType(value : String) : void {
+			buttons.questionType = value;
+		}
+		
+		[Bindable]
+		public var selectedViewIndex : int;
+
+ 		[Bindable]
+		private var _selectedQuestionIndex : int = -1;
+		
+		public function set selectedQuestionIndex(value : int) : void {
+			_selectedQuestionIndex = value;
+		}
+	]]>
+	</fx:Script>
+	
+	<s:Panel title="Ответы" width="100%" height="100%">
+		<grids:AnswerGrid id="adg" width="100%" height="100%"
+						  visible="{_selectedQuestionIndex > -1}"
+						  storage="{answerStorage}"
+						  answerStorage="{answerStorage}" />
+	</s:Panel>
+	
+	<editor:ButtonRow id="buttons" currentState="answers"
+					  canAdd="{_selectedQuestionIndex > -1}"
+					  collection="{answerStorage.currentVariants}"
+					  selectedViewIndex="@{selectedViewIndex}"
+					  selectedIndex="@{adg.selectedIndex}" />
+</mx:Canvas>

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<s:DataGrid xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:renderers="components.editor.grids.renderers.*"
+			editable="true"
+			variableRowHeight="true"
+			selectedItem="@{storage.selectedItem}"
+			selectionChanging="selectionHandler(event)">
+
+	<fx:Declarations>
+		<fx:Component id="headerRenderer">
+			<s:DefaultGridHeaderRenderer maxDisplayedLines="4" />
+		</fx:Component>
+		
+		<fx:Component id="headerRendererSmall">
+			<s:DefaultGridHeaderRenderer maxDisplayedLines="2" fontSize="11" />
+		</fx:Component>
+		
+		<fx:Component id="checkBoxRenderer">
+			<renderers:CheckBoxRenderer />
+		</fx:Component>
+
+		<fx:Component id="comboBoxRenderer">
+			<renderers:ComboBoxRenderer />
+		</fx:Component>
+		
+		<fx:Component id="tagConditionRenderer">
+			<renderers:TagConditionRenderer questionStorage="{outerDocument.storage as QuestionStorage}"  />
+		</fx:Component>
+
+		<fx:Component id="filterRenderer">
+			<renderers:FilterRenderer questionStorage="{outerDocument.storage as QuestionStorage}" />
+		</fx:Component>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import data.storages.AnswerStorage;
+			import data.storages.IStorage;
+			
+			import spark.events.GridSelectionEvent;
+			
+			[Bindable]
+			public var storage : IStorage;
+
+			[Bindable]
+			protected var _answerStorage : AnswerStorage;
+			
+			public function set answerStorage(value : AnswerStorage) : void {
+				_answerStorage = value;
+			}
+			
+			protected function selectionHandler(event : GridSelectionEvent) : void {
+				throw new  Error("Not Implemented", 99);
+			}
+		]]>
+	</fx:Script>
+</s:DataGrid>

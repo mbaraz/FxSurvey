@@ -1,0 +1,1385 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace windows "com.devexperts.flexfront.common.gui.windows.*";
+@namespace subscriber "com.devexperts.flexfront.common.gui.components.subscriber.*";
+@namespace controls "com.devexperts.flexfront.common.gui.controls.*";
+@namespace window "com.devexperts.flexfront.common.gui.components.window.*";
+
+/* COMMON */
+
+global {
+    focus-thickness: 0;
+    focus-alpha: 0;
+
+    fontFamily: Calibri;
+    color: #1A1A1A;
+    disabledColor: #6D6D6D;
+    focusedTextSelectionColor: #ADC661;
+    fontSize: 12;
+    fontAntiAliasType: advanced;
+    fontWeight: normal;
+    leading: 0;
+
+    lineHeight: "100%";
+}
+
+.focusedItem {
+    focus-thickness: 2;
+    focus-alpha: 1;
+}
+
+s|Application {
+    backgroundColor: #FFFFFF;
+}
+
+s|List {
+    borderAlpha: 0;
+}
+
+s|DropDownList {
+    skin-class: ClassReference("DropDownListSkin");
+    backgroungTop: #3C3C3C;
+    backgroungBottom: #2C2C2C;
+    contentBackgroundColor: #F2F2F2;
+    color: #333333;
+    fontWeight: bold;
+    symbolColor: #333333;
+    borderColor: #FFFFFF;
+    borderAlpha: 1;
+
+    rollOverColor: #DEDCFA;
+    selectionColor: #DEDCFA;
+    disabledColor: #24242B;
+    dropDownLabelStyleName: defaultDropDownLabel;
+}
+
+.defaultDropDownLabel {
+    verticalAlign: middle;
+    maxDisplayedLines: 1;
+    left: 7;
+    right: 30;
+    top: 2;
+    bottom: 2;
+    verticalCenter: 1;
+}
+
+s|Button {
+    skin-class: ClassReference("FlexFrontButtonSkin");
+}
+
+controls|LinkButton {
+    skin-class: ClassReference("com.devexperts.flexfront.common.gui.skins.LinkButtonSkin");
+    textDecoration: underline;
+    color: #7673CC;
+}
+
+controls|LinkButton:over, controls|LinkButton:down {
+    color: #3B3A66;
+}
+
+window|Window {
+    skin-class: ClassReference("com.devexperts.flexfront.common.gui.skins.WindowSkin");
+    closeButtonSkin: ClassReference("CloseButtonSkin");
+    closeButtonPadding: 2;
+    backgroundColor: #EEEEF3;
+    borderdColor: #ABA9C5;
+    borderRadius: 6;
+}
+
+s|CheckBox {
+    skin-class: ClassReference("CheckBoxSkin");
+}
+
+.buttonWithPencil {
+    left: 6;
+    right: 6;
+    skinClass: ClassReference("ButtonWithIconSkin");
+}
+
+s|Button {
+    fontWeight: bold;
+    color: #231F20;
+    labelDisplayStyleName: defaultButtonLabel;
+}
+
+.authenticationButton, .createWindowButton {
+    fontSize: 16;
+}
+
+.createWindowButton{
+    skin-class: ClassReference("CreateWindowButtonSkin");
+}
+
+.defaultButtonLabel {
+    left: 8;
+    right: 12;
+    top: 6;
+    bottom: 6;
+}
+
+s|Button.emphasized {
+    skin-class: ClassReference("FlexFrontButtonSkin");
+}
+
+s|ComboBox {
+    contentBackgroundColor: #F2F2F2;
+    rollOverColor: #DEDCFA;
+    selectionColor: #DEDCFA;
+}
+
+s|RadioButton {
+    skin-class: ClassReference("RadioButtonSparkSkin");
+
+}
+
+s|TextInput {
+    skin-class: ClassReference("TextInputSkin");
+    color: #333333;
+}
+
+.dropAvailableButton {
+    color: #7673A5;
+}
+
+.mainDesign {
+    paddingBottom: 5;
+    paddingLeft: 5;
+    paddingRight: 5;
+    paddingTop: 10;
+    gap: 5;
+    verticalAlign: middle;
+}
+
+.extendedTitleWindowText {
+    color: #4D4D4D;
+    fontSize: 18;
+    left: 8;
+    top: 9;
+    fontWeight: bold;
+    verticalAlign: middle;
+}
+
+s|VScrollBar {
+    scrollBarSize: 15;
+    scrollThumbSize: 13;
+}
+
+s|HScrollBar {
+    scrollBarSize: 15;
+    scrollThumbSize: 13;
+}
+
+.chartWindowTitle {
+    paddingBottom: 5;
+    paddingLeft: 10;
+    paddingRight: 10;
+    paddingTop: 5;
+}
+
+mx|ToolTip {
+    borderColor: #AED241;
+    borderAlpha: 1;
+    backgroundColor: #ffffff;
+}
+
+.loadingLabel {
+    text-align: center;
+    font-size: 28;
+}
+
+s|NumericStepper {
+	skin-class: ClassReference("CustomNumericStepperSkin");
+    buttonRatio: 1.38; /* width to height */
+	color: #1A1A1A;
+	colorInvalid: #FFFFFF;
+}
+
+/* CHARTING */
+
+mx|Application {
+    focusAlpha: 0.1;
+    focusThickness: 3;
+    modalTransparency: 0.3;
+    modalTransparencyColor: #F2F2F2;
+    disabledOverlayAlpha: 0;
+    backgroundColor: #F2F2F2;
+    borderColor: #F2F2F2;
+}
+
+mx|TitleWindow, mx|Alert, .titleWindow {
+    chromeColor: #F2F2F2;
+    backgroundColor: #F2F2F2;
+    borderColor: #F2F2F2;
+    color: #333333;
+    paddingLeft: 10;
+    paddingTop: 10;
+    paddingRight: 10;
+    paddingBottom: 10;
+    borderAlpha: 0.9;
+    buttonStyleName: titleWindow;
+}
+
+mx|Button {
+    textRollOverColor: #222222;
+    textSelectedColor: #333333;
+    fontWeight: bold;
+    leading: 0;
+    horizontalGap: 2;
+    paddingTop: 2;
+    paddingBottom: 2;
+    leading: 2;
+    verticalGap: 2;
+}
+
+mx|CheckBox {
+    textRollOverColor: #222222;
+    textSelectedColor: #333333;
+    fontWeight: bold;
+}
+
+mx|NumericStepper {
+    contentBackgroundColor: #F2F2F2;
+}
+
+mx|Menu {
+    contentBackgroundColor: #F2F2F2;
+    contentBackgroundAlpha: 1;
+    borderColor: #FFFFFF;
+    borderRadius: 5;
+    borderStyle: solid;
+    leftIconGap: 31;
+    color: #999999;
+    textRollOverColor: #333333;
+    textSelectedColor: #999999;
+    disabledColor: #535359;
+    rollOverColor: #DEDCFA;
+    selectionColor: #F2F2F2;
+    fontWeight: bold;
+    textAlign: left;
+}
+
+.priceChartBG {
+	backgroundColor: #F2F2F2;
+	borderColor: #DDDDDD;
+}
+
+
+/* TOP */
+
+.appTopPanel {
+    paddingLeft: 1;
+	gap: 12;
+}
+
+.mainAccountInfoPanel {
+    valueDescriptionLabelContainerStyleName: valueDescriptionLabelContainer;
+}
+
+.valueDescriptionLabelContainer {
+    gap: 8;
+    vGap: 5;
+	vSeparator: headerVLine;
+    valueDescriptionLabelWidth: 86; /* 94px (by sketch) - 8px (gap) */
+    activityHeaderTextLabelStyleName: activityHeaderTextLabel;
+    activityHeaderTextValueStyleName: activityHeaderTextValue;
+}
+
+.headerVLine {
+	strokeColor: #E6E6E6;
+	shadowColor: #E6E6E6;
+}
+
+.activityHeaderTextLabel {
+    color: #444444;
+    fontSize: 12;
+}
+
+.activityHeaderTextValue {
+    color: #333333;
+    fontSize: 16;
+    fontWeight: bold;
+}
+
+.accountInfoPanelForUser {
+    valueDescriptionLabelContainerStyleName: valueDescriptionLabelContainerForUserInfo;
+}
+
+.userInfoTopPanelGroup {
+    paddingTop: 5;
+    paddingRight: 5;
+    paddingLeft: 5;
+    paddingBottom: 5;
+}
+
+.valueDescriptionLabelContainerForUserInfo {
+    gap: 6;
+    vGap: 1;
+	vSeparator: userInfoVSeparator;
+    valueDescriptionLabelWidth: 64; /* 70px (by sketch) - 6px (gap) */
+    activityHeaderTextLabelStyleName: activityHeaderTextLabelForUserInfo;
+    activityHeaderTextValueStyleName: activityHeaderTextValueForUserInfo;
+}
+
+.userInfoVSeparator {
+	strokeColor: #f2f2f2;
+	shadowColor: #cccccc;
+}
+
+.activityHeaderTextValueForUserInfo {
+    fontWeight: bold;
+}
+
+.activityHeaderTextLabelForUserInfo, .activityHeaderTextValueForUserInfo {
+    fontSize: 11;
+}
+
+/* Credentials */
+
+.subscriberInfoUserName {
+    fontWeight: bold;
+}
+
+.subscriberInfoText, .subscriberInfoUserName {
+    color: #333333;
+    fontSize: 12;
+}
+
+.activitySubscriberInfoText {
+    color: #333333;
+    fontSize: 14;
+}
+
+/* LOGIN */
+
+.loginFailedLabel {
+    color: #BD0208;
+    text-align: center;
+}
+
+/* TABLES */
+
+.watchList, .orderList, .positionList, .exposureList, .messageList, .userList, .closedPositionList, .priceAlertsList {
+
+    fontSize: 12;
+    fontWeight: normal;
+    color: #000000;
+
+    contentBackgroundAlpha: 0;
+    borderAlpha: 0;
+    selectionDuration: 0;
+    verticalGridLines: false;
+    horizontalGridLines: false;
+    arrowSize: 9;
+    positiveColor: #009245;
+    negativeColor: #ED1C24;
+
+    selectionColor: #e7e6fa;
+    rollOverColor: #e7e6fa;
+
+    paddingBottom: 0;
+    paddingTop: 0;
+
+    alternatingRowColors: #EAEAEA, #DCDCDC;
+    alternatingRowSeparatorColors: #CBCBCB, #F3F3F3;
+
+    backgroundAlpha: 1;
+
+    rowHeight: 25;
+
+    horizontalGridLines: true;
+
+    headerSeparatorColor: #93b81d;
+    borderVisible: false;
+}
+
+.messageList{
+    hideHeader: true;
+}
+
+.gridHeaderSeparator {
+    separatorColor: #93b81d;
+}
+
+.userList {
+    lowRiskHighlightColor: #FD8A8F;
+    mediumRiskHighlightColor: #FDB8BB;
+}
+
+.orderList {
+    indicatedItemColor: #CCCAE5;
+    liquidationOrderBackgroundColor: #E8D3D4;
+    waitingForClientActionItemColor: #FDB8BB;
+}
+
+.positionList {
+    negativePLBackgroundColor: #E8D3D4;
+}
+
+.priceAlertsList {
+	contentBackgroundAlpha: 1;
+	triggeredBackgroundColor: #E8D3D4;
+}
+
+.listBottomContainer {
+    backgroundColor: #F2F2F2;
+}
+
+.watchListBottomContent {
+    right: 7;
+    left: 7;
+}
+
+.priceAlertsListBottomContent {
+	left: 7;
+	gap: 55;
+	paddingTop: 6;
+	paddingBottom:4;
+	
+}
+
+.priceAlertsNotification {
+	left: 7;
+	gap: 10;
+	fontWeight: bold;
+}
+
+.watchListWindow, .exposureWindow, .middleAndProtectionGroup, .priceAlertsListWindow {
+	separatorColor: #CCCCCC;
+}
+
+.watchListFeedLabel {
+	fontWeight: bold;
+	left: 8;
+	verticalCenter: 0;
+}
+
+.watchListFeedButton {
+	left: 4;
+	right: 4;
+	top: 1;
+	bottom: 1;
+	verticalCenter: 0;
+}
+
+.rowDisabledLabel {
+    color: #525252;
+}
+
+.exposureTotalLabel {
+    color: #333333;
+	left: 6;
+}
+
+.fxBidRenderer {
+    textAlign: right;
+	twoLinesButton: watchListBidValueButton;
+}
+
+.fxAskRenderer {
+    textAlign: right;
+	twoLinesButton: watchListAskValueButton;
+}
+
+.watchListBidValueButton {
+    skinClass: ClassReference("FXSellButtonSkin");
+}
+
+.watchListAskValueButton {
+    skinClass: ClassReference("FXBuyButtonSkin");
+}
+
+.watchListBidValueButton, .watchListAskValueButton {
+    labelsGap: -1;
+    labelStyleName: valueButtonLabel;
+    additionalLabelStyleName: valueButtonValueLabel;
+}
+
+.chartBuySellButtonsPanel {
+    paddingTop: 2;
+}
+
+.chartBidButton {
+    skinClass: ClassReference("FXSellButtonSkin");
+}
+
+.chartAskButton {
+    skinClass: ClassReference("FXBuyButtonSkin");
+}
+
+.chartBidButton, .chartAskButton {
+    labelsGap: -1;
+    labelStyleName: valueButtonLabel;
+    additionalLabelStyleName: valueButtonValueLabel;
+}
+
+.valueButtonLabel {
+    paddingTop: 2;
+    fontSize: 12;
+    fontWeight: bold;
+}
+
+.valueButtonValueLabel {
+    paddingBottom: 1;
+    fontSize: 11;
+}
+
+.rightAlignedListLabel {
+    verticalAlign: middle;
+    textAlign: right;
+}
+
+.centerAlignedListLabel {
+    verticalAlign: middle;
+    textAlign: center;
+}
+
+.centerAlignedListLabel:activeHovered {
+	verticalAlign: top;
+	textAlign: center;
+}
+
+.dealerOrderActionRenderer {
+    gap: 10;
+    verticalAlign: middle;
+    horizontalAlign: center;
+}
+
+.leftAlignedListLabel, .panelSymbolRenderer, .orderId, .positionPanelSymbolRenderer, .userRiskLevel {
+    verticalAlign: middle;
+    textAlign: left;
+}
+
+.stockOrderTypeRenderer {
+    textAlign: center;
+    verticalAlign: middle;
+}
+
+.leftAlignedListLabel, .panelSymbolRenderer, .orderId, .positionPanelSymbolRenderer, .userRiskLevel, .rightAlignedListLabel, .centerAlignedListLabel {
+	paddingTop: 1;
+	paddingBottom: 1;
+	paddingRight: 6;
+	paddingLeft: 6;
+}
+
+.tableHeader {
+    backgroundColorTop: #EAFAB7;
+    backgroundColorBottom: #c7e668;
+    height: 24; /*as in .quoteList .orderList .positionList*/
+}
+
+.dataGridHeader {
+    fontSize: 11;
+    fontWeight: normal;
+    outColor: #37450B;
+    overColor: #0E1103;
+    verticalAlign: middle;
+    headerHeight: 24;
+}
+
+.panelSymbolRenderer {
+    color: #000000;
+}
+
+.positionPanelSymbolRenderer {
+    plCalculatedColor: #597407;
+    plNotCalculatedColor: #FF3232;
+}
+
+.panelExtendedSymbolRenderer {
+    color: #7B7B7E;
+}
+
+/* QUOTES */
+
+.sideLabel: buy {
+    color: #577A29;
+}
+
+.sideLabel: sell {
+    color: #BD0208;
+}
+
+.sideLabel: neutral {
+    color: #222222;
+}
+
+.quoteLabel, .threeStateLabel, .activityHeaderTextValue, .activityHeaderTextValueForUserInfo, .orderEntryTypeLabel {
+    positive: #577A29;
+    negative: #BD0208;
+    unchanged: #222222;
+}
+
+.quoteLabel {
+	textAlign: right;
+}
+
+.quoteBoard {
+    borderAlpha: 0;
+    backgroundAlpha: 0;
+    paddingBottom: 10;
+    paddingTop: 5;
+}
+
+.quotePanel {
+	fontSize: 14;
+}
+
+.symbolPrompt {
+    borderColor: #cccccc;
+    borderAlpha: 1;
+    textStyleName: symbolPromptText;
+}
+
+.symbolPromptText {
+    color: #999999;
+    fontSize: 11;
+}
+
+.symbolSelector {
+    borderColor: #CCCCCC;
+    borderAlpha: 1;
+}
+
+/* ORDERS */
+
+.orderId {
+    fontSize: 11;
+    fontWeight: normal;
+    color: #999999;
+}
+
+.orderStatus {
+    gap: 3;
+    verticalAlign: middle;
+    horizontalAlign: center;
+}
+
+/* POSITION FILTER PANEL */
+.topListPanel {
+    paddingTop: 5;
+    paddingBottom: 5;
+    paddingLeft: 5;
+    paddingRight: 5;
+}
+
+
+/* ORDER FILTER PANEL */
+
+.orderFilterPanel, .fxFilterPanelTop {
+    paddingTop: 5;
+    paddingBottom: 5;
+    paddingLeft: 5;
+    paddingRight: 5;
+    gap: 7;
+    verticalAlign: middle;
+    verticalItemGap: 5;
+}
+
+.fxFilterPanel {
+    gap: 7;
+    verticalAlign: middle;
+    verticalItemGap: 5;
+    showHidePanelStyleName: fxShowHidePanel;
+    filteringComponentStyleName: filteringComponentStyle;
+}
+
+
+.fxShowHidePanel {
+    paddingTop: 2;
+    paddingLeft: 5;
+    gap: 7;
+    verticalAlign: middle;
+}
+
+.filteringComponentStyle {
+    paddingLeft: 5;
+    paddingRight: 5;
+    gap: 7;
+}
+
+.windowUpperPanelButtonGroup {
+    right: 5;
+    top: 2;
+    gap: 7;
+}
+
+
+/* ORDER EDITOR */
+/* new */
+.fxProtectionOrderItem{
+    gap: 4;
+}
+
+.fxLabelWithLock{
+	gap: 2;
+	verticalAlign: middle;
+}
+
+.fxFullOrderEntryStopLoss, .fxPositionFullOrderEntryStopLoss {
+	gap: 10;
+}
+
+.fxPositionFullOrderEntryStopLoss {
+    stopLossStyle: fxPositionOrderEntryStopLoss;
+}
+
+.fxFullOrderEntryStopLoss {
+    stopLossStyle: fxOrderEntryStopLoss;
+}
+
+.fxOrderEntryStopLoss, .fxPositionOrderEntryStopLoss {
+    priceLabelTextDecoration: bold;
+    labelTextAlign: left;
+    priceLabelTextColor: #EC2227;
+	labelWithLock: fxLabelWithLock;
+    gap: 10;
+}
+/*new ended*/
+
+.fxOrderEntryButtonBar {
+    paddingBottom: 8;
+    paddingRight: 8;
+    paddingLeft: 8;
+    paddingTop: 2;
+    gap: 9;
+}
+
+.fxOrderEntryOrderBasedButtonBarInner {
+    paddingBottom: 0;
+    paddingRight: 0;
+    paddingLeft: 0;
+    gap: 8;
+}
+
+.fxOrderEntryButton {
+    fontSize: 16;
+    fontWeight: bold;
+}
+
+.fxOrderEntryCancelButton, .fxPositionPopUpCancelButton {
+    fontWeight: normal;
+}
+
+.fxPositionPopUpCloseButton {
+    skinClass: ClassReference("ButtonWithBorderSkin");
+}
+
+.fxOrderEntryBuyButton {
+    skinClass: ClassReference("BuyButtonSkin");
+}
+
+.fxOrderEntrySellButton {
+    skinClass: ClassReference("SellButtonSkin");
+}
+
+.fxOrderEntryChangeBuyButton {
+    skinClass: ClassReference("ChangeBuyButtonSkin");
+}
+
+.fxOrderEntryChangeSellButton {
+    skinClass: ClassReference("ChangeSellButtonSkin");
+}
+
+.fxOrderEntryClosePositionDescription {
+    fontSize: 12;
+    fontWeight: normal;
+    paddingLeft: 8;
+    enabledColor: #597407;
+    disabledColor: #393939;
+}
+
+.informationWindow {
+    paddingLeft: 40;
+    paddingRight: 40;
+    paddingTop: 25;
+    paddingBottom: 25;
+    verticalAlign: middle;
+    horizontalAlign: center;
+    gap: 20;
+}
+
+.scheduleNotificationNote {
+	color: #F15A24;
+	fontWeight:bold;
+}
+
+.fxSimpleConfirmation {
+    paddingLeft: 40;
+    paddingRight: 40;
+    paddingTop: 25;
+    paddingBottom: 10;
+    gap: 22;
+}
+
+.fxConfirmationDescription {
+    textAlign: center;
+    fontSize: 16;
+    fontWeight: normal;
+}
+
+.windowMessage {
+    textAlign: center;
+    fontSize: 16;
+    fontWeight: bold;
+}
+
+.fxConfirmationButtonGroup {
+    gap: 10;
+    horizontalAlign: center;
+}
+
+.windowButton {
+    fontSize: 16;
+    fontWeight: bold;
+}
+
+.fxOrderEntry {
+    gap: 3;
+    paddingLeft: 0;
+
+    bidAskPanelStyleName: fxBidAskPanelStyle;
+    orderDetailsStyleName: fxOrderDetailsStyle;
+    buttonBarStyleName: fxOriginButtonBarStyle;
+
+}
+
+.fxOrderEntry1 {
+	gap: 3;
+	paddingLeft: 1;
+	paddingRight: 1;
+	paddingBottom: 1;
+	paddingTop: 1;
+}
+
+.fxOrderEntryLineDelimiter {
+    linePaddingRight: 8;
+    linePaddingLeft: 8;
+    lineHeight: 2;
+    lineColor: #cccccc;
+}
+
+.fxOriginButtonBarStyle {
+    fontWeight: bold;
+    fontSize: 14;
+    textAlignLast: center;
+}
+
+.fxOrderDetailsStyle {
+    paddingTop: 0;
+    paddingLeft: 33;
+    gap: 2;
+
+    leftGroupStyleName: fxOrderDetailsLeftGroup;
+    rightGroupStyleName: fxOrderDetailsRightGroup;
+    sellLabelShiftFromRight: 4;
+    leftLabelsHorizontalAlign: right;
+    leftLabelsVerticalAlign: middle;
+    rightLabelsHorizontalAlign: left;
+    switchBuyStyleName: fxOrderDetailsSwitchBuyGroup;
+    errorNotifierStyleName: fxOrderEntryErrorNotifier;
+    sellSideStyleName: fxSellSideLabel;
+    buySideStyleName: fxBuySideLabel;
+}
+
+.fxOrderDetailsLeftGroup {
+    paddingTop: 1;
+    horizontalAlign: right;
+    gap: 5;
+}
+
+.fxOrderDetailsRightGroup {
+    paddingTop: 0;
+    horizontalAlign: left;
+    gap: 4;
+}
+
+.fxOrderDetailsSwitchBuyGroup {
+    paddingLeft: 0;
+    paddingTop: 0;
+    gap: 2;
+}
+
+.fxOrderEntryErrorNotifier {
+    paddingLeft: 0;
+    gap: 5;
+}
+
+.fxSellSideLabel {
+    color: #FF2424;
+}
+
+.fxBuySideLabel {
+    color: #009245;
+}
+
+.fxBidAskPanelStyle {
+    horizontalAlign: center;
+    gap: 91;
+    paddingLeft: 7;
+    paddingTop: 2;
+    paddingBottom: 2;
+    bidLabelStyleName: fxBidLabelStyle;
+    bidLabelSkin: ClassReference("LabelWithLineSkin");
+    askLabelStyleName: fxAskLabelStyle;
+    askLabelSkin: ClassReference("LabelWithLineSkin");
+}
+
+.fxAskLabelStyle {
+    upperLineHeight: 2;
+    lowerLineHeight: 2;
+    arrowWidth: 8;
+    arrowHeight: 4;
+    color: #009245;
+    contentGroupStyleName: fxAskBidContentStyle;
+    labelStyleName: fxAskLabelStyle;
+    labelFontSize: 20;
+    labelFontWeight: bold;
+}
+
+.fxBidLabelStyle {
+    upperLineHeight: 2;
+    lowerLineHeight: 2;
+    arrowWidth: 8;
+    arrowHeight: 4;
+    color: #ED1C24;
+    contentGroupStyleName: fxAskBidContentStyle;
+    labelStyleName: fxBidLabelStyle;
+    labelFontSize: 20;
+    labelFontWeight: bold;
+}
+
+.fxAskBidContentStyle {
+    verticalGap: 2;
+    verticalAlign: middle;
+}
+
+.fxOrderTypeDropDownStyleName {
+    dropDownLabelStyleName: fxOrderTypeDropDownLabel;
+}
+
+.fxOrderTypeDropDownLabel {
+    verticalAlign: middle;
+    maxDisplayedLines: 1;
+    left: 7;
+    right: 22;
+    top: 2;
+    bottom: 2;
+    verticalCenter: 1;
+}
+
+.fxOrderEntryUpperBar {
+    borderVisible: false;
+    borderWeight: 0;
+    backgroundColor: #F2F2F2;
+    gap: 0;
+    paddingBottom: 2;
+    paddingLeft: 8;
+    paddingRight: 8;
+    paddingTop: 2;
+    horizontalAlign: left;
+    typeDropDownStyleName: fxOrderTypeDropDownStyleName;
+}
+
+.fxOrderEntryTopPanel {
+	borderVisible: false;
+	gap: 15;
+	paddingLeft: 5;
+	paddingRight: 5;
+	paddingTop: 10;
+	paddingBottom: 10;
+	verticalAlign: contentJustify;
+}
+
+.fxOrderEntryTopPanel: BUY {
+	backgroundColor: #d6e0ac;
+}
+
+.fxOrderEntryTopPanel: SELL {
+	backgroundColor: #e9d6d9;
+}
+
+.fxOrderEntryCompositeSelector {
+	symbolSelectorStyleName: fxOrderEntrySymbolSelector;
+}
+
+.fxOrderEntrySymbolSelector {
+	fontWeight: bold;
+	fontSize: 16;
+	color: #1A1A1A;
+}
+
+.fxOrderEntryMiddlePanel {
+    paddingLeft: 6;
+	paddingRight: 6;
+    paddingTop: 12;
+    gap: 15;
+}
+
+.middleAndProtectionGroup {
+	gap: 15;
+}
+
+
+
+
+
+windows|ModuleWindow {
+    skin-class: ClassReference("com.devexperts.flexfront.common.gui.skins.ModuleWindowSkin");
+    resizeCursorTopRightBottomLeftXOffset: -10;
+    resizeCursorTopRightBottomLeftYOffset: -10;
+    cornerHandleSize: 10;
+    edgeHandleSize: 10;
+
+    closeCrossSize: 9;
+
+    backgroundColor: #F2F2F2;
+    headerColorFrom: #D9D9D9;
+    headerColorTo: #BDBCC1;
+    insideBorderColor: #CCCCCC;
+    fixedSizeInsideBorderColor: #808080;
+    titleBottomLineColor: #CCCCCC;
+    borderColor: #FFFFFF;
+
+    resizerWeight: 1;
+    resizerColor: #aba9c5;
+
+    titleHeight: 34;
+
+    titleTextStyleName: extendedTitleWindowText;
+    oneClickTradingTitleStyleName: oneClickTradingTitleText;
+    contentStyleName: titleWindowContent;
+}
+
+.newsGroupDateCaption {
+    backgroundColor: #E8F0B9;
+    color: #5F7833;
+    fontSize: 12px;
+    borderVisible: false;
+}
+
+.newsCaption {
+    dateFontSize: 12;
+    dateColor: #5F7833;
+    captionFontSize: 12;
+    captionColor: #000000;
+    visitedColor: #A7A9AC;
+}
+
+.newsCollapseButton {
+    skinClass: ClassReference('ShowHideToggleButtonSkin');
+}
+
+
+
+.priceChooser {
+    paddingTop: 15;
+    paddingBottom: 15;
+    paddingLeft: 15;
+    paddingRight: 15;
+    gap: 15;
+    verticalAlign: bottom;
+    horizontalAlign: right;
+}
+
+.priceChooserButtonBar {
+	paddingRight: 0;
+	gap: 12;
+	verticalAlign: bottom;
+	horizontalAlign: right;
+}
+
+.autoFillIndicator:on {
+    color: #999999;
+}
+
+.autoFillIndicator:off {
+    color: #FF9900;
+}
+
+.messageDescriptionLabel {
+    verticalAlign: middle;
+    verticalCenter: 0;
+}
+
+.messageDescriptionLabel:NORMAL {
+    color: #333333;
+}
+
+.messageDescriptionLabel:WARNING {
+    color: #B9601B;
+}
+
+.messageDescriptionLabel:CRITICAL {
+    color: #BD0208;
+}
+
+.messageDescriptionLabel:NOTIFICATION {
+    color: #0000FF;
+}
+
+.messageTimeLabel {
+    hoursMinutesColor: #333333;
+    secondsColor: #666666;
+    paddingLeft: 7;
+    verticalAlign: middle;
+}
+
+.clearAccountConfirmationContent {
+    gap: 20;
+    top: 20;
+    bottom: 10;
+    left: 16;
+    right: 16;
+}
+
+.clearAccountDescription {
+    gap: 2;
+    fontSize: 12;
+}
+
+.userInfo {
+    userInfoTabBarSkin: ClassReference("UserInfoTabBarSkin");
+    userInfoTabBarStyleName: userInfoTabBar;
+    userInfoTabBarBackgroundColor: #32323D;
+}
+
+.userInfoTabBar {
+
+}
+
+.userInfoClearAccountButton {
+	skinClass: ClassReference("ClearAccountButtonSkin");
+}
+
+.languageSettingBodyGroup {
+    gap: 2;
+    verticalAlign: middle;
+}
+
+.languageSettingButtonGroup {
+    gap: 10;
+    horizontalAlign: right;
+    verticalAlign: bottom;
+}
+
+.acceptAtMarketConfirmation {
+    paddingLeft: 20;
+    paddingRight: 20;
+    paddingTop: 25;
+    paddingBottom: 10;
+    gap: 22;
+}
+
+.acceptAtMarketConfirmationContent {
+    gap: 20;
+    horizontalAlign: center;
+    separatorColor: #51516F;
+}
+
+.acceptAtMarketBidAskPanel {
+    gap: 80;
+    horizontalAlign: center;
+    verticalAlign: middle;
+    askColor: #577A29;
+    bidColor: #BD0208;
+    bidAskFontWeight: bold;
+    bidAskFontSize: 18;
+}
+
+.acceptAtMarketDescriptionLabel {
+    mainFontSize: 16;
+	textAlign: center;
+    proposedPriceColor: #333333;
+    proposedPriceFontWeight: bold;
+    proposedPriceFontSize: 18;
+}
+
+.acceptAtMarketTimerPanel {
+    gap: 10;
+    horizontalAlign: center;
+    verticalAlign: middle;
+    labelFontSize: 16;
+}
+
+.acceptAtMarketTimerContainer {
+    borderVisible: false;
+    borderWeight: 0;
+    backgroundColor: #F2F2F2;
+    cornerRadius: 4;
+}
+
+.acceptAtMarketTimerLabel {
+    fontSize: 18;
+    fontWeight: bold;
+    textAlign: center;
+    paddingTop: 3;
+    paddingBottom: 3;
+}
+
+/*Price Manager*/
+
+.priceManagerPanel {
+    left: 10;
+    right: 10;
+    top: 10;
+    bottom: 10;
+}
+
+.priceManagerRadioContent {
+    cornerRadius: 5;
+    borderVisible: true;
+    paddingBottom: 10;
+    paddingTop: 5;
+    paddingLeft: 5;
+    paddingRight: 5;
+    borderColor: #8583AF;
+}
+
+.priceManagerRadioContent: borderContainerNormal {
+    backgroundColor: #E0E0E0;
+    borderAlpha: 0;
+}
+
+.priceManagerRadioContent: borderContainerSelected {
+    backgroundColor: #F9F9FF;
+    borderAlpha: 1;
+}
+
+.priceManagerRadioContent: borderContainerOver {
+    backgroundColor: #EBEBEB;
+    borderAlpha: 1;
+}
+
+.priceManagerFeedsControl {
+    left: 65;
+}
+
+.priceManagerInstrumentPanelBid {
+    left: 145;
+}
+
+.priceManagerBid {
+    left: 140;
+}
+
+.priceManagerBidNumericStepper {
+    left: 110;
+}
+
+.priceManagerBidNumericStepper #textDisplay{
+    color: #BD0208;
+    fontSize: 14;
+    fontWeight: bold;
+}
+
+.priceManagerOffset {
+    left: 0;
+}
+
+.priceManagerOffsetLabel {
+    left:20;
+}
+
+.priceManagerSpread {
+    left: 220;
+}
+
+.priceManagerSpreadLabel {
+    left: 240;
+}
+
+.priceManagerInstrumentPanelAsk {
+    left: 345;
+}
+
+.priceManagerAsk {
+    right: 5;
+}
+
+.priceManagerInstrumentPanelPrice {
+    fontSize: 16;
+    fontWeight: bold;
+}
+
+.priceManagerPriceLabel {
+    fontSize: 14;
+    fontWeight: bold;
+}
+
+.priceManagerAskLabel {
+    left: 340;
+}
+
+.priceManagerAskNumericStepper {
+    left: 330;
+}
+
+.priceManagerBidShiftNumericStepper {
+    left: 130;
+}
+
+.alarmNotificationSettingContentsGroup {
+    gap: 30;
+}
+
+.alarmNotificationSettingClientAreaGroup {
+    gap: 30;
+    paddingLeft: 10;
+    paddingRight: 10;
+    paddingTop: 10;
+    paddingBootom: 10;
+}
+
+.alarmNotificationSettingOptionsGroup {
+    gap: 10;
+    horizontalAlign: right;
+    verticalAlign: bottom;
+}
+
+.alarmNotificationSettingContactsGroup {
+    gap: 10;
+}
+
+.alarmNotificationSettingTextFieldGroup {
+    gap: 10;
+    horizontalAlign: right;
+    verticalAlign: middle;
+}
+
+.alarmNotificationSettingButtonGroup {
+    gap: 10;
+    horizontalAlign: right;
+    verticalAlign: bottom;
+}
+
+.checkBoxWithLabel {
+    gap : 10;
+    horizontalAlign: center;
+    paddingBottom : 3;
+    labelColor: #6E8A3A;
+}
+
+.bottomAlignedVGroup {
+    verticalAlign: bottom;
+    paddingBottom: 6;
+}
+
+.newPriceAlertLabel {
+    color: #6E8A3A;
+    horizontalAlign: center;
+    textAlign: center;
+    verticalAlign: middle;
+}
+
+.newPriceAlertPanel {
+    paddingLeft: 6;
+    paddingTop: 10;
+    paddingRight: 6;
+    gap: 10;
+    horizontalAlign: center;
+}
+
+.newPriceAlertText {
+    paddingTop: 9;
+}

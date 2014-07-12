@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer focusEnabled="false" 
+				xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark"
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				xmlns:validators="components.validators.*"
+				autoDrawBackground="false">
+	<fx:Script>
+		<![CDATA[
+			import events.InputChangeEvent;
+			import vo.AnswerVariant;
+			
+			import mx.events.ValidationResultEvent;
+
+			public static function get answersCount() : int {
+				return RankValidator.answersCount;
+			}
+			
+			public static function get invalidAnswerNumber() : int {
+				return RankValidator.invalidAnswerNumber;
+			}
+			
+			public static function get breachContinuity() : Boolean {
+				return RankValidator.breachContinuity;
+			}
+			
+			public static function reset() : void {
+				RankValidator.reset(AnswerVariant.MaxRank, AnswerVariant.IsRankQuestion);
+			}
+			
+			public static function areSymbolValid(itemIndex : int) : Boolean {
+				return RankValidator.areSymbolValid(itemIndex);
+			}
+/* removedFromStage="removeHandler()"			itemValue="{data.Value}"
+			private function removeHandler() : void {
+				this.data.Value = rateNumber.text;
+			}
+*/			
+			[Bindable]
+			private var answer : AnswerVariant;
+			
+			override public function set data(value : Object) : void {
+				answer = value as AnswerVariant;
+				rankValidator.validate();
+			}
+
+			private function validHandler(event : ValidationResultEvent):void {
+				if (AnswerVariant.IsRankQuestion)
+					dispatchEvent(new InputChangeEvent(InputChangeEvent.INPUT_CHANGHED, itemIndex, rateNumber.text));
+			}
+/* 			 invalid="invalidHandler(event)"
+			private function invalidHandler(event : ValidationResultEvent):void {
+				rateNumber.text = parentDocument.parentDocument.excludeSymbols[itemIndex]
+				trace(parentDocument.parentDocument.excludeSymbols)
+			} 
+			isRanked="{isRanked}" 	excludeSymbols="{parentDocument.parentDocument.excludeSymbols}"		maxToRank="{AnswerVariant.MaxRank}"
+*/
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<validators:RankValidator id="rankValidator"
+				source="{rateNumber}" property="text"
+				itemIndex="{itemIndex}"
+				triggerEvent=""
+				required="false"
+				valid="validHandler(event);" />
+	</fx:Declarations>
+<!--
+	changing="invalidHandler(event)"
+	change="textChangeHandler(event)"
+	
+	restrict="1-{AnswerVariant.MaxRank} ^{parentDocument.parentDocument.excludeSymbols}"
+-->
+	<s:HGroup verticalAlign="middle" verticalCenter="0" left="3" right="3"
+			  top="0" bottom="0" fontSize="14">
+		<s:TextInput id="rateNumber" maxChars="1" width="20" text="@{answer.Value}" />
+		
+		<s:Label text="{answer.AnswerText}" />
+	</s:HGroup>
+	
+</s:ItemRenderer>

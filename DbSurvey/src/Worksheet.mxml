@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app:ApplicationBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:app="*"
+			   xmlns:components="components.*"
+			   xmlns:editor="components.editor.*"
+			   pageTitle="Опрос">
+	
+	<!-- http://blog.flexexamples.com/2007/11/25/adding-custom-labels-to-a-flex-columnchart-controls-column-series/ -->	
+	
+	<fx:Script>
+		<![CDATA[
+		import mx.charts.ChartItem;
+		import mx.charts.HitData;
+		import mx.charts.chartClasses.IAxis;
+		import mx.charts.chartClasses.Series;
+		import mx.charts.series.ColumnSet;
+		import mx.charts.series.items.ColumnSeriesItem;
+		import mx.utils.StringUtil;
+		
+		private function linearAxis_labelFunc(item:Object, prevValue:Object, axis:IAxis):String {
+		return numberFormatter.format(item);
+		}
+		
+		private function columnChart_dataTipFunc(item:HitData):String {
+		var cSI:ColumnSeriesItem = item.chartItem as ColumnSeriesItem;
+		var col:String = ColumnSeries(item.element).yField;
+		return StringUtil.substitute("<b>{0}</b><br>{1}: {2}", cSI.item.name, col, numberFormatter.format(cSI.item[col]));
+		}
+		
+		private function columnSeries_labelFunc(chartItem:ChartItem, series:Series):String {
+		var col:String = ColumnSeries(chartItem.element).yField;
+		return numberFormatter.format(chartItem.item[col]);
+		}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<mx:NumberFormatter id="numberFormatter" precision="3" />
+		
+		<fx:Array id="arr">
+			<fx:Object name="R Winn" obp=".353" slg=".445" avg=".300" />
+			<fx:Object name="P Feliz" obp=".290" slg=".418" avg=".253" />
+			<fx:Object name="O Vizquel" obp=".305" slg=".316" avg=".246" />
+			<fx:Object name="B Molina" obp=".298" slg=".433" avg=".276" />
+			<fx:Object name="R Durham" obp=".295" slg=".343" avg=".218" />
+		</fx:Array>
+	</fx:Declarations>
+	
+	
+	<mx:ApplicationControlBar dock="true">
+		<mx:Legend dataProvider="{columnChart}" direction="horizontal" />
+	</mx:ApplicationControlBar>
+	
+	<mx:ColumnChart id="columnChart"
+					showDataTips="true"
+					dataProvider="{arr}"
+					dataTipFunction="columnChart_dataTipFunc"
+					columnWidthRatio="0.9"
+					type="stacked"
+					width="100%"
+					height="100%">
+		
+		<mx:horizontalAxis>
+			<mx:CategoryAxis id="ca" categoryField="name" />
+		</mx:horizontalAxis>
+		
+		<mx:verticalAxis>
+			<mx:LinearAxis labelFunction="linearAxis_labelFunc" />
+		</mx:verticalAxis>
+		
+		<mx:horizontalAxisRenderers>
+			<mx:AxisRenderer axis="{ca}" />
+		</mx:horizontalAxisRenderers>
+		
+		<mx:series>
+			<mx:ColumnSeries id="avgSeries"
+							 xField="name"
+							 yField="avg"
+							 displayName="Batting Average (AVG)"
+							 labelPosition="inside"
+							 labelFunction="columnSeries_labelFunc" />
+			
+			<mx:ColumnSeries id="obpSeries"
+							 xField="name"
+							 yField="obp"
+							 displayName="On-base Percentage (OBP)"
+							 labelPosition="inside"
+							 labelFunction="columnSeries_labelFunc" />
+			
+			<mx:ColumnSeries id="slgSeries"
+							 xField="name"
+							 yField="slg"
+							 displayName="Slugging Percentage (SLG)"
+							 labelPosition="inside"
+							 labelFunction="columnSeries_labelFunc" />
+		</mx:series>
+		
+		<mx:seriesFilters>
+			<fx:Array />
+		</mx:seriesFilters>
+		
+	</mx:ColumnChart>
+
+<!--	
+	<fx:Script>
+		<![CDATA[
+			import events.QuestionEvent;
+			
+			import mx.events.FlexEvent;
+			import mx.managers.BrowserManager;
+			import mx.managers.IBrowserManager;
+			
+			override protected function initializeHandler() : void {
+				super.initializeHandler();
+				var browserManager : IBrowserManager = BrowserManager.getInstance();
+				if (parameters.test == 1)
+					styleManager.loadStyleDeclarations("assets/style.swf", true);
+				else {
+					currentState = "designer";
+					BrowserManager.getInstance().setTitle("Конструктор опросов");
+					styleManager.loadStyleDeclarations("assets/design.swf", true);
+					dispatchEvent(new QuestionEvent(QuestionEvent.GET_ALL_QUESTIONS, 0));
+				}
+			}
+		]]>
+	</fx:Script>
+
+	<app:states> 
+		<s:State name="survey"/> 
+		<s:State name="designer"/>
+	</app:states>
+	
+	<components:Questionnaire  width="100%" height="100%"
+							   dataStorage="{dataStorage}"
+							   includeIn="survey" />
+	
+	<editor:Editor width="100%" height="100%"
+				   dataStorage="{dataStorage}"
+				   includeIn="designer" />
+-->
+</app:ApplicationBase>

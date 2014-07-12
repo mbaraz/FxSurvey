@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:GridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				width="100%">
+
+	<fx:Script>
+		<![CDATA[
+			import data.storages.AnswerStorage;
+			
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.formats.LineBreak;
+			import spark.components.RichEditableText;
+
+			private static var _answerStorage : AnswerStorage;
+			
+			public static function set answerStorage(value : AnswerStorage) : void {
+				_answerStorage = value;
+			}
+
+			private function init() : void {
+				(questionInput.textDisplay as RichEditableText).setStyle('lineBreak', LineBreak.TO_FIT);
+				questionInput.textDisplay.multiline = true;
+			}
+		
+			private function updateTextAndAnswers() : void {
+				var arr : Array =  this.data.parseText(questionInput.text);
+				_answerStorage.addVariantsAt(arr, rowIndex);
+			}
+		]]>
+	</fx:Script>
+
+	<s:RichText width="100%" left="2" right="2" verticalCenter="0"
+				textFlow="{TextConverter.importToFlow(data.QuestionText, TextConverter.TEXT_FIELD_HTML_FORMAT)}" />
+
+	<s:TextInput id="questionInput" width="100%" height="100%" minHeight="60"
+				 text="{data.QuestionText}"
+				 visible="{data.isSelected}" includeInLayout="{data.isSelected}"
+				 focusOut="{updateTextAndAnswers()}"
+				 creationComplete="init();"/>
+</s:GridItemRenderer>

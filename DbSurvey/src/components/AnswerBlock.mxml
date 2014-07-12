@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup  xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:mx="library://ns.adobe.com/flex/mx"
+			 xmlns:components="components.*"
+			 gap="18" paddingRight="10" paddingBottom="10"
+			 click="{stopAnim()}">
+
+	<fx:Script>
+		<![CDATA[
+			import components.answers.*;
+			import vo.AnswerVariant;
+			
+			import mx.collections.IList;
+			import mx.events.FlexEvent;
+			import spark.core.NavigationUnit;
+
+			private var _questionSubitems : IList;
+			
+			public function set questionSubitems(value : IList) : void {trace("set questionSubitems")
+				_questionSubitems = value;
+			}
+
+			[Bindable]
+			private var answerElement : IAnswer;
+
+			public function set variants(value : IList) : void {trace("set variants\n-------------------")
+ 				if (!value) {
+					if (numChildren > 1) removeElementAt(numChildren - 1);
+					instruction.visible = false;
+					return;
+				}	//	brief="{makeInstruction(answerElement.instruction, answerElement.variants.length, AnswerVariant.MultipleAnswerAllowed, AnswerVariant.MinAnswers, AnswerVariant.MaxAnswers, AnswerVariant.MinRank, AnswerVariant.MaxRank)}"
+				updateChildrens();
+				answerElement.variants = value;
+				addElement(answerElement);
+				answerElement.percentWidth = 100;
+				instruction.brief = answerElement.instruction;
+				instruction.visible = true;
+			}
+
+			public function updateProperties(subitems : IList, answerVariants : IList) : void {
+				questionSubitems = subitems;
+				variants = answerVariants;
+			}
+			
+			internal function trySaveAnswers() : Boolean {
+				return answerElement ? answerElement.trySaveAnswers() : true;
+			}
+
+			private function updateChildrens() : void {
+ 				if (numChildren > 1)
+					removeElementAt(numChildren - 1);
+
+				switch(AnswerVariant.QuestionType) {
+					case "Simple": {
+						answerElement = new SimpleAnswer();
+						break;
+					}
+					case "Summed": {
+						answerElement = new SummedAnswer();
+						break;
+					}
+					case "RadioRank" :
+					case "SliderRank" : {
+						answerElement = new RankAnswer();
+						break;
+					}
+					case "Ranking":
+					case "Rating": {
+						answerElement = new RatingAnswer();
+						break;
+					}
+					case "DragRank": {
+						answerElement = new DragRankAnswer();
+						break;
+					}
+					case "RadioGrid" :
+					case "SliderGrid" :
+						answerElement = new GridAnswer();
+						(answerElement as GridAnswer).subitems = _questionSubitems;
+				}
+				answerElement.addEventListener(FlexEvent.CREATION_COMPLETE, startAnim)
+			}
+
+			private function scrollToThere(dir:uint):void {
+				var value:Number = getVerticalScrollPositionDelta(dir);
+				if (value != 0 && !seq.isPlaying) {
+					pth1.valueBy = value;
+					pth2.valueBy = -value;
+					anim2.duration = value * 20;
+					seq.play();
+				}
+			}
+			
+			private function startAnim(e :FlexEvent):void {
+				scrollToThere(NavigationUnit.PAGE_DOWN);
+			}
+			
+			private function stopAnim():void {
+				if (seq.isPlaying)
+					seq.stop()
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Sequence id="seq">
+			<s:Animate id="animat" target="{this}" duration="500" >
+				<s:motionPaths>
+					<s:SimpleMotionPath id="pth1" property="verticalScrollPosition" />
+				</s:motionPaths>
+			</s:Animate>
+		
+			<s:Animate id="anim2" target="{this}">
+				<s:motionPaths>
+					<s:SimpleMotionPath id="pth2" property="verticalScrollPosition" />
+				</s:motionPaths>
+			</s:Animate>
+		</s:Sequence>
+	</fx:Declarations>
+	
+	<components:Instruction id="instruction" visible="false" />
+</s:VGroup>

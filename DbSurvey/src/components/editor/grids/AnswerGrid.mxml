@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grids:DataGridBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:grids="components.editor.grids.*"
+			dataProvider="{_answerStorage.currentVariants}">
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.events.GridSelectionEvent;
+			
+			import vo.AnswerVariant;
+			import vo.QuestionTypes;
+			
+			private var _filterList : ArrayList;
+			
+			[Bindable]
+			public function get filterList() : ArrayList {
+				return _filterList;
+			}
+			
+			public function set filterList(value : ArrayList) :void {
+				value.addItemAt("Нет", 0);
+				_filterList = value;
+			}
+			
+			private function isOpenEnabled(questionType : String) : Boolean {
+				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+				return type.isPluralityEnabled;
+			}
+			
+			private function isExcludingEnabled(questionType : String, multipleAnswerAllowed : Boolean) : Boolean {
+				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+				return multipleAnswerAllowed && type.canHaveExclude;
+			}
+ 			
+			override protected function selectionHandler(event : GridSelectionEvent) : void {
+//				_answerStorage.selectVariant(event.selectionChange.rowIndex);
+			}
+		]]>
+	</fx:Script>
+
+	<grids:columns>
+		<s:ArrayList>
+			<s:GridColumn headerText="#" dataField="order" width="32" editable="false"
+						  headerRenderer="{headerRendererSmall}" />
+			
+			<s:GridColumn headerText="Текст ответа" dataField="AnswerText" />
+			
+			<s:GridColumn headerText="Откры-тый" dataField="IsOpenAnswer"
+						  width="46" sortable="false" resizable="false" editable="false"
+						  visible="{isOpenEnabled(AnswerVariant.QuestionType)}"
+						  itemRenderer="components.editor.grids.renderers.CheckBoxRenderer"
+						  headerRenderer="{headerRendererSmall}" />
+
+			<s:GridColumn headerText="Число" dataField="IsNumeric"
+						  width="43" sortable="false" resizable="false" editable="false"
+						  visible="{isOpenEnabled(AnswerVariant.QuestionType)}"
+						  itemRenderer="{checkBoxRenderer}"
+						  headerRenderer="{headerRendererSmall}" />
+
+			<s:GridColumn headerText="Кол-во симв." dataField="SymbolCount"
+						  width="46" sortable="false" resizable="false" editable="false"
+						  visible="{isOpenEnabled(AnswerVariant.QuestionType)}"
+						  itemRenderer="components.editor.grids.renderers.NumericStepperRenderer"
+						  headerRenderer="{headerRendererSmall}" />
+			
+			<s:GridColumn headerText="Код" dataField="TagValue"
+						  width="42" resizable="false" editable="false"
+						  itemRenderer="components.editor.grids.renderers.NumericStepperRenderer"
+						  visible="{AnswerVariant.hasBoundTag}"
+						  headerRenderer="{headerRendererSmall}" />
+<!--			
+			<s:GridColumn headerText="Фильтр" dataField="TagValue"
+						  width="50" sortable="false" resizable="false"
+						  visible="{AnswerVariant.isFiltered}"
+						  headerRenderer="{headerRendererSmall}">
+				<s:itemEditor>
+					<fx:Component>
+						<s:ComboBoxGridItemEditor dataProvider="{outerDocument.filterList}" />
+					</fx:Component>
+				</s:itemEditor>
+			</s:GridColumn>
+-->			
+			<s:GridColumn headerText="Не дви-гать" dataField="IsUnmoved"
+						  width="50" sortable="false" resizable="false" editable="false"
+						  visible="{!AnswerVariant.isStandartOrder}"
+						  itemRenderer="{checkBoxRenderer}"
+						  headerRenderer="{headerRendererSmall}" />
+			
+			<s:GridColumn headerText="Исклю-чающий" dataField="IsExcludingAnswer"
+						  width="54" sortable="false" resizable="false" editable="false"
+						  visible="{isExcludingEnabled(AnswerVariant.QuestionType, AnswerVariant.MultipleAnswerAllowed)}"
+						  itemRenderer="components.editor.grids.renderers.CheckBoxRenderer"
+						  headerRenderer="{headerRendererSmall}" />
+		</s:ArrayList>
+	</grids:columns>
+			
+</grids:DataGridBase>

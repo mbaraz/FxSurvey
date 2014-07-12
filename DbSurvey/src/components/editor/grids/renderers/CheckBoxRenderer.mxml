@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<renderers:BaseGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:renderers="components.editor.grids.renderers.*"
+		width="100%">
+	
+	<fx:Script>
+		<![CDATA[
+			import events.TagEvent;
+			import vo.AnswerVariant;
+			import vo.QuestionTypes;
+			import vo.SurveyQuestion;
+			
+			[Bindable]
+			private var value : Boolean;
+
+			override public function set data(value : Object) : void {
+				if (!value)
+					return;
+				super.data = value;
+				if (value is SurveyQuestion) {
+					if (isSubSpecific) {
+						super.data = value;
+						cb.enabled = true;
+					} else
+						setPluralEnabled(value.QuestionType);
+				} else
+					cb.enabled = (column.dataField.indexOf("IsNumeric") > -1) ? value.IsOpenAnswer && AnswerVariant.Type.isPluralityEnabled : isEnabled(AnswerVariant.QuestionType, AnswerVariant.MultipleAnswerAllowed);
+
+				if (data)
+					this.value = data[column.dataField];
+			}
+			
+			private function changeHandler() : void {
+				if (isSubSpecific) {
+//					dispatchEvent(new TagEvent(TagEvent.TAG_CHANGED, value ? question.QuestionOrder : 0, value ? 0 : question.QuestionOrder));
+					dispatchEvent(new TagEvent(value ? TagEvent.TAG_ADDED : TagEvent.TAG_REMOVED));	//	, value ? question.BoundTagId : 0, value ? 0 : question.BoundTagId));
+					return;	
+				}
+				data[column.dataField] = value;
+				if (column.dataField.indexOf("MultipleAnswerAllowed") > -1)
+					dispatchEvent(new Event(SurveyQuestion.PLURALITY_CHANGED_EVENT, true));
+/* 				else if (isSubSpecific)
+					dispatchEvent(new TagEvent(TagEvent.TAG_CHANGED, value ? question.QuestionOrder : 0, value ? 0 : question.QuestionOrder)); */
+			}
+			
+			private function setPluralEnabled(type : String) : void {
+				cb.enabled = QuestionTypes.getTypeByName(type).isPluralityEnabled;
+			}
+
+			private function isEnabled(questionType : String, multipleAnswerAllowed : Boolean) : Boolean {
+				var result : Boolean = true;
+				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+				if (!column)
+					return false;
+				
+ 				if (column.dataField.indexOf("IsExcludingAnswer") > -1)
+					result = multipleAnswerAllowed && type.canHaveExclude;
+				else if (column.dataField.indexOf("IsOpenAnswer") > -1)
+					result = type.isPluralityEnabled;
+
+				return result;
+			}
+		]]>
+	</fx:Script>
+
+	<s:VGroup width="100%" height="100%"
+			  horizontalAlign="center" verticalAlign="middle">
+		
+		<s:CheckBox id="cb" selected="@{value}" change="changeHandler()"
+					enabled="{isEnabled(AnswerVariant.QuestionType, AnswerVariant.MultipleAnswerAllowed)}" />
+		
+	</s:VGroup>
+</renderers:BaseGridItemRenderer>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<renderers:BaseGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:renderers="components.editor.grids.renderers.*"
+		width="100%"> 
+
+	<fx:Script>
+		<![CDATA[
+			import vo.AnswerVariant;
+			import vo.SurveyQuestion;
+			
+			private static const DEFAULT_QUESTION_VALUE : int = 0;
+			private static const DEFAULT_ANSWER_VALUE : int = 60;
+			private static const DEFAULT_NUMERIC_VALUE : int = 4;
+			
+			[Bindable]
+			private var value : int;
+			
+			private var isQuestionNS : Boolean;
+			
+			override public function set data(value : Object) : void {
+				if (value is SurveyQuestion) {
+					isQuestionNS = true;
+					super.data = value;
+					if (column.dataField.indexOf("Answers") > -1) {
+						stepper.minimum = column.dataField == "MinAnswers" ? SurveyQuestion.Default_Min_Answers : Math.max(question.MinAnswers, SurveyQuestion.Default_Min_Answers);
+						stepper.maximum = column.dataField == "MinAnswers" ? Math.max(question.MaxAnswers, SurveyQuestion.Default_Min_Answers) : SurveyQuestion.Default_Max_Answers;
+						stepper.enabled = question.MultipleAnswerAllowed;
+					} else {
+						switch(question.QuestionType) {
+							case "Ranking":
+							case "Rating" :
+							case "RadioRank" :
+							case "SliderRank" : {
+								stepper.enabled = true;
+								stepper.minimum = column.dataField == "MinRank" ? -SurveyQuestion.Default_Max_Rank : Math.max(question.MinRank, -SurveyQuestion.Default_Max_Rank);
+								stepper.maximum = column.dataField == "MinRank" ? Math.max(question.MaxAnswers, -SurveyQuestion.Default_Max_Rank) : SurveyQuestion.Default_Max_Rank;
+								break;
+							} 
+							default :
+								stepper.enabled = false;
+						}
+					}
+				} else {
+					isQuestionNS = false;
+					if (value && column.dataField.indexOf("SymbolCount") > -1) {
+						stepper.maximum = value.IsNumeric ?  DEFAULT_NUMERIC_VALUE : DEFAULT_ANSWER_VALUE;
+						stepper.enabled = value.IsOpenAnswer && !AnswerVariant.Type.isPluralOnly;
+					} else if (value && column.dataField.indexOf("TagValue") > -1) {
+						stepper.minimum = -1;
+						stepper.maximum = 99;
+					}
+				}
+				
+				super.data = value;
+				
+				if (value)
+					this.value =  Math.min(value[column.dataField], stepper.maximum);
+				if (!this.value)
+					this.value = isQuestionNS ? DEFAULT_QUESTION_VALUE : DEFAULT_ANSWER_VALUE;
+				if (data)
+					changeHandler();
+			}
+
+			private function changeHandler() : void {
+				data[column.dataField] = value;
+			}
+		]]>
+	</fx:Script>
+	
+	<s:VGroup width="100%" height="100%"
+			  horizontalAlign="center" verticalAlign="middle">
+		
+		<s:NumericStepper id="stepper" value="@{value}"
+					width="40" maxChars="2"
+					minimum="0" maximum="12"
+					change="changeHandler()" />
+		
+	</s:VGroup>
+</renderers:BaseGridItemRenderer>

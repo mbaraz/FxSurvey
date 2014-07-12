@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ViewStack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			  xmlns:s="library://ns.adobe.com/flex/spark"
+			  xmlns:editor="components.editor.*"
+			  xmlns:mx="library://ns.adobe.com/flex/mx"
+			  creationComplete="init()">
+	
+	<fx:Script>
+		<![CDATA[
+			import data.DataStorage;
+
+			[Bindable]
+			public var dataStorage : DataStorage;
+
+			private function init() : void {
+				qEditor.dataStorage = dataStorage;
+//				aEditor.dataStorage = dataStorage;
+			}
+//  creationPolicy="all"		
+		]]>
+	</fx:Script>
+	
+	<editor:QuestionsEditor id="qEditor"
+				height="100%" width="100%"
+				selectedViewIndex="@{selectedIndex}" />
+<!--	
+	<editor:AnswersEditor id="aEditor"
+				  height="100%" width="100%"
+				  selectedQuestionIndex="{qEditor.dg.selectedIndex}"
+				  selectedViewIndex="@{selectedIndex}" />-->
+</mx:ViewStack>

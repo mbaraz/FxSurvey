@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<renderers:TagRendererBase xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:renderers="components.editor.grids.renderers.*"
+		xmlns:ui="components.editor.grids.renderers.ui.*">
+
+	<fx:Script>
+		<![CDATA[
+			override protected function updateDisplayList(unscaledWidth : Number, unscaledHeight : Number) : void {
+				if (question && question.isSelected)
+					conditionEditor.makeItems(question.order - 1);
+
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+
+			override protected  function makeText() : String {
+				var condition : String = _questionStorage.makeConditionText(question);
+				return condition ? normalize(condition) : "Всегда задавать";
+			}
+
+			private function normalize(str : String) : String {
+				var arr : Array = str.split(" ");
+				if (arr.length <= 7)
+					return str;
+				for (var i : int = 6; i< arr.length - 1; i += 4) {
+					arr[i] += (i - 6) % 8 ? ")" : ")\n";
+					arr[0] = "(" + arr[0];
+				}
+				return arr.join(" ");
+			}
+		]]>
+	</fx:Script>
+
+	<s:Label width="100%" top="2" left="2" right="4" textAlign="right"
+				text="{tagText}"
+				styleName="tagLabel"
+				visible="{!question.isSelected}" />
+
+	<ui:ConditionEditor id="conditionEditor" width="100%"
+						visible="{question.isSelected}"
+						includeInLayout="{question.isSelected}"
+						conditionsArray="{data.tagCondition.expressionsArray}" />
+</renderers:TagRendererBase>

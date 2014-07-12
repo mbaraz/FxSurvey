@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				autoDrawBackground="false"
+				initialize="init()">
+	<fx:Script>
+		<![CDATA[
+			import components.renderers.controls.RadioButtons;
+			import mx.controls.RadioButtonGroup;
+			
+			import vo.AnswerVariant;
+
+			[Bindable]
+			public static var isInGrid : Boolean;
+			
+			private function init() : void {
+				btn.group = (parent as RadioButtons).rankGroup;
+			}
+//  labelPlacement="top"
+			
+		]]>
+	</fx:Script>
+	
+	<mx:RadioButton id="btn"
+				   value="{data}" 
+				   label="{isInGrid ? '' : data}"
+				   maxWidth="50" />
+</s:ItemRenderer>

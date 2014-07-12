@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  verticalAlign="middle"
+		  width="100%" height="30" paddingRight="4">
+	
+	<fx:Script>	<![CDATA[
+		import data.DataStorage;
+		import events.QuestionEvent;
+		import vo.AnswerVariant;
+		import vo.QuestionTypes;
+		import vo.SurveyQuestion;
+
+		import mx.collections.ArrayCollection;
+
+		[Bindable]
+		private var _collection : ArrayCollection = new ArrayCollection();
+		
+		public function set collection(value : ArrayCollection) : void {
+			_collection = value;
+			selectedIndex = -1;
+		}
+		
+		[Bindable]
+		private var _canAdd : Boolean = true;
+		
+		public function set canAdd(value : Boolean) : void {
+			_canAdd = value;
+		}
+		
+		[Bindable]
+		private var _questionType : String;
+		
+		public function set questionType(value : String) : void {
+			_questionType = value;
+		}
+
+		private var _storage : DataStorage;
+		
+		public function set storage(value : DataStorage) : void {
+			_storage = value;
+		}
+
+		[Bindable]
+		public var selectedIndex : int;
+
+		[Bindable]
+		public var selectedViewIndex : int;
+		
+		private function addHandler() : void {
+			if (currentState == "questions")
+				_storage.addNewQuestion();
+			else
+				_storage.addNewVariant();
+		}
+		
+		private function deleteHandler() : void {
+			if (currentState == "questions")
+				_storage.removeCurrentQuestion();
+			else
+				_storage.removeCurrentVariant();
+			
+			if (selectedIndex == _collection.length)
+				selectedIndex--;
+		}
+		
+		private function downHandler() : void {
+			var isIndexIncreased : Boolean = true;
+			if (currentState == "questions")
+				isIndexIncreased = _storage.swapQuestions(false)
+			else
+				_storage.swapVariants(false);
+			
+			if (isIndexIncreased)
+				selectedIndex++;
+		}
+		
+		private function upHandler() : void {
+			var isIndexDecreased : Boolean = true;
+			if (currentState == "questions")
+				isIndexDecreased = _storage.swapQuestions(true)
+			else
+				_storage.swapVariants(true);
+			
+			if (isIndexDecreased)
+				selectedIndex--;
+		}
+		
+		private function saveHandler() : void {
+			dispatchEvent(new QuestionEvent(QuestionEvent.SAVE_ALL_QUESTIONS));
+		}
+		
+		private function testHandler() : void {
+			dispatchEvent(new QuestionEvent(QuestionEvent.TEST_FROM_QUESTION, _storage.questionStorage.currentQuestion ? _storage.questionStorage.currentQuestion.order : 1));
+		}
+		
+		private function isAddEnabled(canAdd : Boolean, questionType : String, isCollectionEmpty : Boolean) : Boolean {
+			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+			if (!type.hasNoAnswers)
+				return canAdd;
+			
+			if (!isCollectionEmpty)
+				return false;
+			
+			return canAdd;
+		}
+		
+		private function isDownEnabled(selectedIndex : int, questionType : String, length : int) : Boolean {
+			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+			if (currentState == "questions" && type.isGridType && _collection.getItemAt(selectedIndex).subitemIndex > 0)
+				return _collection.getItemAt(selectedIndex).subitemIndex < _collection.getItemAt(selectedIndex).subitems.length;
+			
+			return selectedIndex != -1 && selectedIndex < length - 1;
+		}
+		
+		private function isUpEnabled(selectedIndex : int, questionType : String, length : int) : Boolean {
+			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+			if (currentState == "questions" && type.isGridType && _collection.getItemAt(selectedIndex).subitemIndex > 0)
+				return _collection.getItemAt(selectedIndex).subitemIndex > 1;
+			
+			return selectedIndex > 0;
+		}
+	]]>
+	</fx:Script>
+	
+	<s:states> 
+		<s:State name="questions"/> 
+		<s:State name="answers"/>
+	</s:states>
+
+	<s:Spacer width="100%"/>
+	<mx:VRule strokeWidth="2" height="24"/>
+	
+	<s:Button label="Назад" icon="@Embed('../assets/images/editor/left_16x16.gif')"
+			  click="selectedViewIndex=0" excludeFrom="questions"
+			  visible="{selectedViewIndex==1}" includeInLayout="{selectedViewIndex==1}" />
+	
+	<s:Button label="Добавить" icon="@Embed('../assets/images/editor/add_16x16.gif')"
+			  enabled.answers="{isAddEnabled(_canAdd, _questionType, _collection.length == 0)}"
+			  click="addHandler()"
+			  toolTip="{'Вставить ' +  (selectedIndex>-1 ? 'после '+(selectedIndex + 1) + '-го' : 'в конец')}" />
+	
+	<s:Button label="Удалить" icon="@Embed('../assets/images/editor/delete_16x16.gif')"
+			  enabled="{selectedIndex > -1}"
+			  click="deleteHandler()" 
+			  toolTip="Удалить выделенное" />
+	
+	<s:Button label="Отменить" icon="@Embed('../assets/images/editor/undo1_16x16.gif')" visible="false" includeInLayout="false" />
+	
+	<s:Button label="Вниз" icon="@Embed('../assets/images/editor/minimizeall_rollover.png')"
+			  enabled="{isDownEnabled(selectedIndex, _questionType, _collection.length)}"
+			  click="downHandler()"
+			  toolTip="Поменять местами со следующим" />
+	
+	<s:Button label="Вверх" icon="@Embed('../assets/images/editor/restoreall_rollover.png')"
+			  enabled="{isUpEnabled(selectedIndex, _questionType, _collection.length)}"
+			  click="upHandler()"
+			  toolTip="Поменять местами с предыдущим" />
+	
+	<s:Button label="Сохранить все" icon="@Embed('../assets/images/editor/ok_16x16.gif')"
+			  includeIn="questions"
+			  click="saveHandler()"
+			  toolTip="Сохранить внесенные изменения" />
+<!--	
+	<s:Button label="Ответы" icon="@Embed('../assets/images/editor/show_panels_rollover.png')"
+			  includeIn="questions"
+			  click="{selectedIndex = 1}" enabled="{selectedIndex != -1}" />
+-->	
+	<s:Button label="Тест" icon="@Embed('../assets/images/editor/connected.gif')" includeIn="questions"
+			  click="testHandler()"
+			  toolTip="{'Запустить анкету с ' + (selectedIndex>-1 ? selectedIndex + 1 : 1) + '-го вопроса'}" />
+<!--	
+	<s:Label text="Удалено: " includeIn="questions" />
+	<s:Label text="Добавлено: " includeIn="questions" />-->
+</s:HGroup>

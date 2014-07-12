@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		minWidth="11"
+		minHeight="11">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<s:states>
+		<s:State name="up" />
+		<s:State name="over" />
+		<s:State name="down" />
+		<s:State name="disabled" />
+	</s:states>
+	<s:Rect id="rect0"
+			left="0"
+			right="0"
+			top="0"
+			bottom="0"
+			radiusX="5">
+		<s:fill>
+			<s:SolidColor color="#000000"
+					color.disabled="#222222" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect id="rect1"
+			left="1"
+			right="1"
+			top="1"
+			bottom="1"
+			radiusX="4"
+			transformX="4.5"
+			transformY="4.5"
+			rotation.down="180">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry alpha="1.0"
+						color="#515151"
+						ratio="0"
+						color.up="#3F3F3F" />
+				<s:GradientEntry alpha="1.0"
+						color="#383838"
+						ratio="1"
+						color.up="#2B2B2B" />
+			</s:LinearGradient>
+		</s:fill>
+		<s:fill.disabled>
+			<s:SolidColor color="#3A3A3A" />
+		</s:fill.disabled>
+	</s:Rect>
+	<s:Rect id="rect5"
+			left="2"
+			right="2"
+			top="2"
+			bottom="2"
+			radiusX="3"
+			transformX="3"
+			transformY="3"
+			alpha.disabled="0"
+			rotation.down="180">
+		<s:stroke>
+			<s:LinearGradientStroke caps="none"
+					joints="miter"
+					miterLimit="4"
+					rotation="90"
+					weight="1">
+				<s:GradientEntry alpha="1.0"
+						color="#485858"
+						ratio="0.06274509803921569"
+						color.up="#3B4848" />
+				<s:GradientEntry alpha="0.0"
+						color="#485858"
+						ratio="0.23921568627450981"
+						color.up="#3B4848" />
+			</s:LinearGradientStroke>
+		</s:stroke>
+	</s:Rect>
+	<s:RichText id="labelDisplay"
+			color.disabled="0x666666"
+			styleName="{getStyle('labelDisplayStyleName')}"
+			textAlign="center"
+			verticalAlign="middle" />
+</s:Skin>

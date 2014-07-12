@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:GridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				width="100%">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.ListEvent;
+			
+			import data.storages.AnswerStorage;
+			import vo.SurveyQuestion;
+			
+			internal static const DefaultHeight : int = 30;
+			internal static const RowHeight : int = 27;
+	
+			private static var _answerStorage : AnswerStorage;
+			
+			public static function set answerStorage(value : AnswerStorage) : void {
+				_answerStorage = value;
+			}
+
+			[Bindable]
+			private var question : SurveyQuestion;
+			[Bindable]
+			private var dpHierarchy : ArrayCollection;
+
+			private var treeRoot : Object;
+			private var isTreeEdited : Boolean;
+
+			private function get isTextAndHierarchyIdentical() : Boolean {
+				var result : Boolean = true;
+				if (question.subitems.length != treeRoot.children.length)
+					result = false;
+				if (question.QuestionText != treeRoot.QuestionText)
+					result = false;
+				for (var i : int = 0; i < question.subitems.length && result; i++)
+					result = question.subitems[i].QuestionText == treeRoot.children[i].QuestionText;
+				return result;
+			}
+
+			private function get isUpdateDataNotNeeded() : Boolean {
+				return dpHierarchy && isTextAndHierarchyIdentical || isTreeEdited;
+			}
+			
+			override public function set data(value : Object) : void {
+				invalidateProperties();
+				question = value as  SurveyQuestion;
+				if (isUpdateDataNotNeeded)
+					return;
+//				question = value as  SurveyQuestion;
+				treeRoot = {QuestionText: question.QuestionText, children: question.subitems};
+				dpHierarchy = new ArrayCollection([treeRoot]);
+				super.data = value;
+			}
+
+			override protected function commitProperties() : void {
+				updateHeight();
+// ????				correctSelection();
+				updateTextAndAnswers();
+				super.commitProperties();
+			}
+/*   
+			override protected function updateDisplayList(unscaledWidth : Number, unscaledHeight : Number) : void {
+				if (isTreeEdited) {
+					isTreeEdited = false;
+//					question.updateTextFromHierarchy(treeRoot);
+				}
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+*/
+			private function getOpenItems(isQuestionSelected : Boolean) : Object {
+				invalidateProperties();
+				return isQuestionSelected ? [treeRoot] : [];
+			}
+			
+			private function treeHandler(event : Event) : void {
+				invalidateProperties();
+ 			}
+  
+			private function editEndHandler(event : ListEvent) : void {
+				if (event.rowIndex > 0)
+					return;
+ 				isTreeEdited = true; 
+				invalidateProperties();
+			}
+			
+			private function updateHeight() : void {
+				if (!question.subitems)
+					return;
+				var rowCount : int = question.subitems.length + 1;
+				height = questionTree.openItems.length ? rowCount * RowHeight : DefaultHeight;
+			}
+/*	??????		
+ 			private function correctSelection() : void {
+				if (questionTree.selectedItem && question.selectedSubitem && questionTree.selectedIndex != question.subitemIndex)
+					questionTree.selectedItem = question.selectedSubitem;
+			}
+ */
+			private function updateTextAndAnswers() : void {
+				if (!isTreeEdited)
+					return;
+				isTreeEdited = false;
+				var arr : Array =  question.parseText(treeRoot.QuestionText);
+				_answerStorage.addVariantsAt(arr, rowIndex);
+			}
+		]]>
+	</fx:Script>
+
+	<mx:Tree id="questionTree" width="100%" height="100%" borderStyle="none"
+			 dataProvider="{dpHierarchy}" labelField="QuestionText"
+			 openItems="{getOpenItems(question.isSelected)}"
+			 selectedIndex="@{question.subitemIndex}"
+			 itemClose="treeHandler(event)" itemOpen="treeHandler(event)"
+			 itemEditEnd="editEndHandler(event)"
+			 editable="true" />
+</s:GridItemRenderer>

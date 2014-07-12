@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		width="18" height="13">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<s:Group x="0" y="0">
+		<s:Path x="0" y="0" data="M 18 13 L 18 5 C 18 2.25 15.75 0 13 0 L 0 0 L 0 13 L 18 13 Z"
+				winding="nonZero">
+			<s:fill>
+				<s:SolidColor color="#808080"/>
+			</s:fill>
+		</s:Path>
+		<s:Path x="1" y="1" winding="nonZero" data="M 0 10 L 0 0 L 12 0 C 14.206 0 16 1.794 16 4 L 16 10 L 0 10 Z">
+			<s:fill>
+				<s:SolidColor color="#FFFFFF"
+							  color.disabled="#E6E7E8"
+							  color.down="#434343"/>
+			</s:fill>
+		</s:Path>
+		<s:Path x="1" y="2" winding="nonZero" data="M 0 10 L 0 0 L 12 0 C 14.206 0 16 1.794 16 4 L 16 10 L 0 10 Z">
+			<s:fill>
+				<s:LinearGradient x="8" y="10" scaleX="10" rotation="270">
+					<s:GradientEntry color="#FAFAFA" ratio="0"
+									 alpha.disabled="1.0" color.disabled="#E6E7E8"
+									 alpha.down="1.0" color.down="#DBDBDB"
+									 alpha.over="1.0" color.over="#FFFFFF"/>
+					<s:GradientEntry color="#F3F3F3" ratio="1"
+									 alpha.disabled="1.0" color.disabled="#E6E7E8"
+									 alpha.down="1.0" color.down="#AEAEAE"
+									 alpha.over="1.0" color.over="#FFFFFF"/>
+				</s:LinearGradient>
+			</s:fill>
+			<s:filters>
+				<s:DropShadowFilter includeIn="down" alpha="0.5" angle="45" blurX="2" blurY="2"
+									color="#000000" distance="1" hideObject="false" inner="true"
+									knockout="false" quality="2" strength="1"/>
+			</s:filters>
+		</s:Path>
+		<s:Rect x="1" y="12" width="16" height="1">
+			<s:fill>
+				<s:SolidColor color="#FDFDFD"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+	<s:Group horizontalCenter="0" verticalCenter="1">
+		<s:Rect x="2" y="1" width="2" height="5">
+			<s:fill>
+				<s:SolidColor color="#808080"
+							  color.disabled="#8C8C8C"/>
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="0" y="3" width="6" height="1">
+			<s:fill>
+				<s:SolidColor color="#808080"
+							  color.disabled="#8C8C8C"/>
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="0" y="2" width="2" height="1">
+			<s:fill>
+				<s:SolidColor color="#4D4D4D"
+							  alpha.disabled="0.4"/>
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="4" y="2" width="2" height="1">
+			<s:fill>
+				<s:SolidColor color="#4D4D4D"
+							  alpha.disabled="0.4"/>
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="2" y="0" width="2" height="1">
+			<s:fill>
+				<s:SolidColor color="#4D4D4D"
+							  alpha.disabled="0.4"/>
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="0" y="4" width="2" height="1">
+			<s:fill>
+				<s:SolidColor color="#FFFFFF"/>
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="4" y="4" width="2" height="1">
+			<s:fill>
+				<s:SolidColor color="#FFFFFF"/>
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="2" y="6" width="2" height="1">
+			<s:fill>
+				<s:SolidColor color="#FFFFFF"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+</s:Skin>

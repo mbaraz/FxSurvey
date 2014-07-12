@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:components="components.*"
+		 currentState="{calcState(questionStorage.currentQuestion == null, questionStorage.isStopped)}">
+	
+	<fx:Declarations>
+		<s:Fade id="fadeOut" target="{questionBlock}" alphaFrom="1" alphaTo="0.2" duration="700" />
+		<s:Fade id="fadeIn" target="{questionBlock}" alphaFrom="0.2" alphaTo="1" duration="700" />
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import data.DataStorage;
+			import data.storages.QuestionStorage;
+			
+			import events.QuestionEvent;
+
+			[Bindable]
+			private var storage : DataStorage;
+			
+			[Bindable]
+			private var questionStorage : QuestionStorage;
+			
+			[Bindable]
+			private var _questionsCount : int;
+			
+			public function set questionsCount(value : int) : void {
+				_questionsCount = value;
+			}
+			
+			public function set dataStorage(value : DataStorage) : void {
+				storage = value;
+				questionStorage = value.questionStorage;
+			}
+
+			public function set projectTitle(value : String) : void {
+				title.projectTitle = value;
+			}
+			
+			private function calcState(isNoQuestion : Boolean, isStopped : Boolean) : String {
+				if (!questionBlock)
+					return "start";
+				return isNoQuestion || isStopped ? "end" : "survey";
+			}
+			
+			private function nextQuestionHandler(event : Event) : void {
+				
+				if (questionBlock.trySaveAnswers()) {
+					dispatchEvent(new QuestionEvent(QuestionEvent.NEXT_QUESTION));
+					fadeOut.play();
+				} else
+					viewIsReadyHandler();
+			}
+			
+			private function previousQuestionHandler(event : Event) : void {
+				dispatchEvent(new QuestionEvent(QuestionEvent.PEVIOUS_QUESTION, 0));
+			}
+			
+			private function viewIsReadyHandler(event : Event = null) : void {
+				Navigation.makeEnable(!event);
+				fadeIn.play();
+			}
+		]]>
+	</fx:Script>
+	
+	<s:states> 
+		<s:State name="start"/> 
+		<s:State name="survey"/>
+		<s:State name="end"/>
+	</s:states>
+	
+	<s:Image source="assets/images/spbu_new_coat_of_arms.png" width="100%" height="96%" alpha="0.1" top="10" right="-650" />
+	
+	<components:Navigation top="5" width="100%"
+						   currentOrder="{questionStorage.currentQuestion.QuestionOrder}" questionsCount="{_questionsCount}"
+						   isPreviousExist="{questionStorage.isPreviousExist}"
+						   nextQuestion="nextQuestionHandler(event)"
+						   previousQuestion="previousQuestionHandler(event)"
+						   includeIn="survey" />
+
+	<s:VGroup width="100%" height="{height - 2 * 34 - 24}" left="10" right="10" top="50" gap="60">
+		<components:Title id="title" maxWidth="{width}" />
+		
+		<components:Start width="100%" includeIn="start" />
+
+		<components:QuestionBlock id="questionBlock" height="100%" width="100%"
+								 viewIsReady="viewIsReadyHandler(event)"
+								 dataStorage="{storage}"
+								 visible.start="false" excludeFrom="end" />
+		
+		<components:By includeIn="end" />
+	</s:VGroup>
+	
+	<components:Navigation bottom="5" width="100%"
+						   isPreviousExist="{questionStorage.isPreviousExist}"
+						   nextQuestion="nextQuestionHandler(event)"
+						   previousQuestion="previousQuestionHandler(event)"
+						   includeIn="survey" />
+</s:Group>

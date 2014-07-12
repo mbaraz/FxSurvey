@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  gap="20" paddingTop="20"
+		  horizontalAlign="center">
+	
+	<fx:Script>
+		<![CDATA[
+			import events.QuestionEvent;
+			import flashx.textLayout.conversion.TextConverter;
+			
+			private function startHandler() : void {
+				strtButton.enabled = false;
+				dispatchEvent(new QuestionEvent(QuestionEvent.NEXT_QUESTION));
+			}
+		]]>
+	</fx:Script>
+	<s:HGroup width="100%" gap="40">
+		<s:RichText width="100%" styleName="startText"
+					textFlow="{TextConverter.importToFlow('ИНСТРУКЦИЯ:\n\n\nУчтите, что при нажатии кнопки браузера «Назад» опрос будет прерван.\n\nДля перехода между вопросами используйте кнопки «Следующий вопрос» и «Предыдущий вопрос» вверху и внизу страницы c вопросом.\n\nПоследняя кнопка позволяет вернуться только на один шаг назад, к вопросу, непосредственно предшествующему текущему.' , TextConverter.PLAIN_TEXT_FORMAT)}" />
+		
+		<s:RichText width="100%" styleName="startText"
+					textFlow="{TextConverter.importToFlow('INSTRUCTION:\n\n\nPlease note, if you click backspace button in your browser, the survey will be interrupted.\n\nTo move between questions use buttons «Next question» and «Previous question» at the top and at the bottom of the question page.\n\nThe «Previous question» button allows you to go only for one step back.' , TextConverter.PLAIN_TEXT_FORMAT)}" />
+	</s:HGroup>
+	
+	<s:Button id="strtButton" label="ПЕРЕЙТИ К ВОПРОСАМ / TO QUESTIONS" fontSize="22"
+			  click="startHandler();" />
+</s:VGroup>

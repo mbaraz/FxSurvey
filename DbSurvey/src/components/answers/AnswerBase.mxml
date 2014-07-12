@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 creationComplete="init()">
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			
+			[Embed(source="../assets/images/working-hours-icon.png")] 
+			private var iconSymbol:Class;
+			
+			[Embed(source="../assets/images/ErrorMessageIcon.png")]
+			private var titleSymbol : Class;
+			
+			private function init() : void {
+				dispatchEvent(new Event("viewIsReady", true));
+			}
+			 
+			protected function highlight(obj : Object) : String {
+				return "<font color='#FF740A'><b>" + obj.toString() + "</b></font>";
+			}
+			
+			protected function showAlert(text:String = "") : void {
+				var al : Alert = Alert.show(text, resourceManager.getString('Main','warning_title'), 4, null, null, iconSymbol);
+				al.titleIcon = titleSymbol;
+			}
+		]]>
+	</fx:Script>
+</s:VGroup>

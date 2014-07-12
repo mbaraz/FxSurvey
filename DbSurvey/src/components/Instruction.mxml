@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  styleName="instruction">
+	<s:layout>
+		<s:VerticalLayout gap="10" paddingTop="8" paddingBottom="8" paddingLeft="10" paddingRight="10" />
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.conversion.TextConverter;
+			
+			public function set brief(value : String) : void {
+				instructionText.textFlow = TextConverter.importToFlow(value, TextConverter.TEXT_FIELD_HTML_FORMAT);
+			}
+/* 			
+			public function set description(value : String) : void {
+				descriptionText.text = value; 
+			}	*/
+		]]>
+	</fx:Script>
+<!--
+	<s:Label id="descriptionText" color="0x0000FF" />-->
+	<s:HGroup verticalAlign="middle" gap="10">
+		<s:BitmapImage source="@Embed('../assets/images/working-hours-icon.png')" />
+		
+		<s:RichText id="instructionText" lineBreak="toFit" fontStyle="italic" />
+	</s:HGroup>	
+	
+</s:BorderContainer>

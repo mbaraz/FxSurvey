@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<answers:AnswerBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				xmlns:controls="components.renderers.controls.*"
+				xmlns:answers="components.answers.*"
+				implements="components.IAnswer"
+				initialize="init()">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.collections.IList;
+			
+			import vo.AnswerVariant;
+//		removedFromStage="removeHandler()"			
+			[Bindable]
+			private var answer : AnswerVariant;
+
+			private var _instruction : String;
+			
+			public function get instruction() : String {
+				return _instruction;
+			}
+			
+			public function set variants(value : IList) : void {
+				answer = value.length ?  value.getItemAt(0) as AnswerVariant : AnswerVariant.getEmptyVariant(1);
+			}
+			
+			public function trySaveAnswers() : Boolean {
+				var result : Boolean = currentState == "radio" ? checkRadioAnswer() : true;
+				if (result)
+					saveAnswers();
+				return result;
+			}
+			
+			private function saveAnswers() : void {
+				if (currentState == "radio") {
+					var selectedRadioButton : RadioButton = defaultGroup.selection;
+					answer.Value = selectedRadioButton ? selectedRadioButton.value.toString() : null;
+				} else
+					answer.Value = slider ? slider.value.toString() : null;
+			}
+			
+			private function checkRadioAnswer() : Boolean {
+				var selectedRadioButton : RadioButton = defaultGroup.selection;
+				if (!selectedRadioButton) {
+					showAlert(resourceManager.getString('Main', 'warning_simple'));
+					return false;
+				}
+				return true;
+			}
+
+			private function init() : void {
+				if (AnswerVariant.QuestionType == "SliderRank") {
+					currentState = "slider";
+					_instruction = resourceManager.getString('Main', 'legend_slider');
+				} else {
+					currentState = "radio";
+					_instruction = resourceManager.getString('Main', 'legend_radio');
+				}
+				dispatchEvent(new Event("propertyChange"));
+			}
+
+			private function makeLabels(minRank : int, maxRank : int) : Array {
+				var result : Array = [];
+				for (var i : int = minRank; i <= maxRank; i++)
+					result.push(i);
+				return result;
+			}
+/* 			
+			private function removeHandler() : void {
+				if (currentState == "radio") {
+					var selectedRadioButton : RadioButton = defaultGroup.selection;
+					answer.Value = selectedRadioButton ? selectedRadioButton.value.toString() : null;
+				} else
+					answer.Value = slider ? slider.value.toString() : null;
+			}
+ */
+			private function getComments(answerText : String, position : int = 0) : String {
+				var arr : Array = answerText.split("#");
+				return arr[position];
+			}
+/*  change="changeHandler(event)"
+			private function changeHandler(event : Event) : void {
+				var selectedLabel : String = event.currentTarget.selection.label;
+				
+				Alert.show("You select: " + (selectedLabel == "Затрудняюсь ответить" ? AnswerVariant.MaxRank + 1 : int(selectedLabel)));
+				 
+			} */
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<mx:RadioButtonGroup id="defaultGroup" labelPlacement="top"
+						selectedValue="{answer.Value ? answer.Value : null}" />
+	</fx:Declarations>
+	
+	<answers:states> 
+		<s:State name="radio"/> 
+		<s:State name="slider"/>
+	</answers:states>
+
+	<s:HGroup horizontalCenter="0" gap="16" paddingTop="10" paddingLeft="10"
+			  verticalAlign="middle">
+		<s:Label text="{getComments(answer.AnswerText, 0)}" />
+		
+		<s:VGroup excludeFrom="slider" horizontalAlign="center" gap="20">
+			<controls:RadioButtons id="radioButtons" dataProvider="{new ArrayList(makeLabels(AnswerVariant.MinRank, AnswerVariant.MaxRank))}"
+						rankGroup="{defaultGroup}" isInGrid="false" />
+
+			<mx:RadioButton id="noAnswer" group="{defaultGroup}"
+						labelPlacement="left"
+						label="{resourceManager.getString('Main','refuse')}" 
+						width="200"
+						initialize="{noAnswer.value=AnswerVariant.MaxRank+1}" />
+		</s:VGroup>
+		
+		<mx:HSlider id="slider" minimum="{AnswerVariant.MinRank}" maximum="{AnswerVariant.MaxRank}"
+					value="{Number(answer.Value)}"
+					minWidth="{(AnswerVariant.MaxRank - AnswerVariant.MinRank) * 30}" minHeight="14" dataTipPrecision="0"
+					dataTipPlacement="top"
+					tickColor="gray" 
+					snapInterval="1" tickInterval="1"
+					labels="{makeLabels(AnswerVariant.MinRank, AnswerVariant.MaxRank)}"
+					includeIn="slider" />
+		
+		<s:Label text="{getComments(answer.AnswerText, 1)}" />
+	</s:HGroup>
+</answers:AnswerBase>

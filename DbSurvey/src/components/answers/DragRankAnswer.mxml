@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<answers:AnswerBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:answers="components.answers.*"
+		 implements="components.IAnswer"
+		 initialize="init()">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.collections.IList;
+			import mx.events.CollectionEvent;
+			import mx.events.CollectionEventKind;
+			import mx.events.DragEvent;
+			
+			import vo.AnswerVariant;
+			
+			private const cellHeight : int = 25;
+			private const minCellWidth : int = 17;
+
+			private function get isFilledDest() : Boolean {
+				var source : Array = (destList.dataProvider as ArrayList).source;
+				var cnt : int = 0;
+				for (var i : int = 0; i < source.length; i++)
+					if (source[i])
+						cnt++;
+				
+				return cnt >= AnswerVariant.MinAnswers;
+			}
+			
+			private function get breachContinuity() : Boolean {
+				var source : Array = (destList.dataProvider as ArrayList).source;
+				var isMissed : Boolean;
+				for (var i : int = 0; i < source.length; i++)
+					if (!source[i])
+						isMissed = true;
+					else if (isMissed)
+						return true;
+				
+				return false;
+			}
+			
+			private var _maxToDrag : int;
+			
+			public function set maxToDrag(value : int) : void {
+				_maxToDrag = value;
+				if (_variants)
+					init();
+			}
+
+			private var _variants : IList;
+			
+			public function set variants(value : IList) : void {
+				if (_variants)
+					_variants.removeEventListener(CollectionEvent.COLLECTION_CHANGE, changeHandler);
+				
+				_variants = value;
+				_variants.addEventListener(CollectionEvent.COLLECTION_CHANGE, changeHandler);
+			}
+
+			public function get instruction() : String {
+				return resourceManager.getString('Main', 'legend_drag', [AnswerVariant.MinAnswers, AnswerVariant.MaxAnswers, AnswerVariant.MaxRank]);
+			}
+			
+			public function trySaveAnswers() : Boolean {
+				if (!isFilledDest) {
+					showAlert(resourceManager.getString('Main', 'warning_rank', [AnswerVariant.MinAnswers]));
+					return false;
+				}
+				if (breachContinuity) {
+					showAlert(resourceManager.getString('Main', 'warning_drag'));
+					return false;
+				}
+				saveAnswers();
+				return true;
+			}
+			
+			private function saveAnswers() : void {
+				for each (var answer : AnswerVariant in _variants) {
+					var indx : int = destList.dataProvider.getItemIndex(answer);
+					answer.Value = indx > -1 ? indx.toString() : "";
+				}
+			}
+
+			private function init():void {
+				makeDataProviders();
+				destList.height = cellHeight * _maxToDrag;
+				srcList.height = cellHeight * _variants.length;
+			}
+			
+			private function changeHandler(event : CollectionEvent) : void {
+				if (event.kind !=  CollectionEventKind.UPDATE)
+					init();
+			}
+			
+			private function reset():void {
+				srcList.dataProvider = new ArrayList(_variants.toArray());
+				destList.dataProvider = new ArrayList(new Array(_maxToDrag));
+			}
+
+			private function makeDataProviders() : void {
+				var srcArray : Array =  [];
+				var destArray : Array =  new Array(_maxToDrag);
+				for each (var answer : AnswerVariant in _variants) {
+					if (answer.Value)
+						destArray[answer.Value] = answer;
+					else
+						srcArray.push(answer);
+				}
+				srcList.dataProvider = new ArrayList(srcArray);
+				destList.dataProvider = new ArrayList(destArray);
+				cnt.dataProvider = new ArrayList();
+				for (var i : int = 1; i <= _maxToDrag; i++)
+					cnt.dataProvider.addItem(i);
+			}
+
+			private function dragDropHandler(event : DragEvent) : void {
+				if (!event.dragSource.hasFormat("itemsByIndex") || event.dragInitiator == destList)
+					return;
+				event.preventDefault();
+				var rowHeight : Number = destList.height/_maxToDrag;
+				var dragIndex : int = event.localY / rowHeight;
+				var source : Array = (destList.dataProvider as ArrayList).source;
+				if (source[dragIndex])
+					srcList.dataProvider.addItem(source[dragIndex]);
+				var itemsArray : Vector.<Object> = event.dragSource.dataForFormat("itemsByIndex") as Vector.<Object>;
+				var tempItem : AnswerVariant  = itemsArray[0] as AnswerVariant;
+				source[dragIndex] = tempItem;
+				destList.dataProvider = new ArrayList(source); 
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Binding source="AnswerVariant.MaxAnswers" destination="maxToDrag" />
+	
+	<s:HGroup gap="60">
+		<s:List id="srcList" labelField="AnswerText"
+				dragEnabled="true"
+				dragMoveEnabled="true"
+				itemRenderer="components.renderers.DragListItemRenderer"/>
+		
+		<s:HGroup>
+			<s:List id="cnt" width="{minCellWidth}"
+					height="{destList.height}"
+					itemRenderer="components.renderers.DragListItemRenderer"/>
+			
+			<s:List id="destList" labelField="AnswerText"
+					minWidth="{srcList.width}"
+					dragEnabled="true"
+					dragMoveEnabled="true"
+					dropEnabled="true"
+					dragDrop="dragDropHandler(event)"
+					itemRenderer="components.renderers.DragListItemRenderer"/>
+		</s:HGroup>
+	</s:HGroup>
+	
+	<s:Button label="{resourceManager.getString('Main','start_again')}"
+			  click="reset()"/>
+</answers:AnswerBase>

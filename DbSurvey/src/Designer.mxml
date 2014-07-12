@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app:ApplicationBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:app="*"
+			   xmlns:editor="components.editor.*"
+			   pageTitle="Конструктор опросов">
+	<fx:Script>
+		<![CDATA[
+			import events.QuestionEvent;
+			
+			import mx.events.FlexEvent;
+			
+			override protected function initializeHandler() : void {
+				super.initializeHandler();
+				dispatchEvent(new QuestionEvent(QuestionEvent.GET_ALL_QUESTIONS));
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Style source="../assets/design.css"/>
+	
+	<editor:Editor width="100%" height="100%" dataStorage="{dataStorage}" />
+</app:ApplicationBase>
