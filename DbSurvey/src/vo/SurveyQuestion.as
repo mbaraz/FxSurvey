@@ -39,16 +39,16 @@ package vo
 
 		public function set QuestionType(value : String) : void {
 			_questionType = value;
-			if (!isSelected)
+/*			if (!isSelected)
 				return;
-			
+*/			
 			var type : QuestionTypes = QuestionTypes.getTypeByName(QuestionType);
 			if (type.isPluralOnly)
 				MultipleAnswerAllowed = true;
 			else if (type.isSinglelOnly)
 				MultipleAnswerAllowed = false;
 			
-			if (type.isNotRanked)
+			if (!type.isRanked)
 				setNoRanks();
 			
 			if (isGridQuestion) {
@@ -64,7 +64,7 @@ package vo
 			setMaxAnswersCount();
 			}
 			*/
-			AnswerVariant.QuestionType = QuestionType;
+			AnswerVariant.Type = type;
 		}
 
 		[Bindable]
@@ -84,8 +84,6 @@ package vo
 			if (isSelected)
 				AnswerVariant.isFiltered = Boolean(_filterAnswersTagId);
 		}
-
-		public var IsRankQuestion : Boolean;
 
 		public function get QuestionName() : String {
 			return "Q" + order;
@@ -165,9 +163,8 @@ package vo
 		public function set MaxRank(value : int) : void {
 			_maxRank = value;
 			if (!isSelected)
-				return
-			IsRankQuestion = MaxRank > Default_Min_Rank;
-			AnswerVariant.IsRankQuestion = IsRankQuestion;
+				return;
+
 			AnswerVariant.MaxRank = MaxRank;
 		}
 		
@@ -299,17 +296,15 @@ package vo
 		
 		override protected function fill(obj : Object) : void {
 			super.fill(obj);
-			QuestionType = QuestionTypes.namesArray[int(obj.QuestionType)];
-			
 			QuestionOrder = obj.QuestionOrder;
 			subitems = parseSubitems(obj.subitems);
 			MultipleAnswerAllowed = obj.MultipleAnswerAllowed;
 			MaxAnswers = obj.MaxAnswers == null ? Default_Min_Answers : obj.MaxAnswers;
 			MinAnswers = obj.MinAnswers == null ? Default_Min_Answers : obj.MinAnswers;
-			IsRankQuestion  = obj.IsRankQuestion;
+//			IsRankQuestion  = obj.IsRankQuestion;
  			MinRank = obj.MinRank;
 			MaxRank = obj.MaxRank;
-
+			QuestionType = QuestionTypes.namesArray[int(obj.QuestionType)];
 			if (obj.ConditionOnTagId)
 				ConditionString = obj.ConditionOnTagId + " = " + obj.ConditionOnTagValue;
 /*			else
@@ -374,7 +369,7 @@ package vo
 
 		private function get hasNoAnswers() : Boolean {
 			var type : QuestionTypes = QuestionTypes.getTypeByName(QuestionType);
-			return type.hasNoAnswers;
+			return type.hasSingleAnswer;
 		}
 	}
 }

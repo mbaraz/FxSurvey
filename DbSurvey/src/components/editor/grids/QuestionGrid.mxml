@@ -38,8 +38,10 @@
 			override protected function selectionHandler(event : GridSelectionEvent) : void {
 				var rowIndex : int = event.selectionChange.rowIndex;
 				_answerStorage.setCurrentVariantsByIndex(rowIndex);
-/*				var renderer : GridItemRenderer = ((grid.layout) as Object).getVisibleItemRenderer(rowIndex, columns.getItemIndex(qText));
- 				if (renderer is TreeRenderer)
+				var renderer : GridItemRenderer = ((grid.layout) as Object).getVisibleItemRenderer(rowIndex, columns.getItemIndex(qText));
+				if (!renderer)
+					trace("NO renderer!!!!!!!!!!!!!!!!!");
+ /*				if (renderer is TreeRenderer)
 					(renderer as TreeRenderer).updateHeight(); */
 			}
 		]]>

@@ -64,6 +64,8 @@
 //	height="{preview.height}"	(in HDividedBox)
 //			maxHeight="600" 
 //			minHeight="{height-preview.height-10}" in Canvas
+			
+//	 questionType="{questionStorage.currentQuestion.QuestionType}"
 			private function typeChangeHandler(event : Event) : void {
 				answerStorage.updateVariantsByQuestionType(questionStorage.currentQuestion.QuestionType);
 				preview.questionType = questionStorage.currentQuestion.QuestionType;
@@ -81,7 +83,6 @@
 		</s:Panel>
 		
 		<editor:ButtonRow id="buttons" currentState="questions"
-						  questionType="{questionStorage.currentQuestion.QuestionType}"
 						  collection="{questionStorage.questions}"
 						  selectedViewIndex="@{selectedViewIndex}"
 						  selectedIndex="@{dg.selectedIndex}" />
@@ -90,9 +91,8 @@
 	<mx:HDividedBox width="100%">
 		<editor:AnswersEditor id="aEditor" width="45%" minWidth="420" height="100%"
 							  selectedQuestionIndex="{dg.selectedIndex}"
-							  filterList="{new ArrayList(_dataStorage.getCodesArrayByTagId(dg.selectedItem.FilterAnswersTagId))}"
-							  questionType="{questionStorage.currentQuestion.QuestionType}" />
-		
+							  filterList="{new ArrayList(_dataStorage.getCodesArrayByTagId(dg.selectedItem.FilterAnswersTagId))}" />
+	
 		<editor:QuestionPreview id="preview" width="55%" minWidth="300"
 								question="{questionStorage.currentQuestion}"
 								answerVariants="{answerStorage.currentVariants}" />

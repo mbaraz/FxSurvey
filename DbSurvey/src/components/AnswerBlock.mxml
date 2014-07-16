@@ -51,7 +51,7 @@
  				if (numChildren > 1)
 					removeElementAt(numChildren - 1);
 
-				switch(AnswerVariant.QuestionType) {
+				switch(AnswerVariant.Type.name) {
 					case "Simple": {
 						answerElement = new SimpleAnswer();
 						break;

@@ -79,7 +79,7 @@
 			private function saveAnswers() : void {
 				for each (var answer : AnswerVariant in _variants) {
 					var indx : int = destList.dataProvider.getItemIndex(answer);
-					answer.Value = indx > -1 ? indx.toString() : "";
+					answer.Value = indx > -1 ? (++indx).toString() : "";
 				}
 			}
 

@@ -15,7 +15,7 @@
 			import mx.collections.IList;
 
 			private function get isRankingQuestion() : Boolean {
-				return AnswerVariant.QuestionType == "Ranking";
+				return AnswerVariant.Type.name == "Ranking";
 			}
 				
 			public function get instruction() : String {

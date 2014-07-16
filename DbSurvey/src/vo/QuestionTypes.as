@@ -10,8 +10,8 @@ package vo
 		public static const RadioRank : QuestionTypes = new QuestionTypes(false, false, true);
 		public static const SliderRank : QuestionTypes = new QuestionTypes(false, false, true);
 		public static const DragRank : QuestionTypes = new QuestionTypes(false, true, false);
-		public static const RadioGrid : QuestionTypes = new QuestionTypes(false, true, false);	// В итоге должно быть: false, false, true
-		public static const SliderGrid : QuestionTypes = new QuestionTypes(false, true, false);	// В итоге должно быть: false, false, true
+		public static const RadioGrid : QuestionTypes = new QuestionTypes(false, false, true);
+		public static const SliderGrid : QuestionTypes = new QuestionTypes(false, false, true);
 
 		private var _isPluralityEnabled : Boolean;
 		
@@ -37,10 +37,18 @@ package vo
 			return _canHaveExclude;
 		}
 
+		public function get isRanked() : Boolean {
+			return this != Simple && this != Summed && !hasSingleAnswer;
+		}
+		
+		public function get isRated() : Boolean {
+			return this == Rating || this == DragRank;
+		}
+/*		
 		public function get isNotRanked() : Boolean {
 			return this == Simple || this == Summed;
 		}
-
+*/
 		public function get hasOpenAnswersOnly() : Boolean {
 			return this == Summed || this == Rating || this == Ranking;
 		}
@@ -53,7 +61,7 @@ package vo
 			return this == Summed || this == Rating || this == Ranking;
 		}
 
-		public function get hasNoAnswers() : Boolean {
+		public function get hasSingleAnswer() : Boolean {
 			return this == RadioRank || this == SliderRank;
 		}
 
@@ -73,12 +81,12 @@ package vo
 			return Enum.getValues(QuestionTypes)
 		}
 */		
-		public static function getTypeByName(name : String) : QuestionTypes {
-			return Enum.valueOf(QuestionTypes, name);
-		}
-		
 		public static function get namesArray() : Array {
 			return [Simple.name, Summed.name, Rating.name, Ranking.name, RadioRank.name, SliderRank.name, DragRank.name, RadioGrid.name, SliderGrid.name];
+		}
+		
+		internal static function getTypeByName(name : String) : QuestionTypes {
+			return Enum.valueOf(QuestionTypes, name);
 		}
 	}
 }

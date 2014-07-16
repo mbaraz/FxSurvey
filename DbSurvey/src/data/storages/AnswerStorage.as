@@ -50,10 +50,16 @@ package data.storages
 		}
 
 		public function get responseObject() : Object {
-			if (!currentVariants)
+			if (!currentVariants && (!AnswerVariant.Type || !AnswerVariant.Type.hasSingleAnswer))
 				return null;
 			
 			var result : Object = {QuestionId : 0, Answers : [], OpenAnswers : [], Rank : []};
+		
+			if (AnswerVariant.Type.hasSingleAnswer) {
+/*				result.QuestionId = AnswerVariant.SurveyQuestionId;
+				result.Answers.push(AnswerCode);*/
+			}
+			
 			for each (var variant : AnswerVariant in currentVariants)
 				variant.updateResponse(result);
 				
@@ -202,7 +208,7 @@ package data.storages
 				return result;
 			var variants : ArrayCollection = answersCollection.getItemAt(index) as ArrayCollection;
 			for each (var variant : AnswerVariant in variants) {
-				var answerCode : int = variant.Response;
+				var answerCode : int = variant.response;
 				if (!answerCode)
 					continue;
 				if (subIndex == -1)

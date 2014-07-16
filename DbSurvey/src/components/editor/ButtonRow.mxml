@@ -28,14 +28,14 @@
 		public function set canAdd(value : Boolean) : void {
 			_canAdd = value;
 		}
-		
+/* 		
 		[Bindable]
 		private var _questionType : String;
 		
 		public function set questionType(value : String) : void {
 			_questionType = value;
 		}
-
+ */
 		private var _storage : DataStorage;
 		
 		public function set storage(value : DataStorage) : void {
@@ -95,27 +95,34 @@
 			dispatchEvent(new QuestionEvent(QuestionEvent.TEST_FROM_QUESTION, _storage.questionStorage.currentQuestion ? _storage.questionStorage.currentQuestion.order : 1));
 		}
 		
-		private function isAddEnabled(canAdd : Boolean, questionType : String, isCollectionEmpty : Boolean) : Boolean {
-			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
-			if (!type.hasNoAnswers)
-				return canAdd;
-			
+		private function isAddEnabled(canAdd : Boolean, type : QuestionTypes, isCollectionEmpty : Boolean) : Boolean {
+//			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+			if (type.hasSingleAnswer)
+				return false;
+/* 			
 			if (!isCollectionEmpty)
 				return false;
-			
+*/			
 			return canAdd;
 		}
 		
-		private function isDownEnabled(selectedIndex : int, questionType : String, length : int) : Boolean {
-			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+		private function isDeleteEnabled(index : int, type : QuestionTypes) : Boolean {
+			if (type.hasSingleAnswer)
+				return false;
+
+			return index > -1;
+		}
+		
+		private function isDownEnabled(selectedIndex : int, type : QuestionTypes, length : int) : Boolean {
+//			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
 			if (currentState == "questions" && type.isGridType && _collection.getItemAt(selectedIndex).subitemIndex > 0)
 				return _collection.getItemAt(selectedIndex).subitemIndex < _collection.getItemAt(selectedIndex).subitems.length;
 			
 			return selectedIndex != -1 && selectedIndex < length - 1;
 		}
 		
-		private function isUpEnabled(selectedIndex : int, questionType : String, length : int) : Boolean {
-			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+		private function isUpEnabled(selectedIndex : int, type : QuestionTypes, length : int) : Boolean {
+//			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
 			if (currentState == "questions" && type.isGridType && _collection.getItemAt(selectedIndex).subitemIndex > 0)
 				return _collection.getItemAt(selectedIndex).subitemIndex > 1;
 			
@@ -137,24 +144,25 @@
 			  visible="{selectedViewIndex==1}" includeInLayout="{selectedViewIndex==1}" />
 	
 	<s:Button label="Добавить" icon="@Embed('../assets/images/editor/add_16x16.gif')"
-			  enabled.answers="{isAddEnabled(_canAdd, _questionType, _collection.length == 0)}"
+			  enabled.answers="{isAddEnabled(_canAdd, AnswerVariant.Type, _collection.length == 0)}"
 			  click="addHandler()"
 			  toolTip="{'Вставить ' +  (selectedIndex>-1 ? 'после '+(selectedIndex + 1) + '-го' : 'в конец')}" />
 	
 	<s:Button label="Удалить" icon="@Embed('../assets/images/editor/delete_16x16.gif')"
-			  enabled="{selectedIndex > -1}"
+			  enabled.answers="{isDeleteEnabled(selectedIndex, AnswerVariant.Type)}"
+			  enabled.questions="{selectedIndex > -1}"
 			  click="deleteHandler()" 
 			  toolTip="Удалить выделенное" />
 	
 	<s:Button label="Отменить" icon="@Embed('../assets/images/editor/undo1_16x16.gif')" visible="false" includeInLayout="false" />
 	
 	<s:Button label="Вниз" icon="@Embed('../assets/images/editor/minimizeall_rollover.png')"
-			  enabled="{isDownEnabled(selectedIndex, _questionType, _collection.length)}"
+			  enabled="{isDownEnabled(selectedIndex, AnswerVariant.Type, _collection.length)}"
 			  click="downHandler()"
 			  toolTip="Поменять местами со следующим" />
 	
 	<s:Button label="Вверх" icon="@Embed('../assets/images/editor/restoreall_rollover.png')"
-			  enabled="{isUpEnabled(selectedIndex, _questionType, _collection.length)}"
+			  enabled="{isUpEnabled(selectedIndex, AnswerVariant.Type, _collection.length)}"
 			  click="upHandler()"
 			  toolTip="Поменять местами с предыдущим" />
 	

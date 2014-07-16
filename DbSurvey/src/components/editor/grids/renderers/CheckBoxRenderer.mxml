@@ -23,9 +23,9 @@
 						super.data = value;
 						cb.enabled = true;
 					} else
-						setPluralEnabled(value.QuestionType);
+						setPluralEnabled();
 				} else
-					cb.enabled = (column.dataField.indexOf("IsNumeric") > -1) ? value.IsOpenAnswer && AnswerVariant.Type.isPluralityEnabled : isEnabled(AnswerVariant.QuestionType, AnswerVariant.MultipleAnswerAllowed);
+					cb.enabled = (column.dataField.indexOf("IsNumeric") > -1) ? value.IsOpenAnswer && AnswerVariant.Type.isPluralityEnabled : isEnabled(AnswerVariant.Type, AnswerVariant.MultipleAnswerAllowed);
 
 				if (data)
 					this.value = data[column.dataField];
@@ -44,13 +44,13 @@
 					dispatchEvent(new TagEvent(TagEvent.TAG_CHANGED, value ? question.QuestionOrder : 0, value ? 0 : question.QuestionOrder)); */
 			}
 			
-			private function setPluralEnabled(type : String) : void {
-				cb.enabled = QuestionTypes.getTypeByName(type).isPluralityEnabled;
+			private function setPluralEnabled() : void {
+				cb.enabled = AnswerVariant.Type ? AnswerVariant.Type.isPluralityEnabled : false;
 			}
 
-			private function isEnabled(questionType : String, multipleAnswerAllowed : Boolean) : Boolean {
+			private function isEnabled(type : QuestionTypes, multipleAnswerAllowed : Boolean) : Boolean {
 				var result : Boolean = true;
-				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+//				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
 				if (!column)
 					return false;
 				
@@ -68,7 +68,7 @@
 			  horizontalAlign="center" verticalAlign="middle">
 		
 		<s:CheckBox id="cb" selected="@{value}" change="changeHandler()"
-					enabled="{isEnabled(AnswerVariant.QuestionType, AnswerVariant.MultipleAnswerAllowed)}" />
+					enabled="{isEnabled(AnswerVariant.Type, AnswerVariant.MultipleAnswerAllowed)}" />
 		
 	</s:VGroup>
 </renderers:BaseGridItemRenderer>

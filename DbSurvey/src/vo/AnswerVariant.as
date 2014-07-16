@@ -3,21 +3,33 @@ package vo
 	[Bindable]
 	public class AnswerVariant
 	{
-		public static const GRID_VARIANT_DELIMITER : String = ",";
+		public static const VARIANTS_DELIMITER : String = "*";
 		
-		public static var QuestionType : String;
+		public static var Type : QuestionTypes;
 		public static var MultipleAnswerAllowed : Boolean;
 		public static var MaxAnswers : int;
 		public static var MinAnswers : int;
-		public static var IsRankQuestion : Boolean;
 		public static var MaxRank : int;
 		public static var MinRank : int;
 		public static var hasBoundTag : Boolean;
 		public static var isFiltered : Boolean;
 		public static var isStandartOrder : Boolean;
 
+		public static function getEmptyVariant(order : int) : AnswerVariant {
+			return new AnswerVariant({AnswerText: "", TagValue : order, AnswerOrder: order, IsOpenAnswer: Type.hasOpenAnswersOnly, IsNumeric: Type.hasNumericAnswersOnly});
+		}
+		
+		public static function get IsRankQuestion() : Boolean {
+			return Type.isRanked;
+		}
+		
+		public static function get IsRatingQuestion() : Boolean {
+			return Type.isRated;
+		}
+
+		private var SurveyQuestionId : int;
+		
 		public var AnswerVariantId : int;
-		public var SurveyQuestionId : int;
 		public var AnswerText : String;
 		public var IsOpenAnswer : Boolean;
 		public var IsExcludingAnswer : Boolean;
@@ -25,7 +37,7 @@ package vo
 		public var IsNumeric : Boolean;
 		public var IsUnmoved : Boolean;
 		public var IsSelected : Boolean;
-		public var TagValue : String;
+		private var TagValue : String;
 		public var order : int;
 		
 		private var _answerCode : int;
@@ -49,6 +61,12 @@ package vo
 			IsSelected = Boolean(value);
 		}
 		
+		public function get response() : int {
+			if (!IsSelected)
+				return 0;
+			return Type.hasSingleAnswer ? int(Value) : AnswerCode;
+		}
+		
 		public function get variantObject() : Object {
 			var obj : Object = new Object();
 			obj.AnswerVariantId = AnswerVariantId;
@@ -61,10 +79,10 @@ package vo
 			obj.SymbolCount = SymbolCount;
 			obj.IsNumeric = IsNumeric;
 			obj.IsUnmoved = IsUnmoved;
-			obj.TagValue = TagValue;	// AnswerCode;	//	TagValue == "Нет" ? null : ;	??????
+			obj.TagValue = TagValue;
 			return obj;
 		}
-
+		
 		public function AnswerVariant(obj : Object) {
 			AnswerVariantId = obj.AnswerVariantId;
 			SurveyQuestionId = obj.SurveyQuestionId;
@@ -76,7 +94,7 @@ package vo
 			SymbolCount = obj.SymbolCount;
 			IsNumeric = obj.IsNumeric;
 			IsUnmoved =  obj.IsUnmoved;
-			TagValue = obj.TagValue;	// !obj.TagValue ? "Нет" : obj.TagValue;
+			TagValue = obj.TagValue;
 		}
 		
 		public function updateByQuestionType(type : String) : void {
@@ -115,32 +133,25 @@ package vo
 				IsExcludingAnswer = false;
 		}
 		
-		public function get Response() : int {
-			if (!IsSelected)
-				return 0;
-			return Type.hasNoAnswers ? int(Value) : AnswerCode;
-		}
-		
-		public function updateResponse(response : Object) : void {
+		public function updateResponse(responseObj : Object) : void {
 			if (!IsSelected)
 				return;
 			
-			response.QuestionId = SurveyQuestionId;
-			if (AnswerVariant.IsRankQuestion && Value) {
-				addRanks(response);
+			responseObj.QuestionId = SurveyQuestionId;
+			if (IsRankQuestion && Value) {
+				addRanks(responseObj);
 				return;
 			}
-			response.Answers.push(AnswerCode);
+			responseObj.Answers.push(response);
 			if (IsOpenAnswer)
-				response.OpenAnswers.push([AnswerCode, Value]);
+				responseObj.OpenAnswers.push([AnswerCode, Value]);
 		}
 		
 		public static function SetQuestionParameters(obj : Object) : void {
 			if (!obj)
 				return;
 			MultipleAnswerAllowed = obj.MultipleAnswerAllowed;
-			QuestionType = obj.QuestionType;
-			IsRankQuestion  = obj.IsRankQuestion;
+			Type = QuestionTypes.getTypeByName(obj.QuestionType);
 			MinRank = obj.MinRank;
 			MaxRank = obj.MaxRank;
 			MaxAnswers = obj.MaxAnswers;
@@ -149,21 +160,19 @@ package vo
 			isFiltered = Boolean(obj.FilterAnswersTagId);
 			isStandartOrder = obj.isStandartOrder;
 		}
-		
-		public static function get Type() : QuestionTypes {
-			return QuestionTypes.getTypeByName(QuestionType);
-		}
-		
-		public static function getEmptyVariant(order : int) : AnswerVariant {
-			return new AnswerVariant({AnswerText: "", TagValue : order, AnswerOrder: order, IsOpenAnswer: Type.hasOpenAnswersOnly, IsNumeric: Type.hasNumericAnswersOnly});
-		}
-		
+
 		private function addRanks(response : Object) : void {
-			var values : Array = Value.split(GRID_VARIANT_DELIMITER);
+			var values : Array = Value.split(VARIANTS_DELIMITER);
 			for each(var value : String in values) {
-				response.Rank.push([value, AnswerCode]);
-				response.Answers.push(value);
+				var respArray : Array = makeKeyValueResponse(value);
+				response.Rank.push(respArray);
+				response.Answers.push(respArray[0]);
 			}
 		}
+
+		private function makeKeyValueResponse(strng : String) : Array {
+			return  IsRatingQuestion ? [AnswerCode, strng] : [strng, AnswerCode];
+		}
+
 	}
 }

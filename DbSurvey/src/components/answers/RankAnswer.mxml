@@ -51,7 +51,7 @@
 			}
 
 			private function init() : void {
-				if (AnswerVariant.QuestionType == "SliderRank") {
+				if (AnswerVariant.Type.name == "SliderRank") {
 					currentState = "slider";
 					_instruction = resourceManager.getString('Main', 'legend_slider');
 				} else {
@@ -77,7 +77,7 @@
 			}
  */
 			private function getComments(answerText : String, position : int = 0) : String {
-				var arr : Array = answerText.split("#");
+				var arr : Array = answerText.split(AnswerVariant.VARIANTS_DELIMITER);
 				return arr[position];
 			}
 /*  change="changeHandler(event)"

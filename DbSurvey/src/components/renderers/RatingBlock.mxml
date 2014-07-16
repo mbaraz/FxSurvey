@@ -25,7 +25,7 @@
 			}
 			
 			public static function reset() : void {
-				RankValidator.reset(AnswerVariant.MaxRank, AnswerVariant.IsRankQuestion);
+				RankValidator.reset(AnswerVariant.MaxRank, !AnswerVariant.IsRatingQuestion);
 			}
 			
 			public static function areSymbolValid(itemIndex : int) : Boolean {

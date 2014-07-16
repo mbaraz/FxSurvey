@@ -41,6 +41,10 @@ package vo
 		}
 
 		private function convertToVariants(arr : Array) : Array {
+/* ?????????????????
+			if (!arr.length)
+				arr.push({SurveyQuestionId: question.SurveyQuestionId, AnswerText : AnswerVariant.GRID_VARIANT_DELIMITER, AnswerCode : 1, AnswerOrder : 1});
+*/
 			for (var i : int = 0; i < arr.length; i++)
 				arr[i] = new AnswerVariant(arr[i]);
 			return arr;

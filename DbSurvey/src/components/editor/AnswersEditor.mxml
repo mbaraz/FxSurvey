@@ -23,11 +23,11 @@
 		public function set filterList(value : ArrayList) : void {
 			adg.filterList = value;
 		}
-		
+/* 		
 		public function set questionType(value : String) : void {
 			buttons.questionType = value;
 		}
-		
+ */		
 		[Bindable]
 		public var selectedViewIndex : int;
 

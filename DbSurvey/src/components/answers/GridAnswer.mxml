@@ -46,7 +46,7 @@
 			}
 
 			public function get instruction() : String {
-				return AnswerVariant.QuestionType == "RadioGrid" ? resourceManager.getString('Main','legend_grid_radio') : resourceManager.getString('Main','legend_grid_slider');
+				return AnswerVariant.Type.name == "RadioGrid" ? resourceManager.getString('Main','legend_grid_radio') : resourceManager.getString('Main','legend_grid_slider');
 			}
 			
 			private var _variants : IList;
@@ -78,7 +78,7 @@
 					var row : GridRow = answers.getElementAt(i) as GridRow;
 					var arr:Array = row.getChildren();
 					var cell : GridItem = row.getElementAt(1) as GridItem;
-					if (AnswerVariant.QuestionType == "RadioGrid") {
+					if (AnswerVariant.Type.name == "RadioGrid") {
 						var buttons : RadioButtons = cell.getElementAt(0) as RadioButtons;
 						var selectedValue : Object = buttons.rankGroup.selectedValue;
 						if (selectedValue)
@@ -102,7 +102,7 @@
 					var indx : int = resultIndexes[i];
 					if (!values[indx])
 						values[indx] = "";
-					values[indx] += _subitems[i].order + AnswerVariant.GRID_VARIANT_DELIMITER;
+					values[indx] += _subitems[i].order + AnswerVariant.VARIANTS_DELIMITER;
 				}
 				for each(var variant : AnswerVariant in _variants)
 					variant.Value = "";
@@ -149,7 +149,7 @@
 			private function makeRankCell(rowNumber : int) : GridItem {
 				var cell : GridItem = new GridItem();
 				cell.colSpan = columnsHeaders.length;
-				cell.addElement(AnswerVariant.QuestionType == "RadioGrid" ? makeRadioButtons(rowNumber) : makeSlider(rowNumber));
+				cell.addElement(AnswerVariant.Type.name == "RadioGrid" ? makeRadioButtons(rowNumber) : makeSlider(rowNumber));
 				return cell;
 			}
 

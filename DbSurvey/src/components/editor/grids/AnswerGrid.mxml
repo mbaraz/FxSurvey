@@ -23,14 +23,14 @@
 				value.addItemAt("Нет", 0);
 				_filterList = value;
 			}
-			
+/* 			
 			private function isOpenEnabled(questionType : String) : Boolean {
 				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
 				return type.isPluralityEnabled;
 			}
-			
-			private function isExcludingEnabled(questionType : String, multipleAnswerAllowed : Boolean) : Boolean {
-				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
+*/			
+			private function isExcludingEnabled(type : QuestionTypes, multipleAnswerAllowed : Boolean) : Boolean {
+//				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
 				return multipleAnswerAllowed && type.canHaveExclude;
 			}
  			
@@ -49,19 +49,19 @@
 			
 			<s:GridColumn headerText="Откры-тый" dataField="IsOpenAnswer"
 						  width="46" sortable="false" resizable="false" editable="false"
-						  visible="{isOpenEnabled(AnswerVariant.QuestionType)}"
+						  visible="{AnswerVariant.Type.isPluralityEnabled}"
 						  itemRenderer="components.editor.grids.renderers.CheckBoxRenderer"
 						  headerRenderer="{headerRendererSmall}" />
 
 			<s:GridColumn headerText="Число" dataField="IsNumeric"
 						  width="43" sortable="false" resizable="false" editable="false"
-						  visible="{isOpenEnabled(AnswerVariant.QuestionType)}"
+						  visible="{AnswerVariant.Type.isPluralityEnabled}"
 						  itemRenderer="{checkBoxRenderer}"
 						  headerRenderer="{headerRendererSmall}" />
 
 			<s:GridColumn headerText="Кол-во симв." dataField="SymbolCount"
 						  width="46" sortable="false" resizable="false" editable="false"
-						  visible="{isOpenEnabled(AnswerVariant.QuestionType)}"
+						  visible="{AnswerVariant.Type.isPluralityEnabled}"
 						  itemRenderer="components.editor.grids.renderers.NumericStepperRenderer"
 						  headerRenderer="{headerRendererSmall}" />
 			
@@ -90,7 +90,7 @@
 			
 			<s:GridColumn headerText="Исклю-чающий" dataField="IsExcludingAnswer"
 						  width="54" sortable="false" resizable="false" editable="false"
-						  visible="{isExcludingEnabled(AnswerVariant.QuestionType, AnswerVariant.MultipleAnswerAllowed)}"
+						  visible="{isExcludingEnabled(AnswerVariant.Type, AnswerVariant.MultipleAnswerAllowed)}"
 						  itemRenderer="components.editor.grids.renderers.CheckBoxRenderer"
 						  headerRenderer="{headerRendererSmall}" />
 		</s:ArrayList>
