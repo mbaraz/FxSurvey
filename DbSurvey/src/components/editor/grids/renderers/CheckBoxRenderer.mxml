@@ -15,8 +15,9 @@
 			private var value : Boolean;
 
 			override public function set data(value : Object) : void {
-				if (!value)
+				if (value == null)
 					return;
+				
 				super.data = value;
 				if (value is SurveyQuestion) {
 					if (isSubSpecific) {

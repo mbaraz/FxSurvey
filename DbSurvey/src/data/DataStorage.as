@@ -5,7 +5,6 @@ package data
 	import vo.AnswerVariant;
 	import vo.QuestionModel;
 	import vo.SubQuestion;
-	import vo.TagCondition;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -226,24 +225,5 @@ package data
 			else
 				_deletedAnswerIds.push(id);
 		}
-
-/* FOR SURVEY EMULATOR LOOK
-		internal function checkConditionOnTag(jsonQuestion : Object) : Boolean {
-			if (!jsonQuestion.ConditionOnTag)
-				return true;
-
-			var tagCondition : TagCondition = new TagCondition(jsonQuestion.ConditionOnTag);
-			for each (var order : String in tagCondition.questionOrders) {
-				var indexArray : Array = questionStorage.replaceOrderByIndex(order);
-				var responseArray : Array = answerStorage.getResponseByIndex(indexArray);
-				tagCondition.checkCondition(responseArray);
-			}
-			return tagCondition.logicalResult;
-		}
-		
-		private function updateVariants() : void {
-			answerStorage.riffleVariants(questionStorage.currentAnswerOrderIndex);
-			answerStorage.filterVariants(questionStorage.currentFilterTagArray);
-		}*/
 	}
 }

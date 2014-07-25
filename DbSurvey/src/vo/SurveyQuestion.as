@@ -146,11 +146,13 @@ package vo
 		
 		public function set AnswersOrdering(value : String) : void {
 			_answersOrdering = value;
-			if (isSelected)
-				AnswerVariant.isStandartOrder = isStandartOrder;
+			if (isSelected) {
+				AnswerVariant.isStandartOrder = AnswersOrdering == Answers_Order_Types[0];
+				AnswerVariant.AnswersOrderingIndex = Answers_Order_Types.indexOf(AnswersOrdering);
+			}
 		}
 		
-		public function get answersOrderIndex() : int {
+		internal function get answersOrderIndex() : int {
 			return Answers_Order_Types.indexOf(AnswersOrdering);
 		}
 		
@@ -310,7 +312,7 @@ package vo
 /*			else
 				ConditionString = obj.ConditionString;*/
 
-			AnswersOrdering = Answers_Order_Types[int(obj.AnswersOrdering)];	//	obj.AnswersOrdering ? obj.AnswersOrdering : Answers_Order_Types[0];
+			AnswersOrdering = Answers_Order_Types[int(obj.AnswerOrdering)];	//	obj.AnswersOrdering ? obj.AnswersOrdering : Answers_Order_Types[0];
 			FilterAnswersTagId = obj.FilterAnswersTagId;
 		}
 

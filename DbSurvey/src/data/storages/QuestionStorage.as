@@ -74,11 +74,11 @@ package data.storages
 		public function get currentOrder() : int {
 			return _currentQuestion ? _currentQuestion.order : 0;
 		}
-
+/*
 		public function get currentAnswerOrderIndex() : int {
 			return _currentQuestion.answersOrderIndex;
 		}
-		
+*/		
 		public function set projectId(value : int) : void {
 			SurveyQuestion.ProjectId = value;
 		}

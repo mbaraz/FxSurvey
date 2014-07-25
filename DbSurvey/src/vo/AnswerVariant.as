@@ -13,6 +13,7 @@ package vo
 		public static var MinRank : int;
 		public static var hasBoundTag : Boolean;
 		public static var isFiltered : Boolean;
+		public static var AnswersOrderingIndex : int;
 		public static var isStandartOrder : Boolean;
 
 		public static function getEmptyVariant(order : int) : AnswerVariant {
@@ -37,7 +38,7 @@ package vo
 		public var IsNumeric : Boolean;
 		public var IsUnmoved : Boolean;
 		public var IsSelected : Boolean;
-		private var TagValue : String;
+		public var TagValue : String;
 		public var order : int;
 		
 		private var _answerCode : int;
@@ -158,6 +159,7 @@ package vo
 			MinAnswers = obj.MinAnswers;
 			hasBoundTag = obj.hasBoundTag;
 			isFiltered = Boolean(obj.FilterAnswersTagId);
+			AnswersOrderingIndex = obj.answersOrderIndex;
 			isStandartOrder = obj.isStandartOrder;
 		}
 

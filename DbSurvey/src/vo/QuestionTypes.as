@@ -15,6 +15,7 @@ package vo
 
 		private var _isPluralityEnabled : Boolean;
 		
+		[Bindable(event="pluralityChange")]
 		public function get isPluralityEnabled() : Boolean {
 			return _isPluralityEnabled;
 		}

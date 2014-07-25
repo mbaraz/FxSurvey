@@ -35,7 +35,7 @@
 			}
 			
 			override public function set data(value : Object) : void {
-//				super.data = value;
+				super.data = value;
 				if (!value || !(value is SurveyQuestion))
 					return;
 				

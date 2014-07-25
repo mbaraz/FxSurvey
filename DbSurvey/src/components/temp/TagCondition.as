@@ -1,6 +1,7 @@
-package vo
+package components.temp
 {
 	import tools.utils.LogicalUtils;
+	import vo.LogicalExpression;
 
 	public class TagCondition
 	{

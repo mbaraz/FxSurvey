@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="46" version="2.0">
+<workbenchAdvisor/>
+<window height="768" maximized="true" width="1024" x="-3400" y="0">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout>
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="160" y="22"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="198" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="76" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="84" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page aggregateWorkingSetId="Aggregate for window 1405334495361" focus="true" label="Рабочая область - Отладка Flash">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
+<part id="7"/>
+<part id="8"/>
+<part id="9"/>
+<part id="10"/>
+<part id="11"/>
+<part id="12"/>
+<part id="13"/>
+<part id="14"/>
+<part id="15"/>
+<part id="16"/>
+<part id="17"/>
+<part id="18"/>
+<part id="19"/>
+<part id="20"/>
+<part id="21"/>
+<part id="22"/>
+<part id="23"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="QuestionTypes.as" partName="QuestionTypes.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/vo/QuestionTypes.as" title="QuestionTypes.as" tooltip="DbSurvey/src/vo/QuestionTypes.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/vo/QuestionTypes.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1000" selectionTopPixel="0"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="TreeRenderer.mxml" partName="TreeRenderer.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/editor/grids/renderers/TreeRenderer.mxml" title="TreeRenderer.mxml" tooltip="DbSurvey/src/components/editor/grids/renderers/TreeRenderer.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/editor/grids/renderers/TreeRenderer.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="QuestionGrid.mxml" partName="QuestionGrid.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/editor/grids/QuestionGrid.mxml" title="QuestionGrid.mxml" tooltip="DbSurvey/src/components/editor/grids/QuestionGrid.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/editor/grids/QuestionGrid.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="DataManager.as" partName="DataManager.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/data/DataManager.as" title="DataManager.as" tooltip="DbSurvey/src/data/DataManager.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/data/DataManager.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="596" selectionTopPixel="255"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="DataStorage.as" partName="DataStorage.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/data/DataStorage.as" title="DataStorage.as" tooltip="DbSurvey/src/data/DataStorage.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/data/DataStorage.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="7337" selectionTopPixel="2850"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="AnswerStorage.as" partName="AnswerStorage.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/data/storages/AnswerStorage.as" title="AnswerStorage.as" tooltip="DbSurvey/src/data/storages/AnswerStorage.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/data/storages/AnswerStorage.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="177" selectionOffset="8019" selectionTopPixel="2967"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="QuestionBlock.mxml" partName="QuestionBlock.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/QuestionBlock.mxml" title="QuestionBlock.mxml" tooltip="DbSurvey/src/components/QuestionBlock.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/QuestionBlock.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="Questionnaire.mxml" partName="Questionnaire.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/Questionnaire.mxml" title="Questionnaire.mxml" tooltip="DbSurvey/src/components/Questionnaire.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/Questionnaire.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="AnswerBlock.mxml" partName="AnswerBlock.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/AnswerBlock.mxml" title="AnswerBlock.mxml" tooltip="DbSurvey/src/components/AnswerBlock.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/AnswerBlock.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="RatingAnswer.mxml" partName="RatingAnswer.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/answers/RatingAnswer.mxml" title="RatingAnswer.mxml" tooltip="DbSurvey/src/components/answers/RatingAnswer.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/answers/RatingAnswer.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="RankValidator.as" partName="RankValidator.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/validators/RankValidator.as" title="RankValidator.as" tooltip="DbSurvey/src/components/validators/RankValidator.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/validators/RankValidator.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="5" selectionOffset="1345" selectionTopPixel="661"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="ComboBoxRenderer.mxml" partName="ComboBoxRenderer.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/editor/grids/renderers/ComboBoxRenderer.mxml" title="ComboBoxRenderer.mxml" tooltip="DbSurvey/src/components/editor/grids/renderers/ComboBoxRenderer.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/editor/grids/renderers/ComboBoxRenderer.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="AnswerGrid.mxml" partName="AnswerGrid.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/editor/grids/AnswerGrid.mxml" title="AnswerGrid.mxml" tooltip="DbSurvey/src/components/editor/grids/AnswerGrid.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/editor/grids/AnswerGrid.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="QuestionsEditor.mxml" partName="QuestionsEditor.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/editor/QuestionsEditor.mxml" title="QuestionsEditor.mxml" tooltip="DbSurvey/src/components/editor/QuestionsEditor.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/editor/QuestionsEditor.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="GridAnswer.mxml" partName="GridAnswer.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/answers/GridAnswer.mxml" title="GridAnswer.mxml" tooltip="DbSurvey/src/components/answers/GridAnswer.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/answers/GridAnswer.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="QuestionModel.as" partName="QuestionModel.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/vo/QuestionModel.as" title="QuestionModel.as" tooltip="DbSurvey/src/vo/QuestionModel.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/vo/QuestionModel.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2111" selectionTopPixel="585"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="AnswerVariant.as" partName="AnswerVariant.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/vo/AnswerVariant.as" title="AnswerVariant.as" tooltip="DbSurvey/src/vo/AnswerVariant.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/vo/AnswerVariant.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1283" selectionTopPixel="75"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="MainController.as" partName="MainController.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/controllers/MainController.as" title="MainController.as" tooltip="DbSurvey/src/controllers/MainController.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/controllers/MainController.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1153" selectionTopPixel="435"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="QuestionEvent.as" partName="QuestionEvent.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/events/QuestionEvent.as" title="QuestionEvent.as" tooltip="DbSurvey/src/events/QuestionEvent.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/events/QuestionEvent.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="13" selectionOffset="65" selectionTopPixel="0"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="AnswersEditor.mxml" partName="AnswersEditor.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/editor/AnswersEditor.mxml" title="AnswersEditor.mxml" tooltip="DbSurvey/src/components/editor/AnswersEditor.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/editor/AnswersEditor.mxml"/>
+</editor>
+<editor activePart="true" focus="true" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="ArrayUtils.as" partName="ArrayUtils.as" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/tools/utils/ArrayUtils.as" title="ArrayUtils.as" tooltip="DbSurvey/src/tools/utils/ArrayUtils.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/tools/utils/ArrayUtils.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1498" selectionTopPixel="548"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="BaseGridItemRenderer.mxml" partName="BaseGridItemRenderer.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/editor/grids/renderers/BaseGridItemRenderer.mxml" title="BaseGridItemRenderer.mxml" tooltip="DbSurvey/src/components/editor/grids/renderers/BaseGridItemRenderer.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/editor/grids/renderers/BaseGridItemRenderer.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="CheckBoxRenderer.mxml" partName="CheckBoxRenderer.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/editor/grids/renderers/CheckBoxRenderer.mxml" title="CheckBoxRenderer.mxml" tooltip="DbSurvey/src/components/editor/grids/renderers/CheckBoxRenderer.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/editor/grids/renderers/CheckBoxRenderer.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="SimpleBlock.mxml" partName="SimpleBlock.mxml" path="C:/Users/MBaraz/Documents/GitHub/FxSurvey/DbSurvey/src/components/renderers/SimpleBlock.mxml" title="SimpleBlock.mxml" tooltip="DbSurvey/src/components/renderers/SimpleBlock.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DbSurvey/src/components/renderers/SimpleBlock.mxml"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.search.ui.views.SearchView" partName="Поиск">
+<viewState isPinned="false">
+<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
+</viewState>
+</view>
+<view id="org.eclipse.debug.ui.DebugView" partName="Отладка">
+<viewState/>
+</view>
+<view id="com.adobe.flexbuilder.packageexplorer" partName="Проводник пакетов">
+<viewState LINK_NAVIGATOR_TO_EDITOR="0" fpeIsFlat="0" fpeSortBy="1" sorter="1">
+<fpeExpanded>&#x0A;<fpeElement fpePath="/DbSurvey"/>
+<fpeElement fpePath="/DbSurvey/src"/>
+<fpeElement fpePath="/DbSurvey/src/components"/>
+<fpeElement fpePath="/DbSurvey/src/components/editor"/>
+<fpeElement fpePath="/DbSurvey/src/components/editor/grids"/>
+<fpeElement fpePath="/DbSurvey/src/components/editor/grids/renderers"/>
+<fpeElement fpePath="/DbSurvey/src/components/temp"/>
+<fpeElement fpePath="/DbSurvey/src/servers"/>
+<fpeElement fpePath="/DbSurvey/src/vo"/>
+</fpeExpanded>
+<fpeSelection>&#x0A;<fpeElement fpePath="/DbSurvey/src/components/editor/grids/renderers/CheckBoxRenderer.mxml"/>
+</fpeSelection>
+<filters>&#x0A;<filter element=".flexProperties" isEnabled="true"/>
+<filter element=".actionScriptProperties" isEnabled="true"/>
+<filter element=".project" isEnabled="true"/>
+<filter element=".settings" isEnabled="true"/>
+<filter element=".flexLibProperties" isEnabled="true"/>
+<filter element=".DS_Store" isEnabled="true"/>
+<filter element=".model" isEnabled="true"/>
+<filter element="*.class" isEnabled="false"/>
+<filter element=".*" isEnabled="false"/>
+<filter element=".flexProperties" isEnabled="true"/>
+<filter element=".actionScriptProperties" isEnabled="true"/>
+<filter element=".project" isEnabled="true"/>
+<filter element=".settings" isEnabled="true"/>
+<filter element=".flexLibProperties" isEnabled="true"/>
+<filter element=".DS_Store" isEnabled="true"/>
+<filter element=".model" isEnabled="true"/>
+<filter element="*.class" isEnabled="false"/>
+<filter element=".*" isEnabled="false"/>
+</filters>
+<expanded>&#x0A;<element path="/DbSurvey"/>
+</expanded>
+<selection>&#x0A;<element path="/DbSurvey/src/components/editor/grids/renderers/CheckBoxRenderer.mxml"/>
+</selection>
+</viewState>
+</view>
+<view id="com.adobe.flexbuilder.monitors.network.view.NetworkMonitorView" partName="Монитор сети">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.VariableView" partName="Переменные">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.BreakpointView" partName="Точки прерывания">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Схема">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.ExpressionView" partName="Выражения"/>
+<view id="org.eclipse.ui.views.ProblemView" partName="Неполадки">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Неполадки">
+<expanded>
+<category IMemento.internal.id="Предупреждения (4 элементов)"/>
+</expanded>
+<columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="743"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Консоль">
+<viewState/>
+</view>
+<view id="com.adobe.flexbuilder.dcrad.views.DataServicesView" partName="Данные/службы">
+<viewState/>
+</view>
+<view id="com.adobe.flexbuilder.as.editor.asdocviewer" partName="ASDoc">
+<viewState/>
+</view>
+</views>
+<perspectives activePart="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" activePerspective="com.adobe.flexbuilder.debug.ui.perspectives.debug">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="com.adobe.flexbuilder.mxml.editor.ui.perspectives.DevelopmentPerspectiveFactory" id="com.adobe.flexbuilder.editors.mxml.ui.perspectives.development" label="Flash"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.editorcore.modeswitch"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.flashbridge.flashproject.actionSet"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.designview.activationcontrol"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.doc.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.tasks.ui.navigation"/>
+<alwaysOnActionSet id="org.eclipse.wb.core.ui.actionset"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.profileActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.debug.ui.flexDebuggingActionSet"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.zzz.editors.common.ui.project.publish"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.exportimport.actionSet1"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.as.editor.ui.NavigationActions"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.dcrad.actionSet"/>
+<show_view_action id="com.adobe.flexbuilder.mxml.editor.AppearanceView"/>
+<show_view_action id="com.adobe.flexbuilder.mxml.editor.components.ComponentsView"/>
+<show_view_action id="com.adobe.flexbuilder.packageexplorer"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="com.adobe.flexbuilder.mxml.editor.inspector.view.PropertiesView"/>
+<show_view_action id="com.adobe.flexbuilder.mxml.editor.states.StatesViewer"/>
+<show_view_action id="com.adobe.flexbuilder.dcrad.views.DataServicesView"/>
+<new_wizard_action id="com.adobe.flexbuilder.editorcore.ui.project.wizards.newproject"/>
+<new_wizard_action id="com.adobe.flexbuilder.project.ui.wizards.FlexLibraryProjectWizard"/>
+<new_wizard_action id="com.adobe.flashbuilder.project.multiplatform.ui.MultiPlatformProjectWizard"/>
+<new_wizard_action id="com.adobe.flexbuilder.project.ui.wizards.NewActionScriptProjectWizard"/>
+<new_wizard_action id="com.adobe.flashbuilder.project.multiplatform.ui.MultiPlatformActionScriptProjectWizard"/>
+<new_wizard_action id="com.adobe.flexbuilder.flashbridge.NewFlashProProjectWizard"/>
+<new_wizard_action id="com.adobe.flexbuilder.editorcore.ui.project.wizards.newflashcatalystproject"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLApplication"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLComponent"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLItemRenderer"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLModule"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLSkin"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.wizards.NewActionScriptFile.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.classWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.interfaceWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.skinnableComponentWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.css.editor.wizards.NewCSSFile"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.flexUnitClassWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.flexUnitTestSuiteClassWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.packageWizard.flex"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<perspective_action id="com.adobe.flexbuilder.editors.mxml.ui.perspectives.development"/>
+<perspective_action id="com.adobe.flexbuilder.debug.ui.perspectives.debug"/>
+<perspective_action id="com.adobe.flash.profiler.ui.ProfilingPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="com.adobe.flexbuilder.packageexplorer"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="com.adobe.flexbuilder.dcrad.views.DataServicesView"/>
+<view id="com.adobe.flexbuilder.monitors.network.view.NetworkMonitorView"/>
+<view id="com.adobe.flexbuilder.as.editor.asdocviewer"/>
+<view id="org.eclipse.search.ui.views.SearchView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<fastViewBars/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.ui.internal.ViewStack@152dbbf">&#x0A;<folder activePageID="com.adobe.flexbuilder.packageexplorer" appearance="2" expanded="2">&#x0A;<page content="com.adobe.flexbuilder.packageexplorer" label="Проводник пакетов"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="750" ratioRight="250" relationship="2" relative="org.eclipse.ui.internal.ViewStack@152dbbf">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.17077003" ratioLeft="326" ratioRight="1583" relationship="2" relative="org.eclipse.ui.internal.ViewStack@152dbbf"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@c384f5" ratio="0.65" ratioLeft="520" ratioRight="280" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="com.adobe.flexbuilder.mxml.editor.states.StatesViewer" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info folder="true" part="propertiesHolder" ratio="0.24884081" ratioLeft="161" ratioRight="486" relationship="4" relative="org.eclipse.ui.internal.ViewStack@c384f5">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="com.adobe.flexbuilder.mxml.editor.inspector.view.PropertiesView" label="LabelNotFound"/>
+<page content="com.adobe.flexbuilder.mxml.editor.AppearanceView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info folder="true" part="bottomLayout" ratio="0.6522634" ratioLeft="634" ratioRight="338" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ProblemView" label="Неполадки"/>
+<page content="com.adobe.flexbuilder.dcrad.views.DataServicesView" label="Данные/службы"/>
+<page content="com.adobe.flexbuilder.monitors.network.view.NetworkMonitorView" label="Монитор сети"/>
+<page content="com.adobe.flexbuilder.as.editor.asdocviewer" label="ASDoc"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="Поиск"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Консоль"/>
+<page content="com.adobe.flexbuilder.mxml.editor.design.internal.errors.view.DesignModeProblemsView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="outlineHolder" ratio="0.4992272" ratioLeft="323" ratioRight="324" relationship="4" relative="org.eclipse.ui.internal.ViewStack@152dbbf">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Схема"/>
+<page content="com.adobe.flexbuilder.mxml.editor.components.ComponentsView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="com.adobe.flexbuilder.debug.ui.perspectives.FlexDebugPerspectiveFactory" id="com.adobe.flexbuilder.debug.ui.perspectives.debug" label="Отладка Flash"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.editorcore.modeswitch"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.flashbridge.flashproject.actionSet"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.designview.activationcontrol"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.doc.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.tasks.ui.navigation"/>
+<alwaysOnActionSet id="org.eclipse.wb.core.ui.actionset"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.profileActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.debug.ui.flexDebuggingActionSet"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.zzz.editors.common.ui.project.publish"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.exportimport.actionSet1"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.as.editor.ui.NavigationActions"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.dcrad.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<show_view_action id="org.eclipse.debug.ui.VariableView"/>
+<show_view_action id="org.eclipse.debug.ui.BreakpointView"/>
+<show_view_action id="org.eclipse.debug.ui.ExpressionView"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.debug.ui.DebugView"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="com.adobe.flexbuilder.mxml.editor.AppearanceView"/>
+<show_view_action id="com.adobe.flexbuilder.mxml.editor.components.ComponentsView"/>
+<show_view_action id="com.adobe.flexbuilder.packageexplorer"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="com.adobe.flexbuilder.mxml.editor.inspector.view.PropertiesView"/>
+<show_view_action id="com.adobe.flexbuilder.mxml.editor.states.StatesViewer"/>
+<new_wizard_action id="com.adobe.flexbuilder.editorcore.ui.project.wizards.newproject"/>
+<new_wizard_action id="com.adobe.flexbuilder.project.ui.wizards.FlexLibraryProjectWizard"/>
+<new_wizard_action id="com.adobe.flashbuilder.project.multiplatform.ui.MultiPlatformProjectWizard"/>
+<new_wizard_action id="com.adobe.flexbuilder.project.ui.wizards.NewActionScriptProjectWizard"/>
+<new_wizard_action id="com.adobe.flashbuilder.project.multiplatform.ui.MultiPlatformActionScriptProjectWizard"/>
+<new_wizard_action id="com.adobe.flexbuilder.flashbridge.NewFlashProProjectWizard"/>
+<new_wizard_action id="com.adobe.flexbuilder.editorcore.ui.project.wizards.newflashcatalystproject"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLApplication"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLComponent"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLItemRenderer"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLModule"/>
+<new_wizard_action id="com.adobe.flexbuilder.mxml.editor.ui.wizards.NewMXMLSkin"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.wizards.NewActionScriptFile.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.classWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.interfaceWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.skinnableComponentWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.css.editor.wizards.NewCSSFile"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.flexUnitClassWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.flexUnitTestSuiteClassWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.as.editor.packageWizard.flex"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<perspective_action id="com.adobe.flexbuilder.editors.mxml.ui.perspectives.development"/>
+<perspective_action id="com.adobe.flexbuilder.debug.ui.perspectives.debug"/>
+<perspective_action id="com.adobe.flash.profiler.ui.ProfilingPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="com.adobe.flexbuilder.dcrad.views.DataServicesView"/>
+<view id="com.adobe.flexbuilder.monitors.network.view.NetworkMonitorView"/>
+<view id="org.eclipse.search.ui.views.SearchView"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.debug.ui.DebugView"/>
+<view id="org.eclipse.debug.ui.VariableView"/>
+<view id="org.eclipse.debug.ui.BreakpointView"/>
+<view id="org.eclipse.debug.ui.ExpressionView"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.DebugView" label="Отладка"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1434" ratioRight="478" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.7497436" ratioLeft="731" ratioRight="244" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Консоль"/>
+<page content="com.adobe.flexbuilder.dcrad.views.DataServicesView" label="Данные/службы"/>
+<page content="com.adobe.flexbuilder.monitors.network.view.NetworkMonitorView" label="Монитор сети"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="Поиск"/>
+<page content="org.eclipse.ui.views.ProblemView" label="Неполадки"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.3475862" ratioLeft="252" ratioRight="473" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="956" ratioRight="956" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.VariableView" label="Переменные"/>
+<page content="org.eclipse.debug.ui.BreakpointView" label="Точки прерывания"/>
+<page content="org.eclipse.debug.ui.ExpressionView" label="Выражения"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" path="/DbSurvey/src/tools/utils/ArrayUtils.as"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" path="/DbSurvey/src/components/renderers/SimpleBlock.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.mxml.editor.MXMLCodeEditor" path="/DbSurvey/src/components/renderers/SimpleBlock.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" path="/DbSurvey/src/tools/utils/ArrayUtils.as"/>
+</editors>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="617" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="665" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="734" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="457" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="762" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="617" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="665" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="734" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="808" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="617" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="919" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="257" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="617" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="919" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="257" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="278" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="324" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="338" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="459" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="543" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="591" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="617" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="665" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="734" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="808" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="617" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="665" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="734" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="762" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="696" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="257" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="650" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="0">
+<position info="not_deleted" x="952" y="0"/>
+</item>
+<item historyLabel="SimpleBlock.mxml" index="1">
+<position info="not_deleted" x="1625" y="0"/>
+</item>
+<item historyLabel="SimpleBlock.mxml" index="2">
+<position info="not_deleted" x="389" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="952" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="1072" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="257" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="767" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="841" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="1088" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="767" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="998" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="583" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="257" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="1008" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="1061" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="1008" y="0"/>
+</item>
+<item historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="257" y="0"/>
+</item>
+<item active="true" historyLabel="ArrayUtils.as" index="3">
+<position info="not_deleted" x="1008" y="0"/>
+</item>
+</navigationHistory>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+<trimItem IMemento.internal.id="org.eclipse.mylyn.tasks.ui.trim.container"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList>
+<file factoryID="com.adobe.flexbuilder.editors.derived.ui.startpage.StartPageEditorInput" id="com.adobe.flexbuilder.ui.StartPage" name="Web-браузер" tooltip="Окно приветствия Flash Builder">
+<persistable iconpath="platform:/plugin/com.adobe.flexbuilder.ui/icons/fb_app_16.png" style="20" tooltip="Окно приветствия Flash Builder" url="file:/C:/Program Files (x86)/Adobe/Adobe Flash Builder 4.6/eclipse/plugins/com.adobe.flexbuilder.ui.nl1_4.6.1.335153/nl/ru/welcome/index.html?firstLaunch=false&amp;edition=prem&amp;version=460"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="SimpleBlock.mxml" tooltip="DbSurvey/src/components/renderers/SimpleBlock.mxml">
+<persistable path="/DbSurvey/src/components/renderers/SimpleBlock.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="CheckBoxRenderer.mxml" tooltip="DbSurvey/src/components/editor/grids/renderers/CheckBoxRenderer.mxml">
+<persistable path="/DbSurvey/src/components/editor/grids/renderers/CheckBoxRenderer.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="BaseGridItemRenderer.mxml" tooltip="DbSurvey/src/components/editor/grids/renderers/BaseGridItemRenderer.mxml">
+<persistable path="/DbSurvey/src/components/editor/grids/renderers/BaseGridItemRenderer.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="ArrayUtils.as" tooltip="DbSurvey/src/tools/utils/ArrayUtils.as">
+<persistable path="/DbSurvey/src/tools/utils/ArrayUtils.as"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="ApplicationBase.mxml" tooltip="DbSurvey/src/ApplicationBase.mxml">
+<persistable path="/DbSurvey/src/ApplicationBase.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="EmulatorServer.as" tooltip="DbSurvey/src/servers/EmulatorServer.as">
+<persistable path="/DbSurvey/src/servers/EmulatorServer.as"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="ConditionTag.as" tooltip="DbSurvey/src/vo/ConditionTag.as">
+<persistable path="/DbSurvey/src/vo/ConditionTag.as"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="Main.properties" tooltip="DbSurvey/locale/ru_Ru/Main.properties">
+<persistable path="/DbSurvey/locale/ru_Ru/Main.properties"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="Main.properties" tooltip="DbSurvey/locale/en_US/Main.properties">
+<persistable path="/DbSurvey/locale/en_US/Main.properties"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="SimpleAnswer.mxml" tooltip="DbSurvey/src/components/answers/SimpleAnswer.mxml">
+<persistable path="/DbSurvey/src/components/answers/SimpleAnswer.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="Instruction.mxml" tooltip="DbSurvey/src/components/Instruction.mxml">
+<persistable path="/DbSurvey/src/components/Instruction.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="SimpleRenderer.mxml" tooltip="DbSurvey/src/components/editor/grids/renderers/SimpleRenderer.mxml">
+<persistable path="/DbSurvey/src/components/editor/grids/renderers/SimpleRenderer.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="NumericStepperRenderer.mxml" tooltip="DbSurvey/src/components/editor/grids/renderers/NumericStepperRenderer.mxml">
+<persistable path="/DbSurvey/src/components/editor/grids/renderers/NumericStepperRenderer.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="LogicalExpression.as" tooltip="DbSurvey/src/vo/LogicalExpression.as">
+<persistable path="/DbSurvey/src/vo/LogicalExpression.as"/>
+</file>
+</mruList>
+</workbench>

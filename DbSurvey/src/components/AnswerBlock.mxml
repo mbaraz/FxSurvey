@@ -9,6 +9,7 @@
 	<fx:Script>
 		<![CDATA[
 			import components.answers.*;
+			import tools.utils.ArrayUtils;
 			import vo.AnswerVariant;
 			
 			import mx.collections.IList;
@@ -17,21 +18,21 @@
 
 			private var _questionSubitems : IList;
 			
-			public function set questionSubitems(value : IList) : void {trace("set questionSubitems")
+			public function set questionSubitems(value : IList) : void {
 				_questionSubitems = value;
 			}
 
 			[Bindable]
 			private var answerElement : IAnswer;
 
-			public function set variants(value : IList) : void {trace("set variants\n-------------------")
+			public function set variants(value : IList) : void {
  				if (!value) {
 					if (numChildren > 1) removeElementAt(numChildren - 1);
 					instruction.visible = false;
 					return;
 				}	//	brief="{makeInstruction(answerElement.instruction, answerElement.variants.length, AnswerVariant.MultipleAnswerAllowed, AnswerVariant.MinAnswers, AnswerVariant.MaxAnswers, AnswerVariant.MinRank, AnswerVariant.MaxRank)}"
 				updateChildrens();
-				answerElement.variants = value;
+				answerElement.variants = ArrayUtils.orderAnswers(value, AnswerVariant.AnswersOrderingIndex);
 				addElement(answerElement);
 				answerElement.percentWidth = 100;
 				instruction.brief = answerElement.instruction;

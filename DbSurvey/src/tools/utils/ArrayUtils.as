@@ -1,25 +1,48 @@
 package tools.utils
 {
 	import mx.collections.ArrayCollection;
+	import mx.collections.IList;
 	
 	import vo.AnswerVariant;
 	
 	public class ArrayUtils
 	{
-/*		public static function riffle(ac : ArrayCollection, isShifted : Boolean = false) : void {
-			var src : Array = [];
-			for each (var variant : AnswerVariant in ac)
-				if (!variant.IsUnmoved)
-					src.push(variant);
+		public static function orderAnswers(ac : IList, index : int) : IList {
+			var result : IList;
+			switch (index) {
+				case 0 :
+					result = ac;
+					break;
+				case 1 :
+					result = riffle(ac);
+					break;
+				case 2 :
+					result = riffle(ac, true);
+			}
+			return result;
+		}
+		
+		private static function riffle(ac : IList, isShifted : Boolean = false) : IList {
+			var resultArray : Array = new Array(ac.length);
+			var riffleArray : Array = [];
+			for (var i : int = 0; i < ac.length; i++) {
+				var variant : AnswerVariant = ac.getItemAt(i) as AnswerVariant;
+				if (variant.IsUnmoved)
+					resultArray[i] = variant;
+				else
+					riffleArray.push(variant);
+			}
 			if (isShifted)
-				shift(src);
+				shift(riffleArray);
 			else
-				shuffle(src);
-			var i : int = 0;
+				shuffle(riffleArray);
+			
+			i = 0;
 			for (var j : int = 0; j < ac.length; j++)
-				if (!ac.getItemAt(j).IsUnmoved)
-					ac.setItemAt(src[i++], j);
-			ac.refresh();
+				if (!resultArray[j])
+					resultArray[j] = riffleArray[i++];
+			
+			return new ArrayCollection(resultArray);
 		}
 		
 		private static function shuffle(array : Array) : void {
@@ -35,11 +58,11 @@ package tools.utils
 		}
 		
 		private static function shift(array : Array) : void {
-			var l : int = Math.floor(Math.random() * (array.length - 1)) + 1;
+			var l : int = Math.floor(Math.random() * array.length);			//	(array.length - 1)) + 1;
 			for (var i : int = 0; i < l; i++) {
 				var temp : AnswerVariant = array.pop();
 				array.unshift(temp);
 			}
-		}*/
+		}
 	}
 }
