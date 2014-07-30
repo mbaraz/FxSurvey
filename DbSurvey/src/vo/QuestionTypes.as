@@ -39,7 +39,7 @@ package vo
 		}
 
 		public function get isRanked() : Boolean {
-			return this != Simple && this != Summed && !hasSingleAnswer;
+			return this != Simple && this != Summed && hasSingleAnswer;
 		}
 		
 		public function get isRated() : Boolean {

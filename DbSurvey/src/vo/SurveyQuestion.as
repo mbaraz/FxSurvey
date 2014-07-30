@@ -245,12 +245,7 @@ package vo
 		public function SurveyQuestion(obj:Object) {
 			super(obj);
 		}
-/*	LOOK
-		public function filterSubitems(filterFunction : Function) : void {
-			subitems.filterFunction = filterFunction;
-			subitems.refresh();
-		}
-*/		
+
 		public function addSubitem() : void {
 			subitems.addItemAt(SubQuestion.getEmptySubQuestion(subitemIndex + 1, SurveyQuestionId), subitemIndex);
 			subitemIndex++;

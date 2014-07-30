@@ -34,7 +34,7 @@
 							case "SliderRank" : {
 								stepper.enabled = true;
 								stepper.minimum = column.dataField == "MinRank" ? -SurveyQuestion.Default_Max_Rank : Math.max(question.MinRank, -SurveyQuestion.Default_Max_Rank);
-								stepper.maximum = column.dataField == "MinRank" ? Math.max(question.MaxAnswers, -SurveyQuestion.Default_Max_Rank) : SurveyQuestion.Default_Max_Rank;
+								stepper.maximum = column.dataField == "MinRank" ? Math.max(question.MaxRank, -SurveyQuestion.Default_Max_Rank) : SurveyQuestion.Default_Max_Rank;
 								break;
 							} 
 							default :
