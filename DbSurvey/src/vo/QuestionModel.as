@@ -21,10 +21,8 @@ package vo
 				return;
 			
 			var cnt : int = 0;
-			for each (var variant : AnswerVariant in answerVariants) {
-				variant.AnswerCode = 0;
+			for each (var variant : AnswerVariant in answerVariants)
 				variant.order = ++cnt;
-			}
 		}
 		
 		private function fill(obj : Object) : void {

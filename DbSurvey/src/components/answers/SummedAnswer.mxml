@@ -7,17 +7,18 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import mx.collections.IList;
-			
 			import components.renderers.SumBlock;
 			import vo.AnswerVariant;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
 
 			public function get instruction() : String {
 				return resourceManager.getString('Main','legend_sum');
 			}
 			
 			public function set variants(value : IList) : void {
-				SumBlock.reset();
+				SumBlock.sum = 0;
 				answers.dataProvider = value;
 			}
 

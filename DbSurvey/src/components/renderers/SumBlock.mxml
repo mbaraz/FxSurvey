@@ -2,42 +2,51 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="library://ns.adobe.com/flex/spark" 
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
-				autoDrawBackground="false">
+				autoDrawBackground="false" creationComplete="init()">
 	
 	<fx:Script>
 		<![CDATA[
+			import spark.events.TextOperationEvent;
+			
 			import vo.AnswerVariant;
 			
 			public static const lblWidth : int = 400;
 			
 			[Bindable]
 			public static var sum : int;
-			
-			private static var values : Array = [];
 
 			[Bindable]
 			private var answer : AnswerVariant;
 
-			public static function reset() : void {
-				sum = 0;
-				values = [];
-			}
-			
 			override public function set data(value : Object) : void {
+				
 				if (!value)
 					return;
+				
+				super.data = value;
 				answer = value as AnswerVariant;
-				sum += int(answer.Value) - int(values[itemIndex]);
-				values[itemIndex] = int(answer.Value);
+			}
+			
+			private function init() : void {
+				sum += int(answer.Value);
+			}
+			
+			private function textChangeHandler(event : TextOperationEvent) : void {
+				var val : int = int(ti.text);
+				sum += val - int(answer.Value);
+				if (!val)
+					ti.text = answer.Value = "";
+				else
+					answer.Value = ti.text;
 			}
 		]]>
-	</fx:Script>	
+	</fx:Script>
+	
 	<s:HGroup verticalAlign="middle" gap="20">
 		<s:Label text="{answer.AnswerText}" width="{lblWidth}" textAlign="right" />
 
-		<s:TextInput width="40"  maxChars="3"
-					 restrict="0-9"
-					 text="@{answer.Value}"/>
+		<s:TextInput id="ti" width="40"  maxChars="3" change="textChangeHandler(event)"
+					 restrict="0-9" text="{answer.Value}" />
 	</s:HGroup>
 	
 </s:ItemRenderer>

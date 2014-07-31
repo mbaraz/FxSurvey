@@ -40,16 +40,6 @@ package vo
 		public var IsSelected : Boolean;
 		public var TagValue : String;
 		public var order : int;
-		
-		private var _answerCode : int;
-		
-		public function set AnswerCode(value : int) : void {
-			_answerCode = value;
-		}
-		
-		public function get AnswerCode() : int {
-			return _answerCode ? _answerCode : order;
-		}
 
 		private var _value : String = "";
 		
@@ -65,7 +55,7 @@ package vo
 		public function get response() : int {
 			if (!IsSelected)
 				return 0;
-			return Type.hasSingleAnswer ? int(Value) : AnswerCode;
+			return Type.hasSingleAnswer ? int(Value) : order;
 		}
 		
 		public function get variantObject() : Object {
@@ -75,7 +65,7 @@ package vo
 			obj.AnswerText = AnswerText;
 			obj.IsOpenAnswer = IsOpenAnswer;
 			obj.IsExcludingAnswer = IsExcludingAnswer;
-			obj.AnswerCode = AnswerCode;
+			obj.AnswerCode = order;
 			obj.AnswerOrder = order;
 			obj.SymbolCount = SymbolCount;
 			obj.IsNumeric = IsNumeric;
@@ -91,7 +81,7 @@ package vo
 			IsOpenAnswer = obj.IsOpenAnswer;
 			IsExcludingAnswer = obj.IsExcludingAnswer;
 			order = obj.AnswerOrder;
-			AnswerCode = obj.AnswerCode;
+//			AnswerCode = order;	//	obj.AnswerCode;
 			SymbolCount = obj.SymbolCount;
 			IsNumeric = obj.IsNumeric;
 			IsUnmoved =  obj.IsUnmoved;
@@ -145,7 +135,7 @@ package vo
 			}
 			responseObj.Answers.push(response);
 			if (IsOpenAnswer)
-				responseObj.OpenAnswers.push([AnswerCode, Value]);
+				responseObj.OpenAnswers.push([order, Value]);	//	AnswerCode
 		}
 		
 		public static function SetQuestionParameters(obj : Object) : void {
@@ -173,7 +163,7 @@ package vo
 		}
 
 		private function makeKeyValueResponse(strng : String) : Array {
-			return  IsRatingQuestion ? [AnswerCode, strng] : [strng, AnswerCode];
+			return  IsRatingQuestion ? [order, strng] : [strng, order];	//	AnswerCode
 		}
 
 	}

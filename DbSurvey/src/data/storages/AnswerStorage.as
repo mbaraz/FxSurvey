@@ -148,8 +148,8 @@ package data.storages
 			var result : Array = [];
 			var variants : Array = answersCollection.getItemAt(indx).source;
 			for each (var variant : AnswerVariant in variants)
-				if (result.indexOf(variant.AnswerCode) == -1)
-					result.push(variant.AnswerCode);
+				if (result.indexOf(variant.TagValue) == -1)	//	AnswerCode
+					result.push(variant.TagValue);
 				
 			return result;
 		}
@@ -221,17 +221,5 @@ package data.storages
 			}
 			return result.sort(Array.NUMERIC);
 		}
-/*		LOOK
-		public function riffleVariants(index : int) : void {
-			switch (index) {
-				case 0 :
-					return;
-				case 1 :
-					ArrayUtils.riffle(_currentVariants);
-					break;
-				case 2 :
-					ArrayUtils.riffle(_currentVariants, true);
-			}
-		}*/
 	}
 }
