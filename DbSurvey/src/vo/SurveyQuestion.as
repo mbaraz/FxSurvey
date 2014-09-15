@@ -48,22 +48,20 @@ package vo
 			else if (type.isSinglelOnly)
 				MultipleAnswerAllowed = false;
 			
-			if (!type.isRanked)
+//			if (!type.isRanked)
+			if (isGridQuestion || type == QuestionTypes.Simple || type == QuestionTypes.Summed) {
 				setNoRanks();
 			
-			if (isGridQuestion) {
-				if (!subitems.length)
-					QuestionText += Default_Text_Delimiter;
-				// TEMP			
-				MaxRank = subitems.length;
-				// TEMP				
+				if (isGridQuestion) {
+					if (!subitems.length)
+						QuestionText += Default_Text_Delimiter;
+					// TEMP			
+					MaxRank = subitems.length;
+					// TEMP				
+				}
+				if (type == QuestionTypes.Summed)
+					setMaxAnswersCount();
 			}
-			/*
-			switch(QuestionType) {
-			case "Summed":
-			setMaxAnswersCount();
-			}
-			*/
 			AnswerVariant.Type = type;
 		}
 
@@ -91,6 +89,11 @@ package vo
 
 		private var _multipleAnswerAllowed : Boolean;
 		
+		[Bindable]
+		public function get MultipleAnswerAllowed() : Boolean {
+			return _multipleAnswerAllowed;
+		}
+		
 		public function set MultipleAnswerAllowed(value : Boolean) : void {
 			if (QuestionType == "Simple" && !MultipleAnswerAllowed && value)
 				setSingleAnswersCount();
@@ -102,10 +105,6 @@ package vo
 				setSingleAnswersCount();
 				
 			AnswerVariant.MultipleAnswerAllowed = MultipleAnswerAllowed;
-		}
-		
-		public function get MultipleAnswerAllowed() : Boolean {
-			return _multipleAnswerAllowed;
 		}
 		
 		private var _maxAnswers : int;

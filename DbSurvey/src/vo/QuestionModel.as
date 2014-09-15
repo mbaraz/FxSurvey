@@ -50,7 +50,7 @@ package vo
 
 		private function correctOldQuestion(obj : Object) : void {
 			var question : Object = obj.Question;
-			if (question.QuestionType)
+			if (question.QuestionType != null)
 				return;
 
 			isRusty = true;

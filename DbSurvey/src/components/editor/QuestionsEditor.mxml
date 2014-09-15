@@ -79,7 +79,7 @@
 								storage="{questionStorage}"
 								answerStorage="{answerStorage}"
 								dataProvider="{questionStorage.questions}"
-								doubleClick="selectedViewIndex=1" />
+								doubleClick="selectedViewIndex=0" />
 		</s:Panel>
 		
 		<editor:ButtonRow id="buttons" currentState="questions"
