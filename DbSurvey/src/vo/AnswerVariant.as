@@ -4,7 +4,7 @@ package vo
 	public class AnswerVariant
 	{
 		public static const VARIANTS_DELIMITER : String = "*";
-		
+
 		public static var Type : QuestionTypes;
 		public static var MultipleAnswerAllowed : Boolean;
 		public static var MaxAnswers : int;
@@ -18,6 +18,10 @@ package vo
 
 		public static function getEmptyVariant(order : int) : AnswerVariant {
 			return new AnswerVariant({AnswerText: "", TagValue : order, AnswerOrder: order, IsOpenAnswer: Type.hasOpenAnswersOnly, IsNumeric: Type.hasNumericAnswersOnly});
+		}
+		
+		public static function get IsCompositeQuestion() : Boolean {
+			return Type.isCompositeType;
 		}
 		
 		public static function get IsRankQuestion() : Boolean {
@@ -50,6 +54,10 @@ package vo
 		public function set Value(value : String) : void {
 			_value = value;
 			IsSelected = Boolean(value);
+		}
+		
+		public function get splitValue() : Array {
+			return Value.split(VARIANTS_DELIMITER);
 		}
 		
 		public function get response() : int {
@@ -163,8 +171,7 @@ package vo
 		}
 
 		private function makeKeyValueResponse(strng : String) : Array {
-			return  IsRatingQuestion ? [order, strng] : [strng, order];	//	AnswerCode
+			return  Type.hasSingleAnswer ? [order, strng] : [strng, order];	//	AnswerCode
 		}
-
 	}
 }

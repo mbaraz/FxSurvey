@@ -12,7 +12,7 @@
 			import mx.collections.IList;
 			
 			import vo.AnswerVariant;
-//		removedFromStage="removeHandler()"			
+		
 			[Bindable]
 			private var answer : AnswerVariant;
 
@@ -23,6 +23,9 @@
 			}
 			
 			public function set variants(value : IList) : void {
+				for (var i : int = value.length - 1; i >  0; i--)
+					value.removeItemAt(i);
+				
 				answer = value.length ?  value.getItemAt(0) as AnswerVariant : AnswerVariant.getEmptyVariant(1);
 			}
 			
@@ -67,26 +70,11 @@
 					result.push(i);
 				return result;
 			}
-/* 			
-			private function removeHandler() : void {
-				if (currentState == "radio") {
-					var selectedRadioButton : RadioButton = defaultGroup.selection;
-					answer.Value = selectedRadioButton ? selectedRadioButton.value.toString() : null;
-				} else
-					answer.Value = slider ? slider.value.toString() : null;
-			}
- */
+
 			private function getComments(answerText : String, position : int = 0) : String {
 				var arr : Array = answerText.split(AnswerVariant.VARIANTS_DELIMITER);
 				return arr[position];
 			}
-/*  change="changeHandler(event)"
-			private function changeHandler(event : Event) : void {
-				var selectedLabel : String = event.currentTarget.selection.label;
-				
-				Alert.show("You select: " + (selectedLabel == "Затрудняюсь ответить" ? AnswerVariant.MaxRank + 1 : int(selectedLabel)));
-				 
-			} */
 		]]>
 	</fx:Script>
 	

@@ -49,7 +49,7 @@
 				question = value as  SurveyQuestion;
 				if (isUpdateDataNotNeeded)
 					return;
-//				question = value as  SurveyQuestion;
+
 				treeRoot = {QuestionText: question.QuestionText, children: question.subitems};
 				dpHierarchy = new ArrayCollection([treeRoot]);
 				super.data = value;

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<answers:AnswerBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<answers:RatingBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="library://ns.adobe.com/flex/spark" 
 				xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:answers="components.answers.*"
 				implements="components.IAnswer">
-	
 	<fx:Script>
 		<![CDATA[
 			import components.renderers.RatingBlock;
@@ -13,6 +12,8 @@
 			
 			import mx.collections.ArrayList;
 			import mx.collections.IList;
+			import mx.events.CollectionEvent;
+			import mx.events.CollectionEventKind;
 
 			private function get isRankingQuestion() : Boolean {
 				return AnswerVariant.Type.name == "Ranking";
@@ -21,13 +22,12 @@
 			public function get instruction() : String {
 				return isRankingQuestion ? resourceManager.getString('Main', 'legend_rank', [AnswerVariant.MinAnswers, AnswerVariant.MaxAnswers, AnswerVariant.MaxRank]) : resourceManager.getString('Main', 'legend_rate', [AnswerVariant.MinAnswers, AnswerVariant.MaxAnswers, AnswerVariant.MaxRank]);
 			}
-			
-			public function set variants(value : IList) : void {
-				answers.dataProvider = value;
-				answers.addEventListener(InputChangeEvent.INPUT_CHANGHED, ratingChangeHandler);
-				RatingBlock.reset();
+
+			override public function set variants(value : IList) : void {
+				super.variants = value;
+				RatingBlock.resultIndexes = _variants.toArray();
 			}
-			
+
 			public function trySaveAnswers() : Boolean {
 				var invalidIndex : int = RatingBlock.invalidAnswerNumber;
 				if (invalidIndex > -1) {
@@ -43,7 +43,33 @@
 					showAlert(resourceManager.getString('Main', 'warning_breach'));
 					return false;
 				}
+				saveAnswers();
 				return true;
+			}
+ 			
+			override protected function init():void {
+				answers.removeEventListener(InputChangeEvent.INPUT_CHANGHED, ratingChangeHandler);
+				answers.dataProvider = _subitems;
+				answers.addEventListener(InputChangeEvent.INPUT_CHANGHED, ratingChangeHandler);
+				RatingBlock.reset();
+			}
+			
+			private function saveAnswers() : void {
+				var values : Array = [];
+				for (var i : int = 0; i < RatingBlock.resultIndexes.length; i++) {
+					var indx : int = RatingBlock.resultIndexes[i];
+					if (!values[indx])
+						values[indx] = "";
+					
+					values[indx] += _subitems[i].order + AnswerVariant.VARIANTS_DELIMITER;
+				}
+				for each(var variant : AnswerVariant in _variants)
+					variant.Value = "";
+				
+				for (var j : int = 1; j < values.length; j++) {
+					var value : String = values[j];
+					(_variants.getItemAt(j - 1) as AnswerVariant).Value = value ? value.substr(0, value.length - 1) : "";
+				}
 			}
 
 			private function ratingChangeHandler(event : InputChangeEvent):void {
@@ -55,13 +81,15 @@
 					if (element)
 						element.rankValidator.validate();
 				}
-			} 
+			}
 		]]>
 	</fx:Script>
 	
+	<fx:Binding source="AnswerVariant.MaxRank" destination="maxToRate" />
+
 	<s:DataGroup id="answers" itemRenderer="components.renderers.RatingBlock">
 		<s:layout>
 			<s:VerticalLayout gap="18" />
 		</s:layout>
 	</s:DataGroup>
-</answers:AnswerBase>
+</answers:RatingBase>

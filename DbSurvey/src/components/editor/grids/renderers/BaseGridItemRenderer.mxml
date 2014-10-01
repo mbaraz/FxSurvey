@@ -15,7 +15,7 @@
 			}
 			
 			private function get isRendererShown() : Boolean {
-				return !question.isGridQuestion || question.subitemIndex > 0;
+				return !question.isCompositeQuestion || question.subitemIndex > 0;
 			}
 			
 			private function get isBothSpecific() : Boolean {
@@ -42,7 +42,7 @@
 				question = value as SurveyQuestion;
 				if (isValueChangeNeeded) {
 					visible = isVisible;
-					value = !question.isGridQuestion || isNoSelectedSubitem ? question : question.selectedSubitem;
+					value = !question.isCompositeQuestion || isNoSelectedSubitem ? question : question.selectedSubitem;
 				} else
 					visible = isNoSelectedSubitem;
 				

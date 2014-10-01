@@ -39,17 +39,26 @@ package vo
 		}
 
 		public function get isRanked() : Boolean {
-			return this != Simple && this != Summed && hasSingleAnswer;
+			return this != Simple && this != Summed;
+//			return this != Simple && this != Summed && hasSingleAnswer;
 		}
 		
 		public function get isRated() : Boolean {
 			return this == Rating || this == DragRank;
 		}
-/*		
-		public function get isNotRanked() : Boolean {
-			return this == Simple || this == Summed;
+
+		public function get isGridType() : Boolean {
+			return this == RadioGrid || this == SliderGrid;
 		}
-*/
+// NEW		
+		public function get isCompositeType() : Boolean {
+			return this != Simple && this != Summed && this != RadioRank && this != SliderRank;
+		}
+		
+		public function get isAnswersAbsent() : Boolean {
+			return this == Rating || this == Ranking || this == DragRank;
+		}
+		
 		public function get hasOpenAnswersOnly() : Boolean {
 			return this == Summed || this == Rating || this == Ranking;
 		}
@@ -66,10 +75,6 @@ package vo
 			return this == RadioRank || this == SliderRank;
 		}
 
-		public function get isGridType() : Boolean {
-			return this == RadioGrid || this == SliderGrid;
-		}
-		
 		public function QuestionTypes(isPluralityEnabled : Boolean, isPluralOnly : Boolean, isSinglelOnly : Boolean, canHaveExclude : Boolean = false) {
 			super();
 			_isPluralityEnabled = isPluralityEnabled;

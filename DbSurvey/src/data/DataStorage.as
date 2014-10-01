@@ -30,7 +30,7 @@ package data
 		public function get modelsArray() : Array {
 			var result : Array = [];
 			for (var i : int = 0 ; i < questionStorage.questions.length; i++)
-				result.push({Question: questionStorage.questionObjects[i], AnswerVariants: answerStorage.answerObjects[i]});
+				result.push({Question: questionStorage.questionObjects[i], AnswerVariants: questionStorage.questions[i].isAnswersNeeded ? [] : answerStorage.answerObjects[i]});
 			
 			return result;
 		}
@@ -92,7 +92,7 @@ package data
 				deleteVariants(variants);
 				answerStorage.removeCurrentVariants();
 			} else
-				_deletedSubQuestionIds.push(subQuestionId);
+				addToDeleted(subQuestionId, false, true);	//	_deletedSubQuestionIds.push(subQuestionId);
 		}
 
 		public function removeCurrentVariant() : void {

@@ -125,7 +125,7 @@
 				cell.styleName = "headerGridItem";
 				topCellPercentWidth = 100 / (_variants.length + 2);
 				leftCellPercentWidth = 2 * topCellPercentWidth;
-				cell.percentWidth = isTop ? topCellPercentWidth : leftCellPercentWidth;	//	topCellWidth : leftCellWidth;
+				cell.percentWidth = isTop ? topCellPercentWidth : leftCellPercentWidth;
 				var lbl : Text = new Text();
 				lbl.styleName = isTop ? "headerGridLabel" : "leftColumnGridLabel";
 				lbl.percentWidth = 100;
@@ -156,7 +156,7 @@
 			private function makeSlider(rowNumber : int) : GridSlider {
 				var slider : GridSlider = new GridSlider();
 				slider.labels = columnsHeaders;
-				slider.buttonWidth = width * topCellPercentWidth * rowPercentWidth / (100 * 100); //	topCellWidth;
+				slider.buttonWidth = width * topCellPercentWidth * rowPercentWidth / (100 * 100);
 				if (resultIndexes[rowNumber] != null)
 					slider.value = resultIndexes[rowNumber];
 				return slider;
@@ -165,7 +165,7 @@
 			private function makeRadioButtons(rowNumber : int) : RadioButtons {
 				var radioButtons : RadioButtons = new RadioButtons();
 				radioButtons.isInGrid = true;
-				radioButtons.gap = width * topCellPercentWidth * rowPercentWidth / (100 * 100);//	topCellWidth;
+				radioButtons.gap = width * topCellPercentWidth * rowPercentWidth / (100 * 100);
 				radioButtons.dataProvider = columnsHeaders;
 				if (resultIndexes[rowNumber] != null)
 					radioButtons.rankGroup.selectedValue =  columnsHeaders.getItemAt(resultIndexes[rowNumber]);
@@ -184,7 +184,7 @@
 					for (var k : int = 0; k < _subitems.length; k++)
 						answerValue = answerValue.replace(_subitems.getItemAt(k).order, k);
 
-					var values : Array = answerValue.split(",");
+					var values : Array = answerValue.split(AnswerVariant.VARIANTS_DELIMITER);
 					for (var j : int = 0; j < values.length; j++)
 						resultIndexes[values[j]] = i;
 				}

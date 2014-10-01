@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<answers:AnswerBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:answers="components.answers.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.IList;
+			import mx.events.CollectionEvent;
+			import mx.events.CollectionEventKind;
+			
+			import vo.AnswerVariant;
+			
+			protected var _maxToRate : int;
+			
+			protected function set maxToRate(value : int) : void {
+				_maxToRate = value;
+				updateVariants();
+			}
+			
+			protected var _variants : IList;
+			
+			public function set variants(value : IList) : void {
+				_variants = value;
+				updateVariants();
+			}
+			
+			protected var _subitems : IList;
+			
+			public function set subitems(value : IList) : void {
+				if (_subitems)
+					_subitems.removeEventListener(CollectionEvent.COLLECTION_CHANGE, subitemsChangeHandler);
+			
+				_subitems = value;
+				_subitems.addEventListener(CollectionEvent.COLLECTION_CHANGE, subitemsChangeHandler);
+			}
+			
+			private var _questionId : int;
+			
+			public function set questionId(value : int) : void {
+				_questionId = value;
+			}
+			
+			protected function init():void {
+			}
+			
+			private function updateVariants():void {
+				if (!_variants)
+					return;
+				
+				var lngth : int = _variants.length;
+				for (var i : int = lngth + 1; i <= _maxToRate; i++)
+					_variants.addItem(new AnswerVariant({SurveyQuestionId : _questionId, AnswerText : i, AnswerCode : i, AnswerOrder : i}));
+				
+				for (i = lngth; i > _maxToRate; i--)	
+					_variants.removeItemAt(_variants.length -1);
+				
+				init();
+			}
+
+			private function subitemsChangeHandler(event : CollectionEvent) : void {
+				if (event.kind !=  CollectionEventKind.UPDATE)
+					init();
+			}
+		]]>
+	</fx:Script>
+</answers:AnswerBase>

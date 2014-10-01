@@ -26,13 +26,13 @@
 				var rowIndex : int =  item.order;
 				var question : SurveyQuestion = item as SurveyQuestion;
 				if (!textRenderers[rowIndex] || !isTypesConformed(question, textRenderers[rowIndex]))
-					textRenderers[rowIndex] = question.isGridQuestion ?  new ClassFactory(TreeRenderer) : new ClassFactory(SimpleRenderer);
+					textRenderers[rowIndex] = question.isCompositeQuestion ?  new ClassFactory(TreeRenderer) : new ClassFactory(SimpleRenderer);
 				return textRenderers[rowIndex];
 			}
 			
 			private function isTypesConformed(question : SurveyQuestion, classFactory : ClassFactory) : Boolean {
 				var obj : * = classFactory.newInstance();
-				return (obj is SimpleRenderer && !question.isGridQuestion) || (obj is TreeRenderer && question.isGridQuestion);
+				return (obj is SimpleRenderer && !question.isCompositeQuestion) || (obj is TreeRenderer && question.isCompositeQuestion);
 			}
 
 			override protected function selectionHandler(event : GridSelectionEvent) : void {

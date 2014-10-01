@@ -23,7 +23,7 @@
 				} else
 					questionOutput.textFlow = TextConverter.importToFlow(_question.QuestionText,  TextConverter.TEXT_FIELD_HTML_FORMAT);
 				
-				updateAnewers();
+				updateAnswers();
 			}
  			
 			private var _answerVariants : ArrayCollection;
@@ -34,14 +34,17 @@
 			}
 			
 			public function set questionType(value : String) : void {
-				updateAnewers();
+				updateAnswers();
 			}
 
-			private function updateAnewers() : void {
+			private function updateAnswers() : void {
 				answerBlock.updateProperties(_question ? _question.subitems : null, _answerVariants);
 			}
 		]]>
 	</fx:Script>
+	
+	<fx:Binding source="_question.MaxAnswers" destination="AnswerVariant.MaxAnswers" />
+	<fx:Binding source="_question.MinAnswers" destination="AnswerVariant.MinAnswers" />
 	
 	<s:BorderContainer width="100%" height="100%">
 		<s:layout>

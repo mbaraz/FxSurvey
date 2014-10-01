@@ -7,7 +7,7 @@ package tools.utils
 	
 	public class ArrayUtils
 	{
-		public static function orderAnswers(ac : IList, index : int) : IList {
+/*		public static function orderAnswers(ac : IList, index : int) : IList {
 			var result : IList;
 			switch (index) {
 				case 0 :
@@ -63,6 +63,6 @@ package tools.utils
 				var temp : AnswerVariant = array.pop();
 				array.unshift(temp);
 			}
-		}
+		}*/
 	}
 }

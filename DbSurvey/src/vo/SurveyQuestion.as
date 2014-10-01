@@ -43,6 +43,10 @@ package vo
 				return;
 */			
 			var type : QuestionTypes = QuestionTypes.getTypeByName(QuestionType);
+			if (QuestionType == "DragRank") {
+				MaxRank = MaxAnswers;
+				MinRank = MinAnswers;
+			}
 			if (type.isPluralOnly)
 				MultipleAnswerAllowed = true;
 			else if (type.isSinglelOnly)
@@ -52,7 +56,7 @@ package vo
 			if (isGridQuestion || type == QuestionTypes.Simple || type == QuestionTypes.Summed) {
 				setNoRanks();
 			
-				if (isGridQuestion) {
+				if (isCompositeQuestion) {
 					if (!subitems.length)
 						QuestionText += Default_Text_Delimiter;
 					// TEMP			
@@ -109,17 +113,23 @@ package vo
 		
 		private var _maxAnswers : int;
 		
+		[Bindable]
+		public function get MaxAnswers() : int {
+			return _maxAnswers;
+		}
+		
 		public function set MaxAnswers(value : int) : void {
 			_maxAnswers = value;
 			if (isSelected)
 				AnswerVariant.MaxAnswers = MaxAnswers;
 		}
 		
-		public function get MaxAnswers() : int {
-			return _maxAnswers;
-		}
-		
 		private var _minAnswers : int;
+
+		[Bindable]
+		public function get MinAnswers() : int {
+			return _minAnswers;
+		}
 
 		public function set MinAnswers(value : int) : void {
 			_minAnswers = value;
@@ -127,10 +137,6 @@ package vo
 				AnswerVariant.MinAnswers = MinAnswers;
 		}
 		
-		public function get MinAnswers() : int {
-			return _minAnswers;
-		}
-
 		override public function set BoundTagId(value : int) : void {
 			super.BoundTagId = value;
 			if (isSelected)
@@ -191,7 +197,7 @@ package vo
 		
 		public function get subTagIds() : Array {
 			var result : Array = [];
-			if (isGridQuestion)
+			if (isCompositeQuestion)
 				for (var i : int = Math.max(subitemIndex, 0); i < subitems.length; i++) {
 					var subQuestion : SubQuestion = subitems.getItemAt(i) as SubQuestion;
 					if (subQuestion.hasBoundTag)
@@ -200,13 +206,23 @@ package vo
 			return result;
 		}
 		
+		public function get isAnswersNeeded() : Boolean {
+			var type : QuestionTypes = QuestionTypes.getTypeByName(QuestionType);
+			return type.isAnswersAbsent;
+		}
+		
 		public function get isGridQuestion() : Boolean {
 			var type : QuestionTypes = QuestionTypes.getTypeByName(QuestionType);
 			return type.isGridType;
 		}
 		
+		public function get isCompositeQuestion() : Boolean {
+			var type : QuestionTypes = QuestionTypes.getTypeByName(QuestionType);
+			return type.isCompositeType;
+		}
+		
 		public function get isSubitemSelected() : Boolean {
-			return isGridQuestion && subitemIndex > 0;
+			return isCompositeQuestion && subitemIndex > 0;
 		}
 
 		override public function get questionObject() : Object {

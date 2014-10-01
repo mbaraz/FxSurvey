@@ -19,6 +19,7 @@
 			private var isQuestionNS : Boolean;
 			
 			override public function set data(value : Object) : void {
+				isQuestionNS = value is SurveyQuestion;
 				super.data = value;
 				setBounds(value);
 				if (value)
@@ -37,8 +38,7 @@
 			}
 
 			private function setBounds(value : Object) : void {
-				if (value is SurveyQuestion) {
-					isQuestionNS = true;
+				if (isQuestionNS) {
 //					super.data = value;
 					if (column.dataField.indexOf("Answers") > -1) {
 						stepper.minimum = column.dataField == "MinAnswers" ? SurveyQuestion.Default_Min_Answers : Math.max(question.MinAnswers, SurveyQuestion.Default_Min_Answers);
@@ -48,7 +48,7 @@
 						switch(question.QuestionType) {
 							case "Ranking":
 							case "Rating" :
-							case "DragRank" :
+//							case "DragRank" :
 							case "RadioRank" :
 							case "SliderRank" : {
 //								stepper.enabled = true;
@@ -61,7 +61,6 @@
 						}
 					}
 				} else {
-					isQuestionNS = false;
 					if (value && column.dataField.indexOf("SymbolCount") > -1) {
 						stepper.maximum = value.IsNumeric ?  DEFAULT_NUMERIC_VALUE : DEFAULT_ANSWER_VALUE;
 						stepper.enabled = value.IsOpenAnswer && !AnswerVariant.Type.isPluralOnly;
@@ -82,7 +81,7 @@
 				switch(questionType) {
 					case "Ranking":
 					case "Rating" :
-					case "DragRank" :
+//					case "DragRank" :
 					case "RadioRank" :
 					case "SliderRank" : {
 						return true;
@@ -101,7 +100,7 @@
 		
 		<s:NumericStepper id="stepper" value="@{value}"
 					width="40" maxChars="2"
-					enabled="{isEnabled(question.MultipleAnswerAllowed, question.QuestionType)}"
+					visible="{isEnabled(question.MultipleAnswerAllowed, question.QuestionType)}"
 					minimum="0" maximum="12"
 					change="changeHandler()" />
 	</s:VGroup>

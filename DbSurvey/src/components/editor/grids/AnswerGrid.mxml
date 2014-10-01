@@ -3,7 +3,7 @@
 			xmlns:s="library://ns.adobe.com/flex/spark" 
 			xmlns:mx="library://ns.adobe.com/flex/mx"
 			xmlns:grids="components.editor.grids.*"
-			dataProvider="{_answerStorage.currentVariants}">
+			dataProvider="{_answerStorage.currentVariants}" enabled="{isEnabled(AnswerVariant.Type)}">
 	
 	<fx:Script>
 		<![CDATA[
@@ -23,14 +23,13 @@
 				value.addItemAt("Нет", 0);
 				_filterList = value;
 			}
-/* 			
-			private function isOpenEnabled(questionType : String) : Boolean {
-				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
-				return type.isPluralityEnabled;
+			
+			
+			private function isEnabled(type : QuestionTypes) : Boolean {
+				return !type.isAnswersAbsent;
 			}
-*/			
+
 			private function isExcludingEnabled(type : QuestionTypes, multipleAnswerAllowed : Boolean) : Boolean {
-//				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
 				return multipleAnswerAllowed && type.canHaveExclude;
 			}
  			

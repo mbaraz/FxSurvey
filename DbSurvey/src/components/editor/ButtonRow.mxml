@@ -3,7 +3,8 @@
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  verticalAlign="middle"
-		  width="100%" height="30" paddingRight="4">
+		  width="100%" height="30" paddingRight="4"
+		  visible.answers="{isVisible(AnswerVariant.Type)}">
 	
 	<fx:Script>	<![CDATA[
 		import data.DataStorage;
@@ -28,14 +29,7 @@
 		public function set canAdd(value : Boolean) : void {
 			_canAdd = value;
 		}
-/* 		
-		[Bindable]
-		private var _questionType : String;
-		
-		public function set questionType(value : String) : void {
-			_questionType = value;
-		}
- */
+
 		private var _storage : DataStorage;
 		
 		public function set storage(value : DataStorage) : void {
@@ -95,35 +89,36 @@
 			dispatchEvent(new QuestionEvent(QuestionEvent.TEST_FROM_QUESTION, _storage.questionStorage.currentQuestion ? _storage.questionStorage.currentQuestion.order : 1));
 		}
 		
+		private function isVisible(type : QuestionTypes) : Boolean {
+			return !type.isAnswersAbsent;	// !type.hasSingleAnswer && 
+		}
+		
 		private function isAddEnabled(canAdd : Boolean, type : QuestionTypes, isCollectionEmpty : Boolean) : Boolean {
-//			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
 			if (type.hasSingleAnswer)
 				return false;
-/* 			
+ 			
 			if (!isCollectionEmpty)
 				return false;
-*/			
+			
 			return canAdd;
 		}
 		
 		private function isDeleteEnabled(index : int, type : QuestionTypes) : Boolean {
-			if (type.hasSingleAnswer)
+ 			if (type.hasSingleAnswer)
 				return false;
 
 			return index > -1;
 		}
 		
 		private function isDownEnabled(selectedIndex : int, type : QuestionTypes, length : int) : Boolean {
-//			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
-			if (currentState == "questions" && type.isGridType && _collection.getItemAt(selectedIndex).subitemIndex > 0)
+			if (currentState == "questions" && type.isCompositeType && _collection.getItemAt(selectedIndex).subitemIndex > 0)
 				return _collection.getItemAt(selectedIndex).subitemIndex < _collection.getItemAt(selectedIndex).subitems.length;
 			
 			return selectedIndex != -1 && selectedIndex < length - 1;
 		}
 		
 		private function isUpEnabled(selectedIndex : int, type : QuestionTypes, length : int) : Boolean {
-//			var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
-			if (currentState == "questions" && type.isGridType && _collection.getItemAt(selectedIndex).subitemIndex > 0)
+			if (currentState == "questions" && type.isCompositeType && _collection.getItemAt(selectedIndex).subitemIndex > 0)
 				return _collection.getItemAt(selectedIndex).subitemIndex > 1;
 			
 			return selectedIndex > 0;

@@ -9,13 +9,18 @@
 	<fx:Script>
 		<![CDATA[
 			import components.answers.*;
-			import tools.utils.ArrayUtils;
-			import vo.AnswerVariant;
 			
 			import mx.collections.IList;
 			import mx.events.FlexEvent;
 			import spark.core.NavigationUnit;
+			
+			import tools.utils.ArrayUtils;
+			import vo.AnswerVariant;
 
+			private function get currentQuestionId() : int {
+				return _questionSubitems ? _questionSubitems.getItemAt(0).SurveyQuestionId : 0;
+			}
+			
 			private var _questionSubitems : IList;
 			
 			public function set questionSubitems(value : IList) : void {
@@ -30,9 +35,9 @@
 					if (numChildren > 1) removeElementAt(numChildren - 1);
 					instruction.visible = false;
 					return;
-				}	//	brief="{makeInstruction(answerElement.instruction, answerElement.variants.length, AnswerVariant.MultipleAnswerAllowed, AnswerVariant.MinAnswers, AnswerVariant.MaxAnswers, AnswerVariant.MinRank, AnswerVariant.MaxRank)}"
-				updateChildrens();
-				answerElement.variants = ArrayUtils.orderAnswers(value, AnswerVariant.AnswersOrderingIndex);
+				}
+				updateChildrens(value);
+				answerElement.variants = value;	//	ArrayUtils.orderAnswers(value, AnswerVariant.AnswersOrderingIndex);
 				addElement(answerElement);
 				answerElement.percentWidth = 100;
 				instruction.brief = answerElement.instruction;
@@ -48,7 +53,7 @@
 				return answerElement ? answerElement.trySaveAnswers() : true;
 			}
 
-			private function updateChildrens() : void {
+			private function updateChildrens(value : IList) : void {
  				if (numChildren > 1)
 					removeElementAt(numChildren - 1);
 
@@ -69,10 +74,14 @@
 					case "Ranking":
 					case "Rating": {
 						answerElement = new RatingAnswer();
+						(answerElement as RatingAnswer).questionId = currentQuestionId;
+						(answerElement as RatingAnswer).subitems = _questionSubitems;	//	ArrayUtils.orderAnswers(_questionSubitems, AnswerVariant.AnswersOrderingIndex);
 						break;
 					}
 					case "DragRank": {
 						answerElement = new DragRankAnswer();
+						(answerElement as DragRankAnswer).questionId = currentQuestionId;
+						(answerElement as DragRankAnswer).subitems = _questionSubitems;
 						break;
 					}
 					case "RadioGrid" :
@@ -101,6 +110,10 @@
 				if (seq.isPlaying)
 					seq.stop()
 			}
+			
+			private function makeInstruction(maxAnswers : int, minAnswers : int, maxRank : int, minRank : int) : String {
+				return answerElement.instruction;
+			}
 		]]>
 	</fx:Script>
 	
@@ -120,5 +133,5 @@
 		</s:Sequence>
 	</fx:Declarations>
 	
-	<components:Instruction id="instruction" visible="false" />
+	<components:Instruction id="instruction" visible="false" brief="{makeInstruction(AnswerVariant.MaxAnswers, AnswerVariant.MinAnswers, AnswerVariant.MaxRank, AnswerVariant.MinRank)}" />
 </s:VGroup>

@@ -61,11 +61,7 @@
 				else
 					questionStorage.removeTag();
 			}
-//	height="{preview.height}"	(in HDividedBox)
-//			maxHeight="600" 
-//			minHeight="{height-preview.height-10}" in Canvas
-			
-//	 questionType="{questionStorage.currentQuestion.QuestionType}"
+
 			private function typeChangeHandler(event : Event) : void {
 				answerStorage.updateVariantsByQuestionType(questionStorage.currentQuestion.QuestionType);
 				preview.questionType = questionStorage.currentQuestion.QuestionType;

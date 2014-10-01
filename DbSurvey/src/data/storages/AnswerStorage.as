@@ -214,7 +214,7 @@ package data.storages
 				if (subIndex == -1)
 					result.push(answerCode);
 				else {
-					var subOrders : Array = variant.Value.split(",");
+					var subOrders : Array = variant.splitValue;
 					if (subOrders.indexOf(subIndex.toString()) > -1)
 						result.push(answerCode);
 				}
