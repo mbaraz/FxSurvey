@@ -2,7 +2,7 @@
 <s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
-		  backgroundColor="0xCCCCCC" minWidth="540">
+		  backgroundColor="0xAABCAA" minWidth="540">
 	<fx:Metadata> 
 		[Event(name="nextQuestion", type="flash.events.Event")]
 		[Event(name="previousQuestion", type="flash.events.Event")]

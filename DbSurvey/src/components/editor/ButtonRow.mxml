@@ -51,7 +51,7 @@
 		
 		private function deleteHandler() : void {
 			if (currentState == "questions")
-				_storage.removeCurrentQuestion();
+				_storage.removeCurrentQuestionItem();
 			else
 				_storage.removeCurrentVariant();
 			
@@ -93,13 +93,10 @@
 			return !type.isAnswersAbsent;	// !type.hasSingleAnswer && 
 		}
 		
-		private function isAddEnabled(canAdd : Boolean, type : QuestionTypes, isCollectionEmpty : Boolean) : Boolean {
+		private function isAddEnabled(canAdd : Boolean, type : QuestionTypes) : Boolean {
 			if (type.hasSingleAnswer)
 				return false;
- 			
-			if (!isCollectionEmpty)
-				return false;
-			
+
 			return canAdd;
 		}
 		
@@ -139,7 +136,7 @@
 			  visible="{selectedViewIndex==1}" includeInLayout="{selectedViewIndex==1}" />
 	
 	<s:Button label="Добавить" icon="@Embed('../assets/images/editor/add_16x16.gif')"
-			  enabled.answers="{isAddEnabled(_canAdd, AnswerVariant.Type, _collection.length == 0)}"
+			  enabled.answers="{isAddEnabled(_canAdd, AnswerVariant.Type)}"
 			  click="addHandler()"
 			  toolTip="{'Вставить ' +  (selectedIndex>-1 ? 'после '+(selectedIndex + 1) + '-го' : 'в конец')}" />
 	

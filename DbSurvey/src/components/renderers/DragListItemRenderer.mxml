@@ -34,8 +34,9 @@
 					color="{getStyle('selectionColor')}" 
 					weight="1"/>
 			</s:stroke.selectedAndShowsCaret>
-			<s:fill>
-				<s:SolidColor 
+		<s:fill>
+				<s:SolidColor
+					alpha="0.6" 
 					color.normal="0xFFFFFF"
 					color.normalAndShowsCaret="0xFFFFFF"
 					color.hovered="{getStyle('rollOverColor')}"    

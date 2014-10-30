@@ -31,9 +31,12 @@
 			}
 		]]>
 	</fx:Script>
-	
-	<s:RichText id="questionText" lineBreak="toFit" width="100%" fontSize="20"
+	<s:BorderContainer width="100%"
+					   styleName="question">
+		<s:RichText id="questionText" lineBreak="toFit" width="100%" fontSize="20" paddingTop="4" paddingBottom="4"
 			textFlow="{TextConverter.importToFlow(questionStorage.currentQuestion.QuestionText, TextConverter.TEXT_FIELD_HTML_FORMAT)}" />
+	</s:BorderContainer>
+	
 	<s:Scroller width="100%" height="100%">
 		<components:AnswerBlock width="100%" height="100%" id="answerBlock" variants="{answerStorage.currentVariants}"
 				questionSubitems="{questionStorage.currentQuestion.subitems}" />

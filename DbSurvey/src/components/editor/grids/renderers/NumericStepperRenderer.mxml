@@ -10,7 +10,6 @@
 			import vo.SurveyQuestion;
 			
 			private static const DEFAULT_QUESTION_VALUE : int = 0;
-			private static const DEFAULT_ANSWER_VALUE : int = 60;
 			private static const DEFAULT_NUMERIC_VALUE : int = 4;
 			
 			[Bindable]
@@ -26,7 +25,7 @@
 					this.value =  Math.min(value[column.dataField], stepper.maximum);
 				
 				if (!this.value)
-					this.value = isQuestionNS ? DEFAULT_QUESTION_VALUE : DEFAULT_ANSWER_VALUE;
+					this.value = isQuestionNS ? DEFAULT_QUESTION_VALUE : AnswerVariant.DEFAULT_SYMBOL_CAUNT;
 				
 				if (data)
 					changeHandler();
@@ -46,8 +45,8 @@
 //						stepper.enabled = question.MultipleAnswerAllowed && question.QuestionType != "Summed";
 					} else {
 						switch(question.QuestionType) {
-							case "Ranking":
-							case "Rating" :
+//							case "Ranking":
+//							case "Rating" :
 //							case "DragRank" :
 							case "RadioRank" :
 							case "SliderRank" : {
@@ -62,7 +61,7 @@
 					}
 				} else {
 					if (value && column.dataField.indexOf("SymbolCount") > -1) {
-						stepper.maximum = value.IsNumeric ?  DEFAULT_NUMERIC_VALUE : DEFAULT_ANSWER_VALUE;
+						stepper.maximum = value.IsNumeric ?  DEFAULT_NUMERIC_VALUE : AnswerVariant.DEFAULT_SYMBOL_CAUNT;
 						stepper.enabled = value.IsOpenAnswer && !AnswerVariant.Type.isPluralOnly;
 					} else if (value && column.dataField.indexOf("TagValue") > -1) {
 						stepper.minimum = -1;
@@ -79,8 +78,8 @@
 					return multipleAnswerAllowed && questionType != "Summed";
 				
 				switch(questionType) {
-					case "Ranking":
-					case "Rating" :
+//					case "Ranking":
+//					case "Rating" :
 //					case "DragRank" :
 					case "RadioRank" :
 					case "SliderRank" : {

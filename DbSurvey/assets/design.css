@@ -81,6 +81,7 @@ mx|Tree {
 	focusAlpha: 0;
 	selectionColor: #EEEEEE;
 	textSelectedColor: #666666;
+	borderStyle: none;
 }
 
 mx|Grid {
@@ -179,4 +180,22 @@ FormItem, List {
 .tagLabel {
 	fontFamily: "Courier New";
 	fontWeight: bold;
+}
+
+.treeRate {
+	folderClosedIcon: Embed(source = "icons/folder-customer-icon.png");
+	folderOpenIcon: Embed(source = "icons/folder-flower-lila-icon.png");
+	defaultLeafIcon: Embed(source = "icons/rating-icon.png");
+}
+
+.treeDrag {
+	folderClosedIcon: Embed(source = "icons/program-group-icon.png");
+	folderOpenIcon: Embed(source = "icons/folder-flower-blue-icon.png");
+	defaultLeafIcon: Embed(source = "icons/air-balloon-icon.png");
+}
+
+.treeGrid {
+	folderClosedIcon: Embed(source = "icons/folder-users-icon.png");
+	folderOpenIcon: Embed(source = "icons/folder-flower-green-icon.png");
+	defaultLeafIcon: Embed(source = "icons/table-icon.png");
 }

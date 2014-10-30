@@ -105,10 +105,18 @@
 				var arr : Array =  question.parseText(treeRoot.QuestionText);
 				_answerStorage.addVariantsAt(arr, rowIndex);
 			}
+			
+			private function makeStyle(type : String) : String {
+				if (type.indexOf("Grid") > 0)
+					return "treeGrid";
+				if (type.indexOf("Drag") >= 0)
+					return "treeDrag";
+				return "treeRate";
+			}
 		]]>
 	</fx:Script>
 
-	<mx:Tree id="questionTree" width="100%" height="100%" borderStyle="none"
+	<mx:Tree id="questionTree" width="100%" height="100%" styleName="{makeStyle(question.QuestionType)}"
 			 dataProvider="{dpHierarchy}" labelField="QuestionText"
 			 openItems="{getOpenItems(question.isSelected)}"
 			 selectedIndex="@{question.subitemIndex}"

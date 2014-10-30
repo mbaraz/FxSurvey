@@ -46,12 +46,11 @@
 			}
 			
 			private function setPluralEnabled() : void {
-				cb.enabled = AnswerVariant.Type ? AnswerVariant.Type.isPluralityEnabled : false;
+				cb.enabled = question.QuestionType ? QuestionTypes.getTypeByName(question.QuestionType).isPluralityEnabled : false;
 			}
 
 			private function isEnabled(type : QuestionTypes, multipleAnswerAllowed : Boolean) : Boolean {
 				var result : Boolean = true;
-//				var type : QuestionTypes = QuestionTypes.getTypeByName(questionType);
 				if (!column)
 					return false;
 				
@@ -69,7 +68,7 @@
 			  horizontalAlign="center" verticalAlign="middle">
 		
 		<s:CheckBox id="cb" selected="@{value}" change="changeHandler()"
-					enabled="{isEnabled(AnswerVariant.Type, AnswerVariant.MultipleAnswerAllowed)}" />
+					enabled="{isEnabled(QuestionTypes.getTypeByName(question.QuestionType), question.MultipleAnswerAllowed)}" />
 		
 	</s:VGroup>
 </renderers:BaseGridItemRenderer>

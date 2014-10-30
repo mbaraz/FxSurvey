@@ -46,7 +46,6 @@
 			}
 			
 			private function nextQuestionHandler(event : Event) : void {
-				
 				if (questionBlock.trySaveAnswers()) {
 					dispatchEvent(new QuestionEvent(QuestionEvent.NEXT_QUESTION));
 					fadeOut.play();

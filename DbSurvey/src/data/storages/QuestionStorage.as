@@ -6,6 +6,7 @@ package data.storages
 	import mx.events.CollectionEvent;
 	
 	import tools.utils.LocaleUtils;
+	import tools.utils.TypeUtils;
 	import vo.AnswerVariant;
 	import vo.QuestionItem;
 	import vo.SubQuestion;
@@ -14,15 +15,33 @@ package data.storages
 	
 	public class QuestionStorage extends EventDispatcher implements IStorage
 	{
-		
 		private var tagStorage : TagStorage;
-		private var _currentQuestion : SurveyQuestion;
 		
 		[Bindable]
 		public var questions : ArrayCollection; /* of SurveyQuestion */
 		[Bindable]
 		public var isStopped : Boolean;
-
+		
+		private var _previousQuestionType : String;
+		
+		public function get previousQuestionType() : String {
+			return _previousQuestionType;
+		}
+		
+		private var _deletedQuestionIds : Array = [];
+		
+		public function get deletedQuestionIds() : Array {
+			return _deletedQuestionIds;
+		}
+		
+		private var _deletedSubQuestionIds : Array = [];
+		
+		public function get deletedSubQuestionIds() : Array {
+			return _deletedSubQuestionIds;
+		}
+		
+		private var _currentQuestion : SurveyQuestion;
+		
 		[Bindable]
 		public function get currentQuestion() : SurveyQuestion {
 			AnswerVariant.SetQuestionParameters(_currentQuestion);
@@ -34,9 +53,10 @@ package data.storages
 				_currentQuestion.isSelected = false;
 			
 			_currentQuestion = value;
-			if (_currentQuestion)
+			if (_currentQuestion) {
 				_currentQuestion.isSelected = true;
-			
+				_previousQuestionType = _currentQuestion.QuestionType;
+			}
 			dispatchEvent(new Event("currentQuestionChange"));
 		}
 		
@@ -74,17 +94,17 @@ package data.storages
 		public function get currentOrder() : int {
 			return _currentQuestion ? _currentQuestion.order : 0;
 		}
-/*
-		public function get currentAnswerOrderIndex() : int {
-			return _currentQuestion.answersOrderIndex;
-		}
-*/		
+
 		public function set projectId(value : int) : void {
 			SurveyQuestion.ProjectId = value;
 		}
 		
 		public function get deletedTagIds() : Array {
 			return tagStorage.deletedTagIds;
+		}
+		
+		public function get isSubitemSelected() : Boolean {
+			return currentQuestion && currentQuestion.isSubitemSelected;
 		}
 		
 		public function get selectedSubItemName() : String {
@@ -96,7 +116,7 @@ package data.storages
 				return false;
 			
 			var questionText : String = _currentQuestion.QuestionText.toLowerCase();
-			return questionText.indexOf("о") == -1 && questionText.indexOf("е") == -1 && questionText.indexOf("а") == -1
+			return questionText && questionText.indexOf("о") == -1 && questionText.indexOf("е") == -1 && questionText.indexOf("а") == -1
 				&& questionText.indexOf("и") == -1 && questionText.indexOf("т") == -1 && questionText.indexOf("н") == -1
 				&& questionText.indexOf("р") == -1 && questionText.indexOf("с") == -1;
 		}
@@ -165,7 +185,7 @@ package data.storages
 		
 /* FOR DESIGNER */
 		public function addNew() : int {
-			if (currentQuestion && currentQuestion.isSubitemSelected) {
+			if (isSubitemSelected) {
 				currentQuestion.addSubitem();
 				changeCurrentSubOrders(currentQuestion.subitemIndex);
 				return -1;
@@ -184,28 +204,22 @@ package data.storages
 			return insertIndex;
 		}
 		
-		public function removeCurrent() : Boolean {
-			if (currentQuestion && currentQuestion.isSubitemSelected) {
-				currentQuestion.removeSubitem();
-				changeCurrentSubOrders(currentQuestion.subitemIndex, false);
-				return false;
-			}
+		public function removeCurrentQuestion() : void {
+			_deletedQuestionIds.push(currentQuestion.SurveyQuestionId);
+			removeCurrentSubitems();
 			currentQuestion.order = 0;
 			var selectedIndex : int = currentIndex;
-			if (currentQuestion.hasBoundTag)
-				tagStorage.removeTag(currentQuestion.BoundTagId);
-			
+			tagStorage.removeTag(currentQuestion.BoundTagId);
 			questions.removeItemAt(selectedIndex);
 			changeOrders(selectedIndex, false);
 			if (selectedIndex == questions.length)
 				selectedIndex--;
 			
 			selectedItem =  selectedIndex > -1 ? questions.getItemAt(selectedIndex) : null;
-			return true;
 		}
 		
 		public function swap(isUp : Boolean) : Boolean {
-			if (currentQuestion && currentQuestion.isSubitemSelected) {
+			if (isSubitemSelected) {
 				currentQuestion.swapSubitems(isUp);
 				return false;
 			}
@@ -269,9 +283,9 @@ package data.storages
 				var expressionsArray : Array = item.tagCondition.expressionsArray;
 				var tagName : String = tagStorage.getTagNameById(expressionsArray[i].tagId, question.order);
 				if (!tagName)
-					expressionsArray.splice(i,1);	//	item.tagCondition.expressionsArray.splice(i,1);
+					expressionsArray.splice(i,1);
 				else 
-					result += expressionsArray[i++].makeCondition(tagName);	//	item.tagCondition.expressionsArray[i++].makeCondition(tagName);
+					result += expressionsArray[i++].makeCondition(tagName);
 			}
 			return result.substring(2);
 		}
@@ -294,6 +308,39 @@ package data.storages
 
 		public function cleanTags() : void {
 			tagStorage.cleanTags();
+		}
+		
+		public function updateByQuestionType() : void {
+			TypeUtils.changeType(currentQuestion, _previousQuestionType);
+			_previousQuestionType = currentQuestion.QuestionType;
+			if (!AnswerVariant.Type.isCompositeType)
+				removeCurrentSubitems();
+		}
+		
+		public function removeCurrentSubitem() : void {
+			var boundTagId : int = currentQuestion.selectedSubitem.BoundTagId;
+			var id : int = currentQuestion.selectedSubitem.SubQuestionId;
+			if (currentQuestion.removeSelectedSubitem()) {
+				tagStorage.removeTag(boundTagId);
+				_deletedSubQuestionIds.push(id);
+				changeCurrentSubOrders(currentQuestion.subitemIndex, false);
+			}
+		}
+		
+		public function removeCurrentSubitems() : void {
+			for each (var subitem : SubQuestion in currentQuestion.subitems) {
+				tagStorage.removeTag(subitem.BoundTagId);
+				_deletedSubQuestionIds.push(subitem.SubQuestionId);
+			}
+			currentQuestion.subitems.removeAll();
+		}
+		
+		public function reset() : void {
+			_deletedQuestionIds = [];
+			_deletedSubQuestionIds = [];
+			cleanTags();
+			currentQuestion = null;
+			questions.removeAll();
 		}
 		
 		private function changeOrders(satrtIndex : int , isIncreased : Boolean = true) : void {

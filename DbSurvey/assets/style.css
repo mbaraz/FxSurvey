@@ -57,7 +57,7 @@ s|ItemRenderer {
 }
 
 s|List {
-	selectionColor: #DDDDDD;
+	selectionColor: #CCFFCC;
 }
 
 mx|Grid {
@@ -73,7 +73,7 @@ mx|GridItem {
 }
 
 mx|GridRow {
-	backgroundAlpha: 0.7;
+	backgroundAlpha: 0.6;
 }
 /* mx|TitleWindow, */
 mx|Alert, .titleWindow {
@@ -115,12 +115,12 @@ mx|ProgressBar {
 	fontSize: 26;
 	color: #333366;
 	borderColor: #0000FF;
-	backgroundAlpha: 0;
-	cornerRadius: 12;
+	backgroundColor: #EDEDFF;
+	backgroundAlpha: 0.7;
 	left: 10;
 	right: 10;
 	borderWeight: 1;
-	cornerRadius: 12;
+	cornerRadius: 16;
 	dropShadowVisible: true;
 }	
 
@@ -134,13 +134,28 @@ mx|ProgressBar {
 	paddingTop: 6;	
 }
 
+.question {
+	borderColor: #CE8888;
+	backgroundColor: #EDEEED;
+	backgroundAlpha: 0.4;
+	color: #663333;
+	cornerRadius: 6;
+	paragraphStartIndent: 10;
+	paragraphEndIndent: 6;
+	borderStyle: inset;
+	borderWeight: 2;
+	left: 0;
+	right: 2;
+}
+
 .instruction {
 	fontSize: 18;
 	fontWeight: "normal";
 	color: #999999;
 	borderColor: #FFB84E;
-	backgroundAlpha: 0;
-	cornerRadius: 6;
+	backgroundColor: #FFFFDC;
+	backgroundAlpha: 0.5;
+	cornerRadius: 12;
 	left: 10;
 	right: 10;
 	dropShadowVisible: true;
@@ -157,11 +172,11 @@ mx|ProgressBar {
 }
 
 .oddGridRow {
-	backgroundColor: #EEEEEE;
+	backgroundColor: #EDFFFF;
 }
 
 .evenGridRow {
-	backgroundColor: #CCCCCC;
+	backgroundColor: #CFFEFF;
 }
 
 .emptyGridItem {
@@ -221,4 +236,12 @@ mx|ProgressBar {
 	fontStyle: italic;
 	
 	lineHeight: 20;
+}
+
+.srcList {
+	alternatingItemColors: #EDFFFF, #DDEDFF;
+}
+
+.destList {
+	alternatingItemColors: #FFDDED, #FFEDFF;
 }

@@ -2,6 +2,7 @@ package data.storages
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
 	
@@ -10,6 +11,12 @@ package data.storages
 	public class AnswerStorage extends EventDispatcher implements IStorage
 	{
 		public var answersCollection : ArrayCollection; /* of ArrayCollection of AnswerVariant */
+		
+		private var _deletedAnswerIds : Array = [];
+		
+		public function get deletedAnswerIds() : Array {
+			return _deletedAnswerIds;
+		}
 
 		private var _currentVariants : ArrayCollection; /* of AnswerVariant */;
 		
@@ -96,6 +103,7 @@ package data.storages
 		}
 		
 		public function removeSelectedVariant() : void {
+			_deletedAnswerIds.push(selectedItem.AnswerVariantId);
 			var indx : int = selectedIndex;
 			currentVariants.removeItemAt(indx);
 			for (var i : int = indx; i < currentVariants.length; i++)
@@ -106,11 +114,23 @@ package data.storages
 		}
 		
 		public function removeCurrentVariants() : void {
+			for each (var variant : AnswerVariant in currentVariants)
+				_deletedAnswerIds.push(variant.AnswerVariantId);
+				
 			var indx : int = currentIndex;
 			answersCollection.removeItemAt(indx);
 			setCurrentVariantsByIndex(indx < answersCollection.length ? indx : indx - 1);
 		}
-
+		
+		public function emptyCurrentVariants() : void {
+			for each (var variant : AnswerVariant in currentVariants)
+				_deletedAnswerIds.push(variant.AnswerVariantId);
+			
+			var indx : int = currentIndex;
+			answersCollection.setItemAt(new ArrayCollection(), indx);
+			setCurrentVariantsByIndex(indx);
+		}
+		
 		public function swap(isUp : Boolean) : void {
 			var slctdIndx: int = selectedIndex;
 			var index : int = isUp ? slctdIndx - 1 : slctdIndx + 1;
@@ -164,6 +184,12 @@ package data.storages
 				variant.updateByPlurality(isAllowed);
 		}
 		
+		public function reset() : void {
+			_deletedAnswerIds = [];
+			answersCollection.removeAll();
+			if (currentVariants)
+				currentVariants.removeAll();
+		}
 		private function makeVariantsList(variants : Array, startIndex : int) : ArrayList {
 			var result : ArrayList = new ArrayList();
 			for (var i : int = 0; i < variants.length; i++) {

@@ -38,11 +38,6 @@ package vo
 			return _canHaveExclude;
 		}
 
-		public function get isRanked() : Boolean {
-			return this != Simple && this != Summed;
-//			return this != Simple && this != Summed && hasSingleAnswer;
-		}
-		
 		public function get isRated() : Boolean {
 			return this == Rating || this == DragRank;
 		}
@@ -50,9 +45,9 @@ package vo
 		public function get isGridType() : Boolean {
 			return this == RadioGrid || this == SliderGrid;
 		}
-// NEW		
+
 		public function get isCompositeType() : Boolean {
-			return this != Simple && this != Summed && this != RadioRank && this != SliderRank;
+			return this != Simple && this != Summed && !hasSingleAnswer;
 		}
 		
 		public function get isAnswersAbsent() : Boolean {
@@ -70,11 +65,15 @@ package vo
 		public function get hasNumericAnswersOnly() : Boolean {
 			return this == Summed || this == Rating || this == Ranking;
 		}
-
+		
 		public function get hasSingleAnswer() : Boolean {
 			return this == RadioRank || this == SliderRank;
 		}
-
+		
+		public function get isRanked() : Boolean {
+			return isAnswersAbsent || hasSingleAnswer;
+		}
+		
 		public function QuestionTypes(isPluralityEnabled : Boolean, isPluralOnly : Boolean, isSinglelOnly : Boolean, canHaveExclude : Boolean = false) {
 			super();
 			_isPluralityEnabled = isPluralityEnabled;
@@ -82,16 +81,17 @@ package vo
 			_isSinglelOnly = isSinglelOnly;
 			_canHaveExclude = canHaveExclude;
 		}
-/*		
-		public static function getValues() : Array {
-			return Enum.getValues(QuestionTypes)
+		
+		public function isContradictory (typeString : String) : Boolean {
+			var type : QuestionTypes = getTypeByName(typeString);
+			return isRanked && !type.isRanked;	//	 || !isRanked && type.isRanked;
 		}
-*/		
+		
 		public static function get namesArray() : Array {
 			return [Simple.name, Summed.name, Rating.name, Ranking.name, RadioRank.name, SliderRank.name, DragRank.name, RadioGrid.name, SliderGrid.name];
 		}
 		
-		internal static function getTypeByName(name : String) : QuestionTypes {
+		public static function getTypeByName(name : String) : QuestionTypes {
 			return Enum.valueOf(QuestionTypes, name);
 		}
 	}

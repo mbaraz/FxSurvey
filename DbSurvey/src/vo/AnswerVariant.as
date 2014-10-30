@@ -4,6 +4,7 @@ package vo
 	public class AnswerVariant
 	{
 		public static const VARIANTS_DELIMITER : String = "*";
+		public static const DEFAULT_SYMBOL_CAUNT : int = 60;
 
 		public static var Type : QuestionTypes;
 		public static var MultipleAnswerAllowed : Boolean;
@@ -23,11 +24,11 @@ package vo
 		public static function get IsCompositeQuestion() : Boolean {
 			return Type.isCompositeType;
 		}
-		
+/*		
 		public static function get IsRankQuestion() : Boolean {
 			return Type.isRanked;
 		}
-		
+*/		
 		public static function get IsRatingQuestion() : Boolean {
 			return Type.isRated;
 		}
@@ -63,6 +64,7 @@ package vo
 		public function get response() : int {
 			if (!IsSelected)
 				return 0;
+
 			return Type.hasSingleAnswer ? int(Value) : order;
 		}
 		
@@ -88,9 +90,9 @@ package vo
 			AnswerText = obj.AnswerText;
 			IsOpenAnswer = obj.IsOpenAnswer;
 			IsExcludingAnswer = obj.IsExcludingAnswer;
-			order = obj.AnswerOrder;
+			order = obj.AnswerCode ? Math.min(obj.AnswerCode, obj.AnswerOrder) : obj.AnswerOrder;	//	obj.AnswerOrder
 //			AnswerCode = order;	//	obj.AnswerCode;
-			SymbolCount = obj.SymbolCount;
+			SymbolCount = obj.SymbolCount ? obj.SymbolCount : DEFAULT_SYMBOL_CAUNT;
 			IsNumeric = obj.IsNumeric;
 			IsUnmoved =  obj.IsUnmoved;
 			TagValue = obj.TagValue;
@@ -137,7 +139,7 @@ package vo
 				return;
 			
 			responseObj.QuestionId = SurveyQuestionId;
-			if (IsRankQuestion && Value) {
+			if (IsCompositeQuestion && Value) {
 				addRanks(responseObj);
 				return;
 			}
@@ -164,14 +166,14 @@ package vo
 		private function addRanks(response : Object) : void {
 			var values : Array = Value.split(VARIANTS_DELIMITER);
 			for each(var value : String in values) {
-				var respArray : Array = makeKeyValueResponse(value);
-				response.Rank.push(respArray);
-				response.Answers.push(respArray[0]);
+//				var respArray : Array = [value, order];	//	makeKeyValueResponse(value);
+				response.Rank.push([value, order]);	//	respArray);
+				response.Answers.push(value);	//	respArray[0]);
 			}
 		}
-
+/*
 		private function makeKeyValueResponse(strng : String) : Array {
 			return  Type.hasSingleAnswer ? [order, strng] : [strng, order];	//	AnswerCode
-		}
+		}*/
 	}
 }

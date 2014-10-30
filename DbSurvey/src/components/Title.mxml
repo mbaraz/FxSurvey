@@ -2,7 +2,7 @@
 <s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
-		  styleName="title">
+		  styleName="title" >
 	
 	<s:layout>
 		<s:VerticalLayout gap="4" paddingTop="20" paddingBottom="20" paddingLeft="10" paddingRight="10" />

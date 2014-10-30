@@ -10,9 +10,14 @@
 			
 			import vo.AnswerVariant;
 			
+			protected var isSaved : Boolean;
+			
 			protected var _maxToRate : int;
 			
 			protected function set maxToRate(value : int) : void {
+				if (isSaved)
+					return;
+				
 				_maxToRate = value;
 				updateVariants();
 			}

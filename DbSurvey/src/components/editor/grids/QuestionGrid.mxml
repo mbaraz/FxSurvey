@@ -11,13 +11,13 @@
 			import components.editor.grids.renderers.TreeRenderer;
 			import vo.SurveyQuestion;
 			
-			import mx.collections.ArrayList;
-			import spark.components.gridClasses.ComboBoxGridItemEditor;
+//			import mx.collections.ArrayList;
+//			import spark.components.gridClasses.ComboBoxGridItemEditor;
 			import spark.components.gridClasses.GridItemRenderer;
 			import spark.events.GridSelectionEvent;
 			import spark.skins.spark.DefaultGridItemRenderer;
 
-			public const orderTypes : ArrayList = new ArrayList(SurveyQuestion.Answers_Order_Types);
+//			public const orderTypes : ArrayList = new ArrayList(SurveyQuestion.Answers_Order_Types);
 			private var textRenderers : Array = []; /* of ClassFactory */
 
 			private function questionTextRenderer(item : Object, column : GridColumn) : IFactory {
@@ -58,7 +58,7 @@
 			
 			<s:GridColumn headerText="Тип" dataField="QuestionType"
 						  width="260" resizable="false" editable="false"
-						  itemRenderer="{comboBoxRenderer}" />
+						  itemRenderer="{typeRenderer}" />
 			
 			<s:GridColumn headerText="Мно- жест- вен- ный" dataField="MultipleAnswerAllowed"
 						  width="54" sortable="false" resizable="false" editable="false"
@@ -87,14 +87,15 @@
 			
 			<s:GridColumn headerText="Порядок ответов" dataField="AnswersOrdering"
 						  width="110" sortable="false" resizable="false"
-						  headerRenderer="{headerRenderer}">
-				<s:itemEditor>
+						  itemEditor="components.editor.grids.renderers.AnswersOrderingEditor"
+						  headerRenderer="{headerRenderer}" />
+<!--				<s:itemEditor>
 					<fx:Component>
 						<s:ComboBoxGridItemEditor dataProvider="{outerDocument.orderTypes}" />
 					</fx:Component>
 				</s:itemEditor>
 			</s:GridColumn>
-
+-->
 			<s:GridColumn headerText="Пере-мен-ная" dataField="hasBoundTag"
 						  width="50" sortable="false" resizable="false" editable="false"
 						  itemRenderer="{checkBoxRenderer}"

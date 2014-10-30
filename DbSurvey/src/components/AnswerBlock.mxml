@@ -37,7 +37,7 @@
 					return;
 				}
 				updateChildrens(value);
-				answerElement.variants = value;	//	ArrayUtils.orderAnswers(value, AnswerVariant.AnswersOrderingIndex);
+				answerElement.variants = ArrayUtils.orderAnswers(value, AnswerVariant.AnswersOrderingIndex);	//	value;
 				addElement(answerElement);
 				answerElement.percentWidth = 100;
 				instruction.brief = answerElement.instruction;

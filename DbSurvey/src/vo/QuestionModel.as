@@ -59,7 +59,8 @@ package vo
 					return;
 				}
 				question.QuestionType = 7;	//	QuestionTypes.RadioGrid.name;
-				question.subitems = makeSubitems(obj.AnswerVariants); 
+//				question.subitems = makeSubitems(obj.AnswerVariants); 
+				obj.SubQuestions = makeSubitems(obj.AnswerVariants); ;
 				obj.AnswerVariants = makeGridVariants(question.MaxRank, question.SurveyQuestionId);
 				return;
 			}

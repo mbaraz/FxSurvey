@@ -11,6 +11,9 @@
 			[Bindable]
 			private var tagList : ArrayList;
 			
+			[Bindable]
+			private var isRanked : Boolean;
+			
 			override public function set data(value : Object) : void {
 				if (!value)
 					return;
@@ -20,6 +23,8 @@
 					cb.selectedItem = _questionStorage.getTagById(question.FilterAnswersTagId);
 				else
 					cb.selectedIndex = 0;
+				
+				isRanked = question.isRanked;
 			}
 			
 			public function makeDP(indx : int) : void {
@@ -42,11 +47,11 @@
 	<s:Label width="100%" top="4" left="2" right="4" textAlign="center"
 			 text="{tagText}"
 			 styleName="tagLabel"
-			 visible="{!question.isSelected}" />
+			 visible="{!question.isSelected || isRanked}" />
 
 	<mx:ComboBox id="cb" width="90%" horizontalCenter="0" top="4"
 				 dataProvider="{tagList}"
 				 labelField="TagName"
-				 visible="{question.isSelected}"
+				 visible="{question.isSelected &amp;&amp; !isRanked}"
 				 change="changeHandler()" />
 </renderers:TagRendererBase>

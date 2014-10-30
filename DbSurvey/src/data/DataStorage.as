@@ -2,11 +2,11 @@ package data
 {
 	import data.storages.AnswerStorage;
 	import data.storages.QuestionStorage;
-	import vo.AnswerVariant;
-	import vo.QuestionModel;
-	import vo.SubQuestion;
 	
 	import mx.collections.ArrayCollection;
+	
+	import vo.AnswerVariant;
+	import vo.QuestionModel;
 	
 	public class DataStorage
 	{
@@ -42,23 +42,17 @@ package data
 		public function set projectId(value : int) : void {
 			questionStorage.projectId = value;
 		}
-		
-		private var _deletedQuestionIds : Array = [];
-		
+
 		public function get deletedQuestionIds() : Array {
-			return _deletedQuestionIds;
+			return questionStorage.deletedQuestionIds;
 		}
-		
-		private var _deletedSubQuestionIds : Array = [];
-		
+
 		public function get deletedSubQuestionIds() : Array {
-			return _deletedSubQuestionIds;
+			return questionStorage.deletedSubQuestionIds;
 		}
-		
-		private var _deletedAnswerIds : Array = [];
-		
+
 		public function get deletedAnswerIds() : Array {
-			return _deletedAnswerIds.concat(QuestionModel.deletedAnswerIds);
+			return answerStorage.deletedAnswerIds.concat(QuestionModel.deletedAnswerIds);
 		}
 		
 		public function get deletedTagIds() : Array {
@@ -80,23 +74,16 @@ package data
 			answerStorage.addNewVariant();
 		}
 		
-		public function removeCurrentQuestion() : void {
-			var questionId : int = questionStorage.currentQuestion.SurveyQuestionId;
-			var subQuestionId : int = questionStorage.currentQuestion.selectedSubitem ? questionStorage.currentQuestion.selectedSubitem.SubQuestionId : 0;
-			var subitems : Array = questionStorage.currentQuestion.subitems.source;
-			var variants : Array = answerStorage.currentVariants.source;
-			var isQuestionRemoved : Boolean = questionStorage.removeCurrent();
-			if (isQuestionRemoved) {
-				addToDeleted(questionId);
-				deleteSubitems(subitems);
-				deleteVariants(variants);
-				answerStorage.removeCurrentVariants();
-			} else
-				addToDeleted(subQuestionId, false, true);	//	_deletedSubQuestionIds.push(subQuestionId);
+		public function removeCurrentQuestionItem() : void {
+			if (questionStorage.isSubitemSelected) {
+				questionStorage.removeCurrentSubitem();
+				return;
+			}
+			answerStorage.removeCurrentVariants();
+			questionStorage.removeCurrentQuestion();
 		}
 
 		public function removeCurrentVariant() : void {
-			addToDeleted(answerStorage.selectedItem.AnswerVariantId, false);
 			answerStorage.removeSelectedVariant();
 		}
 
@@ -130,23 +117,27 @@ package data
 		public function getTagArray(max : int) : Array {	/* of SurveyQuestions and SubQuestion */
 			return questionStorage.getTagArray(max);
 		}
-
+		
+		public function updateByQuestionType() : void {
+			var previousQuestionType : String = questionStorage.previousQuestionType;
+			questionStorage.updateByQuestionType();
+/*			if (!AnswerVariant.Type.isCompositeType)
+				questionStorage.removeCurrentSubitems();*/
+			if (AnswerVariant.Type.isContradictory(previousQuestionType))
+				answerStorage.emptyCurrentVariants();
+			else
+				answerStorage.updateVariantsByQuestionType(questionStorage.currentQuestion.QuestionType);
+		}
+		
 		internal function addAllQuestionsHandler(jsonArray : Array) : void {
 			for each (var jsonModel : Object in jsonArray)
 				addQuestionModel(new QuestionModel(jsonModel), true);
 		}
 
 		internal function saveAllQuestionsHandler() : void {
-			_deletedQuestionIds = [];
-			_deletedSubQuestionIds = [];
-			_deletedAnswerIds = [];
 			QuestionModel.deletedAnswerIds = [];
-			questionStorage.cleanTags();
-			questionStorage.currentQuestion = null;
-			questionStorage.questions.removeAll();
-			answerStorage.answersCollection.removeAll();
-			if (answerStorage.currentVariants)
-				answerStorage.currentVariants.removeAll();
+			questionStorage.reset();
+			answerStorage.reset();
 		}
 
 		private function makeCodesArrayByQuestionOrder(questionOrder : int) : Array {	/* of int */
@@ -158,16 +149,6 @@ package data
 			return answerStorage.getCodesArray(index);
 		}
 
-		private function deleteSubitems(subitems : Array) : void {
-			for each (var subitem : SubQuestion in subitems)
-				addToDeleted(subitem.SubQuestionId, false, true);
-		}
-		
-		private function deleteVariants(variants : Array) : void {
-			for each (var variant : AnswerVariant in variants)
-				addToDeleted(variant.AnswerVariantId, false);
-		}
-		
 /* FOR SURVEY */
 		internal function goToNext(jsonModel : Object) : void {
 			if (!jsonModel) {
@@ -214,7 +195,7 @@ package data
 			questionStorage.setQuestion(modelQuestion.question);
 			answerStorage.setVariants(modelQuestion.answerVariants);
 		}
-
+/*
 		private function addToDeleted(id : int, isQuestion : Boolean = true, isSubQuestion : Boolean = false) : void {
 			if (!id)
 				return;
@@ -224,6 +205,6 @@ package data
 				_deletedSubQuestionIds.push(id);
 			else
 				_deletedAnswerIds.push(id);
-		}
+		}*/
 	}
 }

@@ -26,7 +26,12 @@
 				for (var i : int = value.length - 1; i >  0; i--)
 					value.removeItemAt(i);
 				
-				answer = value.length ?  value.getItemAt(0) as AnswerVariant : AnswerVariant.getEmptyVariant(1);
+				if (value.length) {
+					answer = value.getItemAt(0) as AnswerVariant;
+					return;
+				}
+				answer = AnswerVariant.getEmptyVariant(1);
+				value.addItem(answer);
 			}
 			
 			public function trySaveAnswers() : Boolean {

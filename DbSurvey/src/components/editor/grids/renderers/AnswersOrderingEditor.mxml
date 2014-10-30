@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ComboBoxGridItemEditor xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 dataProvider="{orderTypes}">
+
+	<fx:Script>
+		<![CDATA[
+			import vo.SurveyQuestion;
+
+			import mx.collections.ArrayList;
+			
+			private const orderTypes : ArrayList = new ArrayList(SurveyQuestion.Answers_Order_Types);
+			
+			override public function set data(value : Object) : void {
+				super.data = value;
+				if (value.isRanked)
+					comboBox.visible = false;
+			}
+			
+			override public function prepare() : void {
+				if (comboBox.visible)
+					super.prepare();
+				else
+					bgRect.visible = false;
+			}
+		]]>
+	</fx:Script>
+
+</s:ComboBoxGridItemEditor>

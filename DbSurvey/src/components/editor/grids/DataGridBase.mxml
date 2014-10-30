@@ -21,8 +21,8 @@
 			<renderers:CheckBoxRenderer />
 		</fx:Component>
 
-		<fx:Component id="comboBoxRenderer">
-			<renderers:ComboBoxRenderer />
+		<fx:Component id="typeRenderer">
+			<renderers:TypeRenderer />
 		</fx:Component>
 		
 		<fx:Component id="tagConditionRenderer">

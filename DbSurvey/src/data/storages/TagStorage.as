@@ -55,6 +55,9 @@ package data.storages
 		}
 		
 		internal function removeTag(id : int) : void {
+			if (!id)
+				return;
+			
 			var indx : int = tagsDictionary[id];
 			tagsDictionary[id] = -1;
 			tagsCollection.setItemAt(null, indx);

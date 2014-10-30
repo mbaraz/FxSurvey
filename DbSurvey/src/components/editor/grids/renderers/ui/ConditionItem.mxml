@@ -35,7 +35,7 @@
 					_expression.tagId = variableDP.getItemAt(0).TagId;
 					
 				updateValueCB();
-				if (!_expression.value && val.dataProvider.length)
+				if (!_expression.value && val.dataProvider.length && val.dataProvider.getItemIndex(0) < 0)
 					_expression.value = int(val.dataProvider.getItemAt(0));
 			}
 			

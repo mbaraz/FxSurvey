@@ -14,8 +14,8 @@
 			
 			import spark.components.supportClasses.ToggleButtonBase;
 
-			static private var selectedCount : int;
-// removedFromStage="removeHandler()"			
+			private static var selectedCount : int;
+		
 			[Bindable]
 			static public var excludingCheckBox : ToggleButtonBase;
 			

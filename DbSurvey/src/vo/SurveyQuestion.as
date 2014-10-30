@@ -39,34 +39,8 @@ package vo
 
 		public function set QuestionType(value : String) : void {
 			_questionType = value;
-/*			if (!isSelected)
-				return;
-*/			
-			var type : QuestionTypes = QuestionTypes.getTypeByName(QuestionType);
-			if (QuestionType == "DragRank") {
-				MaxRank = MaxAnswers;
-				MinRank = MinAnswers;
-			}
-			if (type.isPluralOnly)
-				MultipleAnswerAllowed = true;
-			else if (type.isSinglelOnly)
-				MultipleAnswerAllowed = false;
-			
-//			if (!type.isRanked)
-			if (isGridQuestion || type == QuestionTypes.Simple || type == QuestionTypes.Summed) {
-				setNoRanks();
-			
-				if (isCompositeQuestion) {
-					if (!subitems.length)
-						QuestionText += Default_Text_Delimiter;
-					// TEMP			
-					MaxRank = subitems.length;
-					// TEMP				
-				}
-				if (type == QuestionTypes.Summed)
-					setMaxAnswersCount();
-			}
-			AnswerVariant.Type = type;
+			if (!isSelected)
+				AnswerVariant.Type = QuestionTypes.getTypeByName(QuestionType);
 		}
 
 		[Bindable]
@@ -99,9 +73,9 @@ package vo
 		}
 		
 		public function set MultipleAnswerAllowed(value : Boolean) : void {
-			if (QuestionType == "Simple" && !MultipleAnswerAllowed && value)
+/*			if (QuestionType == "Simple" && !MultipleAnswerAllowed && value)
 				setSingleAnswersCount();
-
+*/
 			_multipleAnswerAllowed = value;
 			if (!isSelected)
 				return;
@@ -120,6 +94,10 @@ package vo
 		
 		public function set MaxAnswers(value : int) : void {
 			_maxAnswers = value;
+			if (QuestionType && isAnswersNeeded) {
+				MaxRank = value;
+				MinRank = Default_Min_Answers;
+			}
 			if (isSelected)
 				AnswerVariant.MaxAnswers = MaxAnswers;
 		}
@@ -152,7 +130,7 @@ package vo
 		public function set AnswersOrdering(value : String) : void {
 			_answersOrdering = value;
 			if (isSelected) {
-				AnswerVariant.isStandartOrder = AnswersOrdering == Answers_Order_Types[0];
+				AnswerVariant.isStandartOrder = isStandartOrder;
 				AnswerVariant.AnswersOrderingIndex = Answers_Order_Types.indexOf(AnswersOrdering);
 			}
 		}
@@ -169,10 +147,8 @@ package vo
 		
 		public function set MaxRank(value : int) : void {
 			_maxRank = value;
-			if (!isSelected)
-				return;
-
-			AnswerVariant.MaxRank = MaxRank;
+			if (isSelected)
+				AnswerVariant.MaxRank = MaxRank;
 		}
 		
 		public function get MaxRank() : int {
@@ -221,6 +197,11 @@ package vo
 			return type.isCompositeType;
 		}
 		
+		public function get isRanked() : Boolean {
+			var type : QuestionTypes = QuestionTypes.getTypeByName(QuestionType);
+			return type.isRanked;
+		}
+		
 		public function get isSubitemSelected() : Boolean {
 			return isCompositeQuestion && subitemIndex > 0;
 		}
@@ -266,11 +247,12 @@ package vo
 			subitemIndex++;
 		}
 		
-		public function removeSubitem() : void {
+		public function removeSelectedSubitem() : Boolean {
 			if (subitems.length == 1)
-				return;
+				return false;
 			subitemIndex--;
 			subitems.removeItemAt(subitemIndex);
+			return true;
 		}
 		
 		public function swapSubitems(isUp : Boolean) : void {
@@ -311,16 +293,13 @@ package vo
 			QuestionOrder = obj.QuestionOrder;
 			subitems = parseSubitems(obj.subitems);
 			MultipleAnswerAllowed = obj.MultipleAnswerAllowed;
+			QuestionType = QuestionTypes.namesArray[int(obj.QuestionType)];
+			MinRank = obj.MinRank;
+			MaxRank = obj.MaxRank;
 			MaxAnswers = obj.MaxAnswers == null ? Default_Min_Answers : obj.MaxAnswers;
 			MinAnswers = obj.MinAnswers == null ? Default_Min_Answers : obj.MinAnswers;
-//			IsRankQuestion  = obj.IsRankQuestion;
- 			MinRank = obj.MinRank;
-			MaxRank = obj.MaxRank;
-			QuestionType = QuestionTypes.namesArray[int(obj.QuestionType)];
 			if (obj.ConditionOnTagId)
 				ConditionString = obj.ConditionOnTagId + " = " + obj.ConditionOnTagValue;
-/*			else
-				ConditionString = obj.ConditionString;*/
 
 			AnswersOrdering = Answers_Order_Types[int(obj.AnswerOrdering)];	//	obj.AnswersOrdering ? obj.AnswersOrdering : Answers_Order_Types[0];
 			FilterAnswersTagId = obj.FilterAnswersTagId;
@@ -359,29 +338,13 @@ package vo
 			return result;
 		}
 		
-		private function setMaxAnswersCount() : void {
-			MinAnswers = Default_Min_Answers;
-			MaxAnswers = Default_Max_Answers;
-		}
-		
 		private function setSingleAnswersCount() : void {
-			MinAnswers = Default_Min_Answers;
-			MaxAnswers = Default_Min_Answers;
-		}
-/*		
-		private function setMaxRanksCount() : void {
-			MinRank = Default_Min_Rank;
-			MaxRank = Default_Max_Rank;
-		}
-*/		
-		private function setNoRanks() : void {
-			MinRank = Default_Min_Rank;
-			MaxRank = Default_Min_Rank;
+			MinAnswers = MaxAnswers = Default_Min_Answers;
 		}
 
 		private function get hasNoAnswers() : Boolean {
 			var type : QuestionTypes = QuestionTypes.getTypeByName(QuestionType);
-			return type.hasSingleAnswer;
+			return type.hasSingleAnswer || type.isAnswersAbsent;
 		}
 	}
 }
