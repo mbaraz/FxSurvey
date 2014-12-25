@@ -12,9 +12,11 @@
 			
 			import mx.collections.IList;
 			import mx.events.FlexEvent;
+			
 			import spark.core.NavigationUnit;
 			
 			import tools.utils.ArrayUtils;
+			
 			import vo.AnswerVariant;
 
 			private function get currentQuestionId() : int {
@@ -111,8 +113,8 @@
 					seq.stop()
 			}
 			
-			private function makeInstruction(maxAnswers : int, minAnswers : int, maxRank : int, minRank : int) : String {
-				return answerElement.instruction;
+			private function makeInstruction(instruction : String, maxAnswers : int, minAnswers : int, maxRank : int, minRank : int) : String {
+				return instruction;
 			}
 		]]>
 	</fx:Script>
@@ -133,5 +135,5 @@
 		</s:Sequence>
 	</fx:Declarations>
 	
-	<components:Instruction id="instruction" visible="false" brief="{makeInstruction(AnswerVariant.MaxAnswers, AnswerVariant.MinAnswers, AnswerVariant.MaxRank, AnswerVariant.MinRank)}" />
+	<components:Instruction id="instruction" visible="false" brief="{makeInstruction(answerElement.instruction, AnswerVariant.MaxAnswers, AnswerVariant.MinAnswers, AnswerVariant.MaxRank, AnswerVariant.MinRank)}" />
 </s:VGroup>

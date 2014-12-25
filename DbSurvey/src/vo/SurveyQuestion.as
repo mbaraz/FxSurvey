@@ -6,7 +6,7 @@ package vo
 	{
 		public static const Answers_Order_Types : Array = ["Стандартный", "Случайный", "Ротированный"];
 		public static const Default_Min_Answers : int = 1;
-		public static const Default_Max_Answers : int = 12;
+		public static const Default_Max_Answers : int = 99;
 		public static const Default_Min_Rank : int = 0;
 		public static const Default_Max_Rank : int = 10;
 		public static const PLURALITY_CHANGED_EVENT : String = "PluralityChanged";
@@ -314,13 +314,14 @@ package vo
 		
 		private function makeSubitems(arr : Array) : void {
 			var resultArr : ArrayCollection = new ArrayCollection();
+			var subitemsCount : int = subitems ? subitems.length + 1 : 1;
 			for (var i : int = 0;  i < arr.length; i++)
-				resultArr.addItem(new SubQuestion({QuestionText : arr[i], SubOrder : i + 1, SurveyQuestionId : order}));
+				resultArr.addItem(new SubQuestion({QuestionText : arr[i], SubOrder : i + subitemsCount, SurveyQuestionId : order}));
 			
 			if (!subitems)
 				subitems = resultArr;
 			else
-				subitems.addAllAt(resultArr, subitems.length);
+				subitems.addAllAt(resultArr, subitemsCount - 1);
 		}
 
 		private function parseSubitems(arr : Array) : ArrayCollection {

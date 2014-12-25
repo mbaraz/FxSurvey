@@ -18,10 +18,10 @@
 	</fx:Script>
 	<s:HGroup width="100%" gap="40">
 		<s:RichText width="100%" styleName="startText"
-					textFlow="{TextConverter.importToFlow('ИНСТРУКЦИЯ:\n\n\nУчтите, что при нажатии кнопки браузера «Назад» опрос будет прерван.\n\nДля перехода между вопросами используйте кнопки «Следующий вопрос» и «Предыдущий вопрос» вверху и внизу страницы c вопросом.\n\nПоследняя кнопка позволяет вернуться только на один шаг назад, к вопросу, непосредственно предшествующему текущему.' , TextConverter.PLAIN_TEXT_FORMAT)}" />
+					textFlow="{TextConverter.importToFlow('ИНСТРУКЦИЯ:\n\n\nУчтите, что при нажатии кнопки браузера «Назад» опрос будет прерван.\n\nДля перехода между вопросами используйте кнопки «Следующий вопрос» и «Предыдущий вопрос» вверху и внизу страницы c вопросом.\n\nПоследняя кнопка позволяет вернуться только на один шаг назад, к вопросу, непосредственно предшествующему текущему.\n\nЕсли вопрос не помещается на странице, используйте полосу прокрутки справа.', TextConverter.PLAIN_TEXT_FORMAT)}" />
 		
 		<s:RichText width="100%" styleName="startText"
-					textFlow="{TextConverter.importToFlow('INSTRUCTION:\n\n\nPlease note, if you click backspace button in your browser, the survey will be interrupted.\n\nTo move between questions use buttons «Next question» and «Previous question» at the top and at the bottom of the question page.\n\nThe «Previous question» button allows you to go only for one step back.' , TextConverter.PLAIN_TEXT_FORMAT)}" />
+					textFlow="{TextConverter.importToFlow('INSTRUCTION:\n\n\nPlease note, if you click backspace button in your browser, the survey will be interrupted.\n\nTo move between questions use buttons «Next question» and «Previous question» at the top and at the bottom of the question page.\n\nThe «Previous question» button allows you to go only for one step back.\n\nSome questions hold long list of answers please use scroll on the right to see the full list.', TextConverter.PLAIN_TEXT_FORMAT)}" />
 	</s:HGroup>
 	
 	<s:Button id="strtButton" label="ПЕРЕЙТИ К ВОПРОСАМ / TO QUESTIONS" fontSize="22"

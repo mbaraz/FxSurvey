@@ -181,12 +181,12 @@
 						continue;
 					
 					var answerValue : String = answer.Value;
-					for (var k : int = 0; k < _subitems.length; k++)
-						answerValue = answerValue.replace(_subitems.getItemAt(k).order, k);
-
+/* ??? 					for (var k : int = 0; k < _subitems.length ; k++)
+						answerValue = answerValue.replace(_subitems.getItemAt(k).order, k);	// replace портит двузначные order
+*/
 					var values : Array = answerValue.split(AnswerVariant.VARIANTS_DELIMITER);
 					for (var j : int = 0; j < values.length; j++)
-						resultIndexes[values[j]] = i;
+						resultIndexes[values[j] - 1] = i;
 				}
 			}
 

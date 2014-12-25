@@ -125,7 +125,7 @@ mx|ProgressBar {
 }	
 
 .startText {
-	fontSize: 18;
+	fontSize: 16;
 	backgroundColor: #AAAAAA;
 	backgroundAlpha: 0.3;
 	paddingLeft: 6;

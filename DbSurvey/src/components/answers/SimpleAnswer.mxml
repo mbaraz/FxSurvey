@@ -13,13 +13,23 @@
 
 			import mx.collections.IList;
 			import spark.components.RadioButton;
-			
+
 			private function get multiLegend() : String {
 				var maxVar:  int = Math.min(AnswerVariant.MaxAnswers, answers.dataProvider.length);
-				if (AnswerVariant.MinAnswers == maxVar)
-					return AnswerVariant.MinAnswers == 1 ? resourceManager.getString('Main', 'legend_mult_eq_single') : resourceManager.getString('Main', 'legend_mult_eq', [AnswerVariant.MinAnswers]);
+				if (AnswerVariant.MinAnswers == 1 && maxVar > 9)
+					return resourceManager.getString('Main', 'legend_mult_any');
 				
-				return resourceManager.getString('Main', 'legend_mult', [AnswerVariant.MinAnswers, maxVar]) ;
+				if (AnswerVariant.MinAnswers != maxVar)
+					return resourceManager.getString('Main', 'legend_mult', [AnswerVariant.MinAnswers, maxVar]);
+				
+				if (maxVar == 1)
+					return resourceManager.getString('Main', 'legend_mult_eq_single');
+				
+				var maxVarString : String = maxVar.toString();
+				if (maxVarString.charAt(maxVarString.length - 1) < "5")
+					return resourceManager.getString('Main', 'legend_mult_eq_lt5', [maxVar]);
+				
+				return resourceManager.getString('Main', 'legend_mult_eq', [maxVar]);
 			}
 			
 			private function get multiWarning() : String {
@@ -36,7 +46,7 @@
 				if (!AnswerVariant.MultipleAnswerAllowed)
 					return resourceManager.getString('Main','legend_simple');
 				if (SimpleBlock.excludingCheckBox)
-					return multiLegend + resourceManager.getString('Main','legend_exclude');
+					return resourceManager.getString('Main','legend_exclude');
 				
 				return multiLegend;
 			}

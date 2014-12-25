@@ -196,7 +196,7 @@ package data.storages
 				var str : String = variants[i];
 				if (!str)
 					continue;
-				result.addItem(new AnswerVariant({SurveyQuestionId : 40107, AnswerText : str, AnswerOrder : startIndex + i}));
+				result.addItem(new AnswerVariant({SurveyQuestionId : 40107, AnswerText : str, AnswerOrder : startIndex + i, TagValue : startIndex + i}));
 			}
 			return result;
 		}
